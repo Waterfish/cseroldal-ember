@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Seed page</title>
+        <title>Cseroldal - ember</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,23 +21,137 @@
         <![endif]-->
         <div id="ohsnap"></div>
 
-        <nav class="navbar">
-            <div class="navbar-inner">
-                <a class="brand" href="#">Seed project</a>
-                <ul class="nav">
-                    <li><a href="#">Option 1</a></li>
-                    <li><a href="#">Option 2</a></li>
-                    <li><a href="#">Option 3</a></li>
-                </ul>
+        <script type="text/x-handlebars">
+            <nav class="navbar navbar-default">
+                 <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                          </button>
+                          <a class="navbar-brand" href="#">{{appName}}</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#">Jatek</a></li>
+                            <!-- <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">One more separated link</a></li>
+                                </ul>
+                            </li> -->
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+
+            <div class="container">
+                <div class="row">
+                    {{outlet}}
+                </div>
+
             </div>
-        </nav>
 
-        <div class="container">
-            <div class="row">
+        </script>
 
+        <script type="text/x-handlebars" data-template-name="gamehub">
+            <div class="container">
+                <div class="row">
+                    <div class="gamelist col-md-4">
+                        <div class="panel">
+                            <div class="panel-body">
+                                {{#link-to "gameHub.new" class="btn btn-primary" role="button" activeClass="selected" replace=true}}New{{/link-to}}
+                            </div>
+                        </div>
+                        <div class="list-group">
+                            {{#each model}}
+                                {{#link-to "gameHub.view" this class="list-group-item"}}
+                                    {{title}}
+                                    <div class="small">
+                                        {{shortDescription}}
+                                    </div>
+                                {{/link-to}}
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="gamedetail col-md-8">
+                        {{outlet}}
+                    </div>
+                </div>
             </div>
+        </script>
 
-        </div>
+        <!-- <script type="text/x-handlebars" data-template-name="gamelist">
+            <ul>
+                {{#each}}
+                <li class="game">
+                    <h3>{{title}}</h3>
+                </li>
+                {{/each}}
+            </ul>
+        </script>
+         -->
+        <script type="text/x-handlebars" data-template-name="gameHub/index">
+            <div>
+                <p class="text-primary">Select game</p>
+                <p>
+                Ideas:
+                    <ul class="small">
+                        <li>Show in this container some statistics</li>
+                    </ul>
+                </p>
+            </div>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="gamehub/view">
+            <div>
+                <h3>
+                    {{title}}
+                    <button class="btn btn-warning pull-right" {{action 'delete'}}>Delete</button>
+                    {{#link-to "gameHub.edit" this class="btn btn-default pull-right" role="button"}}
+                    Edit
+                    {{/link-to}}
+                </h3>
+                <p><quote>{{shortDescription}}</quote></p>
+                <p>{{description}}</p>
+            </div>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="gamehub/edit">
+            <div>
+                <h2>Edit game</h2>
+                <form class="" role="form">
+                    <div class="form-group">
+                        <label class="control-label" for="game-title">Title:</label>
+                        {{input type="text" placeholder="Game title" value=title id="game-title" class="form-control"}}
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="game-short-description">Short description:</label>
+                        {{input type="text" placeholder="Short description" value=shortDescription id="game-short-description" class="form-control"}}
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="game-description">Description:</label>{{textarea placeholder="Detailed description" value=description id="game-description" class="form-control"}}
+                    </div>
+                </form>
+                <div class="clearfix">
+                    <button class="btn pull-right" {{action 'cancel'}}>Cancel</button>
+                    <button class="btn btn-primary pull-right" {{action 'save'}}>Save</button>
+                </div>
+            </div>
+        </script>
 
         <!-- Library files -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -46,12 +160,29 @@
         <script src="lib/bootstrap/3.0.3/js/bootstrap.min.js"></script>
         <script src="lib/moment.js/2.2.1/moment+langs.min.js"></script>
         <script src="lib/ohsnap/ohsnap.js"></script>
-        <script src="lib/jquery.mustache.js/jquery.mustache.js"></script>
+
+        <script src="lib/handlebars/1.0.0/handlebars-1.0.0.js"></script>
+        <script src="lib/ember/1.6.0-beta.2/ember.js"></script>
+        <script src="lib/ember/1.3.0/ember-data.js"></script>
+
+        <!-- Firebase -->
+        <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+        <!-- EmberFire -->
+        <script src="https://cdn.firebase.com/libs/emberfire/1.1.3/emberfire.min.js"></script>
+
+        <script src="https://cdn.firebase.com/js/simple-login/1.6.3/firebase-simple-login.js"></script>
+
+        <!-- <script src="lib/ember.localstorage/localstorage_adapter.js"></script> -->
 
         <script src="js/plugins.js"></script>
 
         <!-- Project files -->
-        <script src="js/main.js"></script>
+        <script src="js/application.js"></script>
+        <script src="js/route.js"></script>
+
+        <script src="js/controllers/game_detail.js"></script>
+        <script src="js/controllers/game_edit.js"></script>
+        <script src="js/models/game.js"></script>
 
     </body>
 </html>

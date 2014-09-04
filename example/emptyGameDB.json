@@ -1,0 +1,47 @@
+{
+  "games" : {
+    "list" : {},
+    "enums": {
+    	"location": {
+    		"indoor": {
+    			"label": "Indoor"
+    		},
+    		"table": {
+    			"label": "Table"
+    		},
+    		"outdoor": {
+    			"label": "Outdoor"
+    		},
+    		"nature": {
+    			"label": "Nature"
+    		},
+    		"anywhere": {
+    			"label": "Anywhere"
+    		}
+
+    	},
+    	"activity": ["Running", "Learning", "Sitting", "Memory", "Antiboredom"],
+    	"location2": [{
+    			"label": "Indoor",
+    			"key": 100
+    		},
+    		{
+    			"label": "Table",
+    			"key": 101
+    		},
+    		{
+    			"label": "Outdoor",
+    			"key": 102
+    		},
+    		{
+    			"label": "Nature",
+    			"key": 103
+    		},
+    		{
+    			"label": "Anywhere",
+    			"key": 104
+    		}]
+
+    }
+  }
+}

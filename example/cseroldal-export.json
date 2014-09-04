@@ -1,0 +1,180 @@
+{
+  "authentication" : {
+      "authorities": {
+        "gameAdmin": {
+          "members": [],
+          "permissions": [],
+          "comment": ""
+        },
+        "scout-leader": {
+          "members": [],
+          "permissions": [],
+          "comment": ""
+        }
+        
+      },
+      "permissions": {
+        "addGame": "Add game to the system"
+      },
+      "users": {
+        "0": {
+          
+        }
+      }
+  },
+  "games" : {
+    "list": {
+      "1001": {
+          "id": "1001",
+          "location": "outdoor",
+          "agegroup": "all",
+          "playersMin": 5,
+          "playersMax": 12,
+          "activityType": ["running"],
+          "difficulty": "no",
+          "playtimeMin": 5,
+          "playtimeMax": 10,
+          "accessories": [],
+          "title": "Western gunfight",
+          "howToIntroduce": "In western countries disputies was solved by gunfighting. Everybody was shooting on everybody.",
+          "preparation": "Circle, explain the rules",
+          "shortDescription": "We are cowboys, our right hand is the gun, left hand is on our back and that is our weak point. You kill other players by touching with your \"gun\" their weak point.",
+          "description": "We are cowboys, our right hand is the gun, left hand is on our back and that is our weak point. You kill other players by touching with your \"gun\" their weak point.",
+          "tips": ["Don't let the game last too long, dead players will become bored.", "Cheating is easy, better to overwatch game than play it.", "Last two player can be the winner, or you can organize a duel."],
+          "closing": "",
+          "comment": "",
+          "drawing": null,
+          "source": null,
+
+
+          "author": 10003,
+          "dateAdded": 130132454213,
+          "dateModified": 130132454213,
+          "variations": [],
+          "parentGame": null,
+          "likes": [{
+            "stars": 5,
+            "userId": 0
+          }],
+          "revisionedBy": 0
+      },
+      "1002": {
+          "id": "1002",
+          "location": "indoor",
+          "agegroup": "cube",
+          "playersMin": 5,
+          "playersMax": 15,
+          "activityType": ["observation"],
+          "difficulty": "medium",
+          "playtimeMin": 5,
+          "playtimeMax": 10,
+          "accessories": [],
+          "title": "Find the object",
+          "howToIntroduce": null,
+          "preparation": "Decide which object (scarf, plush-game, etc) will be the object",
+          "shortDescription": "Object is hidden in the room, everybody is trying to find it.",
+          "description": "One scout is selected, who will hide the object. Object should be hidden just so it is not easily visible, but must be spottable without moving other objects. Everybody enters the room and begin searching for the object. When somebody spots the object, he/she should sit down without helping the others where is the object. Game last until the last scout found the object, then the first scout who sit down can hide the object.",
+          "tips": [],
+          "closing": "Important scout skill is the observation skill.",
+          "comment": "",
+          "drawing": null,
+          "source": null,
+
+
+          "author": "$userId",
+          "dateAdded": 130132454213,
+          "dateModified": 130132454213,
+          "variations": [],
+          "parentGame": null,
+          "likes": [{
+            "stars": 5,
+            "userId": 0
+          }],
+          "revisionedBy": 0
+      },
+      "1003": {
+          "id": "1003",
+          "location": "indoor",
+          "agegroup": "cube, scout",
+          "playersMin": 10,
+          "playersMax": 20,
+          "activityType": ["outdoor"],
+          "difficulty": "no",
+          "playtimeMin": 5,
+          "playtimeMax": 10,
+          "accessories": [],
+          "title": "Tagging",
+          "howToIntroduce": null,
+          "preparation": "Define the player area and who will be the catcher",
+          "shortDescription": null,
+          "description": "Select an It, he must catch other players. Who is catched becomes the catcher.",
+          "tips": ["This game should play scouts with similiar ages or physical condition"],
+          "closing": "",
+          "comment": "",
+          "drawing": null,
+          "source": "Cserkészek játékkönyve etc",
+
+
+          "author": "$userId",
+          "dateAdded": 130132454213,
+          "dateModified": 130132454213,
+          "variations": [],
+          "parentGame": null,
+          "likes": [{
+            "stars": 5,
+            "userId": 0
+          }],
+          "revisionedBy": 0
+      }
+
+    },
+    "sources": {},
+    "enums" : {
+      "location" : {
+        "indoor" : {
+          "label" : "Indoor"
+        },
+        "anywhere" : {
+          "label" : "Anywhere"
+        },
+        "outdoor" : {
+          "label" : "Outdoor"
+        },
+        "nature" : {
+          "label" : "Nature"
+        },
+        "table" : {
+          "label" : "Table"
+        }
+      },
+      "activity" : [
+        "Running",
+        "Learning",
+        "Sitting",
+        "Memory",
+        "Antiboredom",
+        "Folk",
+        "Skills",
+        "Strength",
+        "Winter",
+        "Night",
+        "Linegame",
+        "Emergency game",
+        "Icebreaker",
+        "Observation"
+      ],
+      "difficulty" : [
+        "Simple",
+        "Medium",
+        "Complicated"
+      ],
+      "agegroup": [
+        "Cube",
+        "Scout",
+        "Rover",
+        "Adult",
+        "Anybody"
+      ]
+    }
+  }
+}

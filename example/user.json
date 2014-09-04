@@ -1,0 +1,24 @@
+{
+	"userId": "",
+	"name": "",
+	"surname": "",
+	"nickname": "",
+	"email": "",
+	"address": "",
+	"jmbg": "",
+	"passport": "",
+	"contacts": [
+		{
+			"type": "mobile", //home, work
+			"number": "255456",
+			"obsolete": false
+		}
+	],
+
+	"organizational": {
+		"pack": ""
+	},
+
+	"financial":
+	
+}
