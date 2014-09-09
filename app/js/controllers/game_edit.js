@@ -33,6 +33,10 @@
                     _this.set('selectedLocation', null);
                 });
 
+            },
+
+            removeLocation: function () {
+
             }
 
         },
