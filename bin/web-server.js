@@ -12,13 +12,9 @@ var DEFAULT_DIRECTORY = './';
 
 function main(argv) {
 
-    console.log(argv);
-
     if (!!argv[3]) {
         DEFAULT_DIRECTORY = argv[3];
     }
-
-    console.log(DEFAULT_DIRECTORY);
 
     new HttpServer({
         'GET': createServlet(StaticServlet),

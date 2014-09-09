@@ -21,8 +21,25 @@
                     model.rollback();
                     this.transitionToRoute('gameHub.view', model);
                 }
+            },
+
+            addLocation: function () {
+                // debugger;
+                var _this= this,
+                    model = this.get('model');
+
+                this.store.find('gameLocation', this.get('selectedLocation')).then(function(location) {
+                    model.get('locations').pushObject(location);
+                    _this.set('selectedLocation', null);
+                });
+
             }
-        }
+
+        },
+
+        selectedLocation: null,
+
+        gameLocations: null,
     });
 
 } (window.Ember, window.Cseroldal));
