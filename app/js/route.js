@@ -10,6 +10,9 @@
             this.route('settings', {path: '/settings'});
         });
 
+        this.route('login');
+        this.route('register');
+
     });
 
 
