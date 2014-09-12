@@ -46,14 +46,65 @@
             }
         },
 
-        setupController: function(controller) {
+        setupController: function(/*controller*/) {
             // `controller` is the instance of ApplicationController
-            controller.set('title', 'Hello world!');
+            // controller.set('title', 'Hello world!');
         }
     });
 
     Cseroldal.ApplicationController = Ember.Controller.extend({
-        appName: 'My First Example'
+
+        // appName: 'My First Example',
+
+        userStatusChanged: function () {
+
+            var _this = this,
+                loginData = this.get('auth.loginData');
+
+            if (!loginData) {
+                // logged out
+                this.set('auth.currentUser', null);
+                this.transitionToRoute('login');
+                return;
+            }
+
+            // loggde in
+            this.store.find('auth', loginData.uid)
+                .then(function (auth) {
+
+                    if (auth) {
+
+                        _this.set('auth.currentUser', auth.get('user'));
+
+                    } else {
+                        // missing user?
+                    }
+                });
+
+            var previousTransition = this.get('auth.transition');
+
+            // if you were trying to get somewhere, try again
+            if (previousTransition) {
+
+                Ember.Logger.log('Retrying route `%@`.'.fmt(previousTransition.targetName));
+
+                if (previousTransition.targetName === this.get('currentPath')) {
+                    this.send('refreshRoute');
+                } else {
+                    previousTransition.retry();
+                }
+
+            }
+
+            else if (this.get('currentPath') === 'login') {
+                this.transitionToRoute('gameHub');
+            }
+
+            else {
+                this.send('refreshRoute');
+            }
+
+          }.observes('auth.loginData')
     });
 
 }(window.Ember, window.DS, window.Firebase));

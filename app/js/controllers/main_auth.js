@@ -3,45 +3,35 @@
 
     Cseroldal.AuthController = Ember.Controller.extend({
         authed: false,
+        loginData: null,
         currentUser: null,
 
         init: function () {
-            this.authClient = new FirebaseSimpleLogin(Cseroldal.FirebaseRef, function(error, user) {
+
+            this._super();
+
+            this.authClient = new FirebaseSimpleLogin(Cseroldal.FirebaseRef, function(error, loginData) {
+
                 if (error) {
+                    // TODO handle with UI
                     console.log('Authentication failed: ' + error);
-                } else if (user) {
+                } else if (loginData) {
                     this.set('authed', true);
+                    this.set('loginData', loginData);
 
-                    debugger;
-
-                    // var userRef = new Firebase(Cseroldal.FirebaseUserPath + '/' + user.username);
-                    // var controller = this;
-                    // var properties = {
-                    //     id: githubUser.username,
-                    //     name: githubUser.username,
-                    //     displayName: githubUser.displayName,
-                    //     avatarUrl: githubUser.avatar_url,
-                    // };
-
-                    // userRef.once('value', function(snapshot) {
-
-                    //     if (!snapshot.val().votesLeft) {
-                    //         properties.votesLeft = 10;
-                    //     } else {
-                    //         properties.votesLeft = snapshot.val().votesLeft;
-                    //     }
-                    //     var user = App.User.create({ ref: userRef });
-                    //     user.setProperties(properties);
-                    //     controller.set('currentUser', user);
-                    // });
                 } else {
                     this.set('authed', false);
+                    this.set('loginData', null);
                 }
             }.bind(this)); // attach login and logout event handlers ?
         },
 
-        login: function () {
-            this.authClient.login('github');
+        login: function (email, password) {
+
+            this.authClient.login('password', {
+                email: email,
+                password: password
+            });
         },
 
         logout: function () {

@@ -54,7 +54,7 @@
                                     <li><a href="#">One more separated link</a></li>
                                 </ul>
                             </li> -->
-                            {{#if auth.authed}}<li class="pull-right"><a href="#" {{action 'logout'}}>Logout - {{auth.currentUser}}</a></li>{{/if}}
+                            {{#if auth.authed}}<li class="pull-right"><a href="#" {{action 'logout'}}>Logout - {{auth.currentUser.name}}</a></li>{{/if}}
                         </ul>
                     </div>
 
@@ -214,15 +214,15 @@
         <script type="text/x-handlebars" data-template-name="login">
             <form class="" role="form">
                 <div class="form-group">
-                    <label class="control-label" for="username">Felhasználónév:</label>
-                    {{input type="text" placeholder="Felhasználónév" value=username id="username" class="form-control"}}
+                    <label class="control-label" for="username">Email:</label>
+                    {{input type="text" placeholder="Email" value=email id="username" class="form-control"}}
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="password">Jelszó:</label>
                     {{input type="password" placeholder="******" value=password id="password" class="form-control"}}
                 </div>
                 <div class="form-group row">
-                    <button class="btn">Belépés</button>
+                    <button class="btn btn-primary" {{action 'login'}}>Belépés</button>
                     <!-- <button class="btn">Regisztráció</button> -->
                 </div>
             </form>
@@ -244,10 +244,26 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="biography">Önéletrajz:</label>
-                    {{input type="text" placeholder="Bio" value=biographu id="biography" class="form-control"}}
+                    {{input type="text" placeholder="Bio" value=biography id="biography" class="form-control"}}
                 </div>
                 <div class="form-group row">
                     <button class="btn btn-primary" {{action 'register'}}>Regisztráció</button>
+                    <button class="btn" {{action 'unregister'}}>Lelépés</button>
+                </div>
+            </form>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="unregister">
+            <form class="" role="form">
+                <div class="form-group">
+                    Lejelentkezéshez adja meg a jelszavát!
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="password">Jelszó:</label>
+                    {{input type="password" placeholder="******" value=password id="password" class="form-control"}}
+                </div>
+
+                <div class="form-group row">
                     <button class="btn" {{action 'unregister'}}>Lelépés</button>
                 </div>
             </form>
@@ -281,6 +297,8 @@
         <script src="js/route.js"></script>
         <script src="js/controllers/main_auth.js"></script>
         <script src="js/controllers/main_register.js"></script>
+        <script src="js/controllers/main_unregister.js"></script>
+        <script src="js/controllers/main_login.js"></script>
 
         <script src="js/controllers/game_detail.js"></script>
         <script src="js/controllers/game_edit.js"></script>
@@ -290,7 +308,6 @@
         <script src="js/models/user.js"></script>
 
         <script src="js/models/game.js"></script>
-        <script src="js/models/game_location.js"></script>
         <script src="js/models/game_location.js"></script>
 
         <!-- REMOVE THIS

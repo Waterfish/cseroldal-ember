@@ -3,9 +3,8 @@
 
     Cseroldal.Auth = DS.Model.extend({
         uid: DS.attr('string'),
-        type: DS.attr('string'),
         email: DS.attr('string'),
-        password: DS.attr('string'),
+        passwordHash: DS.attr('string'),
         user: DS.belongsTo('user')
     });
 

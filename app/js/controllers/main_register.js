@@ -5,29 +5,37 @@
 
         actions: {
             register: function () {
-                this.get('auth').createUser(this.get('email'), this.get('password'), function (error, user) {
+                var _this = this;
+
+                this.get('auth').createUser(this.get('email'), this.get('password'), function (error, loginData) {
                     if (error === null) {
-                        console.log('Success: ', user);
+
+                        Cseroldal.FirebaseRef.child('auths/' + loginData.uid).set({
+                            uid: loginData.uid,
+                            email: loginData.email,
+                            passwordHash: loginData.md5_hash
+                        });
+
+                        var user = _this.store.createRecord('user', {
+                            name: _this.get('name'),
+                            biography: _this.get('biography')
+                        });
+
+                        _this.store.find('auth', loginData.uid).then(function (auth) {
+                            auth.set('user', user);
+                            user.get('auths').pushObject(auth);
+
+                            auth.save();
+                            user.save();
+                        });
+
                     } else {
                         console.warn('Error creating user: ', error);
 
                         // TODO handle this
                     }
                 });
-            },
-
-            unregister: function () {
-                this.get('auth').removeUser(this.get('email'), this.get('password'), function(error) {
-                    if (error === null) {
-                        console.log("User removed successfully");
-                    } else {
-                        console.log("Error removing user:", error);
-                    }
-                });
             }
-        },
-
-        init: function() {
         }
 
     });
