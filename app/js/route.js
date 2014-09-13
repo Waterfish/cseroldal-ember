@@ -3,15 +3,19 @@
     // App route
     Cseroldal.Router.map(function() {
 
-        this.resource('gameHub', {path: '/'}, function () {
+        this.resource('gameHub', function () {
             this.route('view', {path: '/view/:game_id'});
             this.route('edit', {path: '/edit/:game_id'});
             this.route('new', {path: '/new'});
             this.route('settings', {path: '/settings'});
         });
 
+        this.route('manage');
+
         this.route('login');
         this.route('register');
+
+        this.route('forbidden');
 
     });
 
@@ -19,7 +23,7 @@
         beforeModel: function (transition) {
 
             // These routes you do not need to be logged in to access.
-            var openRoutes = ['login', 'register'];
+            var openRoutes = ['index', 'login', 'register'];
 
             // Not logged in and attempting to access protected route, redirect to login.
             if (openRoutes.indexOf(transition.targetName) === -1 && Ember.isEmpty(this.get('auth.loginData'))) {
@@ -27,11 +31,48 @@
 
                 // Save the transition to try again status changes.
                 this.set('auth.transition', transition);
+                this.set('auth.transitionToLogin', true);
 
                 // Redirect to login.
                 this.transitionTo('login');
             }
         }
+    });
+
+    Cseroldal.ManageRoute = Ember.Route.extend({
+        // model: function() {
+        //     return this.store.find('game');
+        // }
+
+        setupController: function(controller, model) {
+            this._super(controller, model);
+            // controller.set('pendingAuths', this.store.find('pending-auths'));
+        },
+
+        // init: function () {
+        //     // check privileges
+        //     // if (!this.get('auth.currentUser.isAdmin')) {
+        //     //     // this.set('auth.transition', transition);
+        //     // }
+        // }
+    });
+
+    Cseroldal.LoginRoute = Ember.Route.extend({
+
+        setupController: function(controller, model) {
+            this._super(controller, model);
+            // decide if login was transited from other page
+            controller.set('hideMessage', true);
+            if (this.get('auth.transitionToLogin')) {
+                controller.set('hideMessage', false);
+                this.set('auth.transitionToLogin', false);
+            }
+        }
+
+    });
+
+    Cseroldal.IndexRoute = Ember.Route.extend({
+        templateName: 'home'
     });
 
     Cseroldal.GameHubRoute = Ember.Route.extend({

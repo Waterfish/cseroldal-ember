@@ -9,7 +9,8 @@
         playersMax: DS.attr('number'),
         playtimeMin: DS.attr('number'),
         playtimeMax: DS.attr('number'),
-        locations: DS.hasMany('gameLocation', { async: true })
+        locations: DS.hasMany('gameLocation', { async: true }),
+        user: DS.belongsTo('user')
     });
 
 

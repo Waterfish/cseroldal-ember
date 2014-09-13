@@ -6,9 +6,13 @@
             save: function () {
                 var _this= this,
                     model = this.get('model');
+
+                model.set('user', this.get('auth.currentUser'));
+
                 model.save().then(function () {
                     _this.transitionToRoute('gameHub.view', model);
                 });
+
             },
 
             cancel: function () {

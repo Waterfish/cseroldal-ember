@@ -10,23 +10,20 @@
                 this.get('auth').createUser(this.get('email'), this.get('password'), function (error, loginData) {
                     if (error === null) {
 
+                        var auths = {};
+
+                        auths[loginData.uid] = true;
+
+                        var ref = Cseroldal.FirebaseRef.child('user-db/users').push({
+                            name: _this.get('name'),
+                            auths: auths
+                        });
+
                         Cseroldal.FirebaseRef.child('auths/' + loginData.uid).set({
                             uid: loginData.uid,
                             email: loginData.email,
-                            passwordHash: loginData.md5_hash
-                        });
-
-                        var user = _this.store.createRecord('user', {
-                            name: _this.get('name'),
-                            biography: _this.get('biography')
-                        });
-
-                        _this.store.find('auth', loginData.uid).then(function (auth) {
-                            auth.set('user', user);
-                            user.get('auths').pushObject(auth);
-
-                            auth.save();
-                            user.save();
+                            passwordHash: loginData.md5_hash,
+                            user: ref.name()
                         });
 
                     } else {

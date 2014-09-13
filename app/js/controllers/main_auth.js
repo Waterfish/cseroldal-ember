@@ -27,11 +27,14 @@
         },
 
         login: function (email, password) {
-
             this.authClient.login('password', {
                 email: email,
                 password: password
             });
+        },
+
+        loginGoogle: function () {
+            this.authClient.login('google');
         },
 
         logout: function () {

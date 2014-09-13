@@ -1,0 +1,84 @@
+{
+  "auths" : {
+    "simplelogin:39" : {
+      "email" : "admin@cseroldal.com",
+      "passwordHash" : "1f7f6e5082ac7780c13e46598529c2f3",
+      "uid" : "simplelogin:39",
+      "user" : "-JWjTqO4l0fksMcGQjMI"
+    },
+    "simplelogin:40" : {
+      "email" : "one@cseroldal.com",
+      "passwordHash" : "3c9496192a10e3bc9d8b9fcd6673d6ab",
+      "uid" : "simplelogin:40",
+      "user" : "-JWjU9NNlDr2Bldp4y32"
+    },
+    "simplelogin:41" : {
+      "email" : "two@cseroldal.com",
+      "passwordHash" : "f4df7adf06b02654223daf0688cffe4f",
+      "uid" : "simplelogin:41",
+      "user" : "-JWjUDk5B9Zjovl3vnjp"
+    },
+    "simplelogin:42" : {
+      "email" : "three@cseroldal.com",
+      "passwordHash" : "b0daddef10ba899033dc18fe921d5413",
+      "uid" : "simplelogin:42",
+      "user" : "-JWjUIMpZA5Qs81dv_Tm"
+    },
+    "simplelogin:43" : {
+      "email" : "four@cseroldal.com",
+      "passwordHash" : "17fa152b5c6e98e4d9c38eadbcd88466",
+      "uid" : "simplelogin:43",
+      "user" : "-JWjUN_w31HfwUH3Jqzi"
+    }
+  },
+  "game-db" : {
+    "location" : {
+      "-JWC1Gd1y2UfdEBfuhTK" : {
+        "label" : "room"
+      },
+      "-JWC1J_u80iK5xO_Miz-" : {
+        "label" : "szoba"
+      },
+      "-JWC1LQE4lytBvWx9WUG" : {
+        "label" : "udvar"
+      },
+      "-JWC1MKBHSXFRG3J4eCU" : {
+        "label" : "erdő"
+      }
+    }
+  },
+  "user-db" : {
+    "users" : {
+      "-JWjTqO4l0fksMcGQjMI" : {
+        "auths" : {
+          "simplelogin:39" : true
+        },
+        "name" : "Admin Jóska"
+      },
+      "-JWjU9NNlDr2Bldp4y32" : {
+        "auths" : {
+          "simplelogin:40" : true
+        },
+        "name" : "Első Pityu"
+      },
+      "-JWjUDk5B9Zjovl3vnjp" : {
+        "auths" : {
+          "simplelogin:41" : true
+        },
+        "name" : "Második Julis"
+      },
+      "-JWjUIMpZA5Qs81dv_Tm" : {
+        "auths" : {
+          "simplelogin:42" : true
+        },
+        "name" : "Harmadik Iván"
+      },
+      "-JWjUN_w31HfwUH3Jqzi" : {
+        "auths" : {
+          "simplelogin:43" : true
+        },
+        "name" : "Negyedik Marcsa"
+      }
+    }
+  }
+}

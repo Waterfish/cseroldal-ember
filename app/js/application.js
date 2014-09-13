@@ -68,41 +68,39 @@
                 return;
             }
 
-            // loggde in
+            // logged in
             this.store.find('auth', loginData.uid)
-                .then(function (auth) {
+            .then(function (auth) {
 
-                    if (auth) {
+                if (auth && !auth.get('isPending')) {
 
-                        _this.set('auth.currentUser', auth.get('user'));
+                    _this.set('auth.currentUser', auth.get('user'));
 
-                    } else {
-                        // missing user?
-                    }
-                });
-
-            var previousTransition = this.get('auth.transition');
-
-            // if you were trying to get somewhere, try again
-            if (previousTransition) {
-
-                Ember.Logger.log('Retrying route `%@`.'.fmt(previousTransition.targetName));
-
-                if (previousTransition.targetName === this.get('currentPath')) {
-                    this.send('refreshRoute');
                 } else {
-                    previousTransition.retry();
+                    console.log('Missing user or still pending');
+                    _this.transitionToRoute('/');
                 }
 
-            }
 
-            else if (this.get('currentPath') === 'login') {
-                this.transitionToRoute('gameHub');
-            }
+                var previousTransition = _this.get('auth.transition');
+                // if you were trying to get somewhere, try again
+                if (previousTransition) {
 
-            else {
-                this.send('refreshRoute');
-            }
+                    Ember.Logger.log('Retrying route `%@`.'.fmt(previousTransition.targetName));
+
+                    if (previousTransition.targetName === _this.get('currentPath')) {
+                        _this.send('refreshRoute');
+                    } else {
+                        previousTransition.retry();
+                    }
+
+                }
+
+                else if (_this.get('currentPath') === 'login') {
+                    _this.transitionToRoute('/');
+                }
+
+            });
 
           }.observes('auth.loginData')
     });

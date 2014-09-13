@@ -23,7 +23,7 @@
 
         <script type="text/x-handlebars">
             <nav class="navbar navbar-default">
-                 <div class="container-fluid">
+                <div class="container-fluid">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
                           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -38,26 +38,27 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#">Jatek</a></li>
-                            <li>{{#link-to "login"}}Login{{/link-to}}</li>
-                            <li>{{#link-to "register"}}Register{{/link-to}}</li>
-                            <!-- <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">One more separated link</a></li>
-                                </ul>
-                            </li> -->
-                            {{#if auth.authed}}<li class="pull-right"><a href="#" {{action 'logout'}}>Logout - {{auth.currentUser.name}}</a></li>{{/if}}
+                            {{#link-to "index" tagName='li' }}{{#link-to "index"}}Home{{/link-to}}{{/link-to}}
+                            {{#link-to "gameHub" tagName='li' }}{{#link-to "gameHub"}}Jatek{{/link-to}}{{/link-to}}
+
+                            {{#if auth.authed}}
+                                {{#link-to "manage" tagName='li' }}
+                                    {{#link-to "manage"}}
+                                    <span class="glyphicon glyphicon-wrench"></span>
+                                    Manage
+                                    {{/link-to}}
+                                {{/link-to}}
+                                <li>
+                                    <a href="#" {{action 'logout'}}>
+                                        Logout - {{auth.currentUser.name}}
+                                    </a>
+                                </li>
+                            {{else}}
+                                {{#link-to "login" tagName='li' }}{{#link-to "login"}}Login{{/link-to}}{{/link-to}}
+                                {{#link-to "register" tagName='li' }}{{#link-to "register"}}Register{{/link-to}}{{/link-to}}
+                            {{/if}}
                         </ul>
                     </div>
-
                 </div>
             </nav>
 
@@ -65,9 +66,16 @@
                 <div class="row">
                     {{outlet}}
                 </div>
-
             </div>
 
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="home">
+            <div class="container">
+                <div class="row">
+                    HOME SWEET HOME
+                </div>
+            </div>
         </script>
 
         <script type="text/x-handlebars" data-template-name="gamehub">
@@ -212,6 +220,9 @@
         </script>
 
         <script type="text/x-handlebars" data-template-name="login">
+            <div {{bind-attr class=":text-info  hideMessage:hidden"}}>
+                Az keresett oldal megtekintéséhez be kell lépni!
+            </div>
             <form class="" role="form">
                 <div class="form-group">
                     <label class="control-label" for="username">Email:</label>
@@ -242,13 +253,8 @@
                     <label class="control-label" for="name">Név:</label>
                     {{input type="text" placeholder="Név" value=name id="név" class="form-control"}}
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="biography">Önéletrajz:</label>
-                    {{input type="text" placeholder="Bio" value=biography id="biography" class="form-control"}}
-                </div>
                 <div class="form-group row">
                     <button class="btn btn-primary" {{action 'register'}}>Regisztráció</button>
-                    <button class="btn" {{action 'unregister'}}>Lelépés</button>
                 </div>
             </form>
         </script>
@@ -267,6 +273,28 @@
                     <button class="btn" {{action 'unregister'}}>Lelépés</button>
                 </div>
             </form>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="forbidden">
+            <div class="">
+                Az oldal nem elérhető, nincs meg a felhatalmazásod hozzá.
+            </div>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="manage">
+            <div class="container">
+                <div class="row">
+                Manage Pending users
+                </div>
+            </div>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="profile">
+            <div class="container">
+                <div class="row">
+                    User profile
+                </div>
+            </div>
         </script>
 
         <!-- Library files -->
@@ -299,6 +327,7 @@
         <script src="js/controllers/main_register.js"></script>
         <script src="js/controllers/main_unregister.js"></script>
         <script src="js/controllers/main_login.js"></script>
+        <script src="js/controllers/main_manage.js"></script>
 
         <script src="js/controllers/game_detail.js"></script>
         <script src="js/controllers/game_edit.js"></script>

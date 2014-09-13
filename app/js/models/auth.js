@@ -15,4 +15,14 @@
         }
     });
 
+    Cseroldal.PendingAuth = Cseroldal.Auth.extend({
+        user: DS.attr('string')
+    });
+
+    Cseroldal.PendingAuthAdapter = Cseroldal.ApplicationAdapter.extend({
+        pathForType: function() {
+            return 'pending-auths';
+        }
+    });
+
 } (window.Ember, window.Cseroldal, window.DS));
