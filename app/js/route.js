@@ -102,7 +102,9 @@
 
         setupController: function(controller, model) {
             this._super(controller, model);
-            controller.set('gameLocations', this.store.find('gameLocation'));
+            this.store.find('gameLocation').then(function (locations) {
+                controller.set('gameLocations', locations);
+            });
         }
 
         // deactivate: function () {
@@ -122,6 +124,13 @@
 
         model: function () {
             return this.store.createRecord('game');
+        },
+
+        setupController: function(controller, model) {
+            this._super(controller, model);
+            this.store.find('gameLocation').then(function (locations) {
+                controller.set('gameLocations', locations);
+            });
         }
 
     });

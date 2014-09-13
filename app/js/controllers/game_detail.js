@@ -14,7 +14,11 @@
 
                 });
             }
-        }
+        },
+
+        isOwner: function () {
+            return this.get('auth.currentUser') === this.get('model').get('user');
+        }.property('auth.currentUser')
     });
 
 } (window.Ember, window.Cseroldal));

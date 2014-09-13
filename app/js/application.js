@@ -77,7 +77,7 @@
                     _this.set('auth.currentUser', auth.get('user'));
 
                 } else {
-                    console.log('Missing user or still pending');
+                    Ember.Logger.log('Missing user or still pending');
                     _this.transitionToRoute('/');
                 }
 

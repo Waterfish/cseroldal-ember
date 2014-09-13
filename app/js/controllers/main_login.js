@@ -15,7 +15,6 @@
 
         hideMessage: true
 
-
     });
 
 } (window.Ember, window.Cseroldal, window.Firebase, window.FirebaseSimpleLogin));
