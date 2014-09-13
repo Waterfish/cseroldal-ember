@@ -48,9 +48,14 @@
                                     Manage
                                     {{/link-to}}
                                 {{/link-to}}
-                                <li>
+                                {{#link-to "user" tagName='li' }}
+                                    {{#link-to "user"}}
+                                    Profile {{auth.currentUser.name}}
+                                    {{/link-to}}
+                                {{/link-to}}
+                                <li class="pull-right">
                                     <a href="#" {{action 'logout'}}>
-                                        Logout - {{auth.currentUser.name}}
+                                        Logout
                                     </a>
                                 </li>
                             {{else}}
@@ -291,10 +296,18 @@
             </div>
         </script>
 
-        <script type="text/x-handlebars" data-template-name="profile">
+        <script type="text/x-handlebars" data-template-name="user">
             <div class="container">
                 <div class="row">
                     User profile
+                </div>
+            </div>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="user/edit">
+            <div class="container">
+                <div class="row">
+                    User profile edit
                 </div>
             </div>
         </script>

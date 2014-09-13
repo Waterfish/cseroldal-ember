@@ -10,6 +10,11 @@
             this.route('settings', {path: '/settings'});
         });
 
+        this.resource('user', function () {
+            this.route('edit', {path: '/edit/:user_id'});
+        });
+
+
         this.route('manage');
 
         this.route('login');
