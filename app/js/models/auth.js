@@ -5,7 +5,7 @@
         uid: DS.attr('string'),
         email: DS.attr('string'),
         passwordHash: DS.attr('string'),
-        user: DS.belongsTo('user')
+        user: DS.belongsTo('user', {async: true})
     });
 
 
@@ -16,7 +16,8 @@
     });
 
     Cseroldal.PendingAuth = Cseroldal.Auth.extend({
-        user: DS.attr('string')
+        userName: DS.attr('string'),
+        user: null
     });
 
     Cseroldal.PendingAuthAdapter = Cseroldal.ApplicationAdapter.extend({

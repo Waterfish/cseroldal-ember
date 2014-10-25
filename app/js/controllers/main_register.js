@@ -4,6 +4,26 @@
     Cseroldal.RegisterController = Ember.Controller.extend({
 
         actions: {
+            subscribe: function () {
+                var _this = this;
+
+                this.get('auth').createUser(this.get('email'), this.get('password'), function (error, loginData) {
+                    if (error === null) {
+
+                        Cseroldal.FirebaseRef.child('pending-auths/' + loginData.uid).set({
+                            uid: loginData.uid,
+                            email: loginData.email,
+                            userName: _this.get('name')
+                        });
+
+                    } else {
+                        console.warn('Error creating user: ', error);
+
+                        // TODO handle this
+                    }
+                });
+            },
+
             register: function () {
                 var _this = this;
 

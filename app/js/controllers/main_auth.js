@@ -5,22 +5,19 @@
         authed: false,
         loginData: null,
         currentUser: null,
+        security: null,
 
         init: function () {
 
             this._super();
 
             this.authClient = new FirebaseSimpleLogin(Cseroldal.FirebaseRef, function(error, loginData) {
-
                 if (error) {
                     // TODO handle with UI
                     console.log('Authentication failed: ' + error);
                 } else if (loginData) {
-                    this.set('authed', true);
                     this.set('loginData', loginData);
-
                 } else {
-                    this.set('authed', false);
                     this.set('loginData', null);
                 }
             }.bind(this)); // attach login and logout event handlers ?

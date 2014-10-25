@@ -19,6 +19,8 @@
 
         this.route('login');
         this.route('register');
+        this.route('registerg');
+        this.route('pending');
 
         this.route('forbidden');
 
@@ -51,7 +53,8 @@
 
         setupController: function(controller, model) {
             this._super(controller, model);
-            // controller.set('pendingAuths', this.store.find('pending-auths'));
+            controller.set('pendingAuths', this.store.find('pendingAuth'));
+            controller.set('existingAuths', this.store.find('auth'));
         },
 
         // init: function () {
@@ -79,6 +82,10 @@
     Cseroldal.IndexRoute = Ember.Route.extend({
         templateName: 'home'
     });
+
+    // Cseroldal.PedingRoute = Ember.Route.extend({
+    //     templateName: 'pendinguser'
+    // });
 
     Cseroldal.GameHubRoute = Ember.Route.extend({
         templateName: 'gamehub',

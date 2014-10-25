@@ -3,7 +3,9 @@
 
     Cseroldal.ManageController = Ember.ObjectController.extend({
         actions: {
-            acceptUser: function () {
+            reject: function (auth) {
+                auth.deleteRecord();
+                auth.save();
                 // var _this= this,
                 //     model = this.get('model');
 
@@ -15,16 +17,33 @@
 
             },
 
-            rejectUser: function () {
-                // var model = this.get('model');
+            approve: function (auth) {
+                var auths = {},
+                    name = auth.get('userName'),
+                    uid = auth.get('uid');
 
-                // if(model.get('isNew')) {
-                //     model.deleteRecord();
-                //     this.transitionToRoute('/');
-                // } else {
-                //     model.rollback();
-                //     this.transitionToRoute('gameHub.view', model);
-                // }
+                auths[uid] = true;
+
+                var ref = Cseroldal.FirebaseRef.child('user-db/users').push({
+                    name: name,
+                    auths: auths
+                });
+
+                Cseroldal.FirebaseRef.child('auths/' + uid).set({
+                    uid: uid,
+                    email: auth.get('email'),
+                    user: ref.name()
+                });
+
+                auth.deleteRecord();
+                auth.save();
+            },
+
+            delete: function (user) {
+
+                user.deleteRecord();
+                user.save();
+
             }
 
         },
@@ -40,6 +59,7 @@
         },
 
         pendingAuths: null,
+        existingAuths: null
     });
 
 } (window.Ember, window.Cseroldal));

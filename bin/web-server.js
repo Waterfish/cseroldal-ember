@@ -112,8 +112,6 @@ StaticServlet.prototype.handleRequest = function(req, res) {
     if (parts[parts.length-1].charAt(0) === '.')
       return self.sendForbidden_(req, res, path);
 
-    console.log(parts);
-
     if (parts.length === 2 && parts[1] === '')
       return self.sendFile_(req, res, path + 'app/index.html');
 
