@@ -262,48 +262,79 @@
         </script>
 
         <script type="text/x-handlebars" data-template-name="register">
-            <form class="" role="form">
-                <div class="form-group">
-                    <label class="control-label" for="email">Email:</label>
-                    {{input type="text" placeholder="Email" value=email id="email" class="form-control"}}
+            <div>
+                {{#if submitted}}
+                <div class="message">
+                    A kérelmed sikeresen el lett küldve. Feldolgozása után kapsz egy emailt a jelszavaddal.
+                    {{#link-to "index" class="btn btn-primary" role="button" replace=true}}Vissza a kezdőoldalra{{/link-to}}
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="password">Jelszó:</label>
-                    {{input type="password" placeholder="" value=password id="password" class="form-control"}}
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="name">Név:</label>
-                    {{input type="text" placeholder="Név" value=name id="név" class="form-control"}}
-                </div>
-                <div class="form-group row">
-                    <button class="btn btn-primary" {{action 'register'}}>Regisztráció</button>
-                    <button class="btn btn-primary" {{action 'subscribe'}}>Jelentkezés</button>
-                </div>
-            </form>
+                {{else}}
+                <form class="" role="form">
+                    <div class="form-group">
+                        <label class="control-label" for="email">E-mail:</label>
+                        {{input type="text" placeholder="E-mail cím" value=email id="email" class="form-control"}}
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="name">Név:</label>
+                        {{input type="text" placeholder="Név" value=name id="name" class="form-control"}}
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="message">Üzenet:</label>
+                        {{input type="text" placeholder="" value=message id="message" class="form-control"}}
+                    </div>
+                    <div class="form-group row">
+                        <button class="btn btn-primary" {{action 'subscribe'}}>Elküld</button>
+                    </div>
+                </form>
+                {{/if}}
+            </div>
         </script>
 
         <script type="text/x-handlebars" data-template-name="registerg">
+            {{#if submitted}}
+            <div class="message">
+                A kérelmed sikeresen el lett küldve.
+                {{#link-to "index" class="btn btn-primary" role="button" replace=true}}Vissza a kezdőoldalra{{/link-to}}
+            </div>
+            {{else}}
             <form class="" role="form">
-                <div>Your user is not registered. Do you want to send a registration request?</div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Nem regisztrált felhasználó
+                    </div>
+                    <div class="panel-body">
+                        Még nem vagy regisztrálva. Küldj egy kérelmet a feljelentkezése!
+                    </div>
+                </div>
                 <div class="form-group">
-                    <label class="control-label" for="email">Email:</label>
-                    {{input type="text" placeholder="Email" value=email id="email" class="form-control"}}
+                    <label class="control-label" for="email">E-mail:</label>
+                    {{input type="text" placeholder="E-mail cím" value=email id="email" class="form-control"}}
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="name">Név:</label>
-                    {{input type="text" placeholder="Név" value=name id="név" class="form-control"}}
+                    {{input type="text" placeholder="Név" value=name id="név" class="form-control" readonly="readonly"}}
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="message">Üzenet:</label>
+                    {{input type="text" placeholder="" value=message id="message" class="form-control"}}
                 </div>
                 <div class="form-group row">
-                    <!-- <button class="btn btn-primary" {{action 'register'}}>Regisztráció</button> -->
-                    <button class="btn btn-primary" {{action 'subscribe'}}>Jelentkezés</button>
+                    <button class="btn btn-primary" {{action 'subscribe'}}>Elküld</button>
                 </div>
             </form>
+            {{/if}}
         </script>
 
         <script type="text/x-handlebars" data-template-name="pending">
-            <div class="">
-                Your user is in pending state. Wait for the administrator to accept your request.
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    Feljelentkezési kérelmed még feldolgozás alatt áll.
+                </div>
+                <div class="panel-footer">
+                {{#link-to "index" class="btn btn-primary" role="button" replace=true}}Vissza a kezdőoldalra{{/link-to}}
+                </div>
             </div>
+
         </script>
 
         <script type="text/x-handlebars" data-template-name="unregister">
@@ -337,7 +368,6 @@
                             <div class="list-group-item">{{pending.email}}
                                 <button class="btn" {{action 'approve' pending}}>Approve</button>
                                 <button class="btn" {{action 'reject' pending}}>Reject</button>
-
                             </div>
                         {{/each}}
                     </div>
@@ -355,19 +385,76 @@
             </div>
         </script>
 
+
         <script type="text/x-handlebars" data-template-name="user">
+            <div class="row">
+                {{outlet}}
+            </div>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="user/index">
             <div class="container">
                 <div class="row">
-                    User profile
+                    {{#link-to "user.edit"}}
+                        Edit
+                    {{/link-to}}
+                </div>
+                <div class="row">
+                    View user profile
                 </div>
             </div>
         </script>
 
-        <script type="text/x-handlebars" data-template-name="user/edit">
+        <script type="text/x-handlebars"
+                data-template-name="user/edit">
             <div class="container">
                 <div class="row">
-                    User profile edit
+                    Edit user profile
                 </div>
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label for="familyname"
+                           class="col-sm-2 control-label">
+                           Family name
+                    </label>
+                    <div class="col-sm-10">
+                      {{input id="familyname"
+                              class="form-control"
+                              type="text"
+                              placeholder="Familyname"
+                              value=userProfile.familyname
+                              }}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="firstname"
+                           class="col-sm-2 control-label">
+                           First name
+                    </label>
+                    <div class="col-sm-10">
+                        {{input id="firstname"
+                                class="form-control"
+                                type="text"
+                                placeholder="Firstname"
+                                value=userProfile.firstname
+                                }}
+                    </div>
+                  </div>
+                  <!-- <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> Remember me
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-default">Sign in</button>
+                    </div>
+                  </div> -->
+                </form>
             </div>
         </script>
 
@@ -381,23 +468,20 @@
         <script src="lib/moment.js/2.2.1/moment+langs.min.js"></script>
         <script src="lib/ohsnap/ohsnap.js"></script>
 
-        <script src="lib/handlebars/1.0.0/handlebars-1.0.0.js"></script>
-        <script src="lib/ember/1.6.0-beta.2/ember.js"></script>
-        <script src="lib/ember/1.3.0/ember-data.js"></script>
+        <!-- <script src="lib/handlebars/3.0.0/handlebars-v3.0.0.js"></script> -->
+        <script src="lib/ember/1.10.0/ember-template-compiler.js"></script>
+        <script src="lib/ember/1.10.0/ember.debug.js"></script>
+        <script src="lib/emberdata/1.0.0-beta.15/ember-data.js"></script>
 
         <!-- Firebase -->
         <!-- <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script> -->
-        <script src="lib/firebase/1.0.21/firebase.js"></script>
+        <script src="lib/firebase/2.2.2/firebase.js"></script>
 
 
         <!-- EmberFire -->
         <!-- <script src="https://cdn.firebase.com/libs/emberfire/1.1.3/emberfire.min.js"></script> -->
 
-        <script src="lib/emberfire/1.1.3/emberfire.min.js"></script>
-
-
-        <!-- <script src="https://cdn.firebase.com/js/simple-login/1.6.3/firebase-simple-login.js"></script> -->
-        <script src="lib/firebase-simple-login/1.6.3/firebase-simple-login.js"></script>
+        <script src="lib/emberfire/1.4.1/emberfire.js"></script>
 
         <!-- <script src="lib/ember.localstorage/localstorage_adapter.js"></script> -->
 
@@ -405,6 +489,7 @@
 
         <!-- Project files -->
         <script src="js/application.js"></script>
+        <script src="js/cseroldal.common.js"></script>
         <script src="js/route.js"></script>
         <script src="js/controllers/main_auth.js"></script>
         <script src="js/controllers/main_register.js"></script>
@@ -412,6 +497,8 @@
         <script src="js/controllers/main_unregister.js"></script>
         <script src="js/controllers/main_login.js"></script>
         <script src="js/controllers/main_manage.js"></script>
+
+        <script src="js/controllers/user.js"></script>
 
         <script src="js/controllers/game_detail.js"></script>
         <script src="js/controllers/game_edit.js"></script>
