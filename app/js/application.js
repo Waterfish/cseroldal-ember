@@ -3,11 +3,11 @@
 
     // http://emberjs.com/api/classes/Ember.Application.html
     var Cseroldal = window.Cseroldal = Ember.Application.create({
-        LOG_TRANSITIONS: true,
-        LOG_TRANSITIONS_INTERNAL: false,
-        LOG_VIEW_LOOKUPS: false,
-        LOG_ACTIVE_GENERATION: true,
-        LOG_RESOLVER: false,
+        // LOG_TRANSITIONS: true,
+        // LOG_TRANSITIONS_INTERNAL: false,
+        // LOG_VIEW_LOOKUPS: false,
+        // LOG_ACTIVE_GENERATION: true,
+        // LOG_RESOLVER: false,
 
         ready: function() {
             // register AuthController factory (as a singleton)
@@ -56,6 +56,17 @@
 
         // appName: 'My First Example',
 
+        init: function () {
+            var ref = Cseroldal.FirebaseRef;
+
+            console.log('Init');
+
+            this.set('auth.loginData', ref.getAuth());
+
+            this.userStatusChanged();
+
+        },
+
         actions: {
             refreshRoute: function () {
                 alert('refreshRoute');
@@ -63,6 +74,8 @@
         },
 
         userStatusChanged: function () {
+
+            console.log('User status changed');
 
             var _this = this,
                 loginData = this.get('auth.loginData');
@@ -88,6 +101,8 @@
                         .then(function (user) {
                             _this.set('auth.currentUser', user);
 
+                            console.log('User id', user.id, user.get('id'));
+
                             if (user.get('group')) {
 
                                 user.get('group').then(function (group) {
@@ -96,10 +111,12 @@
                                         .on('value', function (snapshot) {
                                             _this.set('auth.security', snapshot.val());
                                         }, function (errorObject) {
+                                            // TODO Handle this.
                                             console.log('The read failed: ' + errorObject.code);
                                         });
                                 });
                             } else {
+                                // TODO Handle this.
                                 console.log('group not set');
                             }
 
@@ -128,14 +145,23 @@
                 }
 
             }, function(reason) {
-                // the reason why you have no json
-                _this.store.find('pendingAuth', loginData.uid)
-                    .then(function (auth) {
-                        _this.transitionToRoute('pending');
-                    }, function (reason) {
-                        console.log('No auth', reason);
-                        _this.transitionToRoute('registerg');
+                // Check the reason why you have no json
+                if (loginData.provider === 'google') {
+                    Cseroldal.FirebaseRef.child('register-requests/' + loginData.uid).once('value', function (snapshot) {
+
+                        if (snapshot.exists()) {
+                            _this.transitionToRoute('pending');
+                        } else {
+                            _this.transitionToRoute('registerg');
+                        }
+
                     });
+                } else if (loginData.provider === 'facebook') {
+                    debugger;
+                } else if (loginData.provider === 'password') {
+                    debugger;
+                }
+
             });
 
         }.observes('auth.loginData')

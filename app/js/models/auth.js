@@ -16,13 +16,14 @@
     });
 
     Cseroldal.PendingAuth = Cseroldal.Auth.extend({
-        userName: DS.attr('string'),
-        user: null
+        email: DS.attr('string'),
+        message: DS.attr('string'),
+        userName: DS.attr('string')
     });
 
     Cseroldal.PendingAuthAdapter = Cseroldal.ApplicationAdapter.extend({
         pathForType: function() {
-            return 'pending-auths';
+            return 'register-requests';
         }
     });
 

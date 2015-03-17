@@ -6,24 +6,39 @@
         actions: {
             subscribe: function () {
                 var _this = this,
-                    loginData = this.get('auth.loginData');
+                    loginData = this.get('auth.loginData'),
+                    name = loginData.google.displayName,
+                    email = this.get('email'),
+                    message = this.get('message'),
+                    auth = {
+                        uid: loginData.uid
+                    };
 
-                Cseroldal.FirebaseRef.child('pending-auths/' + loginData.uid).set({
-                    uid: loginData.uid,
-                    email: loginData.email,
-                    userName: _this.get('name')
+                Cseroldal.FirebaseRef.child('register-requests/' + loginData.uid).set({
+                    userName: name,
+                    email: email,
+                    message: message,
+                    auth: auth
+                }, function (err) {
+                    if (err) {
+                        ohSnap('Hiba történt!', 'red', 'error');
+                    } else {
+                        ohSnap('Sikeres küldés!', 'green', 'info');
+                    }
+
+                    _this.set('submitted', true);
+
                 });
 
             },
         },
 
         init: function () {
+
             var loginData = this.get('auth.loginData');
 
-            // Redirect to login.
             if (loginData) {
-                console.log('loginData present');
-                this.set('email', loginData.email);
+                this.set('name', loginData.google.displayName);
             } else {
                 this.transitionToRoute('login');
             }

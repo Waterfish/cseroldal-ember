@@ -1,4 +1,4 @@
-(function (Ember, Cseroldal, Firebase, FirebaseSimpleLogin, undefined) {
+(function (Ember, Cseroldal, Firebase, undefined) {
     'use strict';
 
     Cseroldal.AuthController = Ember.Controller.extend({
@@ -7,45 +7,57 @@
         currentUser: null,
         security: null,
 
-        init: function () {
+        // init: function () {
 
-            this._super();
+        //     var _this = this,
+        //         ref = Cseroldal.FirebaseRef;
 
-            this.authClient = new FirebaseSimpleLogin(Cseroldal.FirebaseRef, function(error, loginData) {
-                if (error) {
-                    // TODO handle with UI
-                    console.log('Authentication failed: ' + error);
-                } else if (loginData) {
-                    this.set('loginData', loginData);
-                } else {
-                    this.set('loginData', null);
-                }
-            }.bind(this)); // attach login and logout event handlers ?
+        //     this._super();
+        // },
+
+        authHandler: function (error, authData) {
+            if (error) {
+                console.log('Error in login', error);
+            } else if (authData) {
+                this.set('loginData', authData);
+            } else {
+                this.set('loginData', null);
+            }
         },
 
         login: function (email, password) {
-            this.authClient.login('password', {
+            var _this = this;
+
+            Cseroldal.FirebaseRef.authWithPassword({
                 email: email,
                 password: password
+            }, function (error, authData) {
+                _this.authHandler(error, authData);
             });
         },
 
         loginGoogle: function () {
-            this.authClient.login('google');
+            var _this = this;
+
+            Cseroldal.FirebaseRef.authWithOAuthPopup('google',
+            function (error, authData) {
+                _this.authHandler(error, authData);
+            });
         },
 
         logout: function () {
-            this.authClient.logout();
-        },
+            Cseroldal.FirebaseRef.unauth();
+            this.set('loginData', null);
+        // },
 
-        createUser: function (email, password, callback) {
-            this.authClient.createUser(email, password, callback);
-        },
+        // createUser: function (email, password, callback) {
+        //     this.authClient.createUser(email, password, callback);
+        // },
 
-        removeUser: function (email, password, callback) {
-            this.authClient.removeUser(email, password, callback);
+        // removeUser: function (email, password, callback) {
+        //     this.authClient.removeUser(email, password, callback);
         }
 
     });
 
-} (window.Ember, window.Cseroldal, window.Firebase, window.FirebaseSimpleLogin));
+} (window.Ember, window.Cseroldal, window.Firebase));

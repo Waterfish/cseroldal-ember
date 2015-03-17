@@ -32,10 +32,28 @@
     }
   },
   "game-db" : {
-    "location" : {
-      "-JWC1Gd1y2UfdEBfuhTK" : {
-        "label" : "room"
+    "games" : {
+      "-JWjf6m2xMe269B62p2C" : {
+        "description" : "Leiras",
+        "shortDescription" : "Leiras",
+        "title" : "Valahol amerikaban",
+        "user" : "-JWjU9NNlDr2Bldp4y32"
       },
+      "-JWoCwzqjJ8JnfWZ-f1l" : {
+        "description" : "fsad",
+        "shortDescription" : "fsda",
+        "title" : "fsda"
+      },
+      "-JWoDFpEjYnxVahhF6Zk" : {
+        "description" : "fsda",
+        "locations" : {
+          "location" : true
+        },
+        "shortDescription" : "fsda",
+        "title" : "fsda"
+      }
+    },
+    "location" : {
       "-JWC1J_u80iK5xO_Miz-" : {
         "label" : "szoba"
       },
@@ -47,37 +65,77 @@
       }
     }
   },
+  "security" : {
+    "groups" : {
+      "admin" : {
+        "description" : "Felhasznaló minden joggal.",
+        "name" : "Admin",
+        "permissions" : {
+          "godmode" : true
+        }
+      },
+      "cserkesz" : {
+        "description" : "Sima cserkész",
+        "name" : "Cserkész",
+        "permissions" : {
+          "gameR" : true,
+          "gameW" : true
+        }
+      }
+    },
+    "permissions" : {
+      "gameR" : {
+        "description" : "Read games"
+      },
+      "gameW" : {
+        "description" : "Write games"
+      },
+      "godmode" : {
+        "description" : "All permission"
+      }
+    }
+  },
   "user-db" : {
     "users" : {
       "-JWjTqO4l0fksMcGQjMI" : {
         "auths" : {
           "simplelogin:39" : true
         },
-        "name" : "Admin Jóska"
+        "familyname" : "Admin",
+        "firstname" : "Jóska",
+        "group" : "admin"
       },
       "-JWjU9NNlDr2Bldp4y32" : {
         "auths" : {
           "simplelogin:40" : true
         },
-        "name" : "Első Pityu"
+        "familyname" : "Első",
+        "firstname" : "Pityu",
+        "group" : "cserkesz"
       },
       "-JWjUDk5B9Zjovl3vnjp" : {
         "auths" : {
           "simplelogin:41" : true
         },
-        "name" : "Második Julis"
+        "familyname" : "Második",
+        "firstname" : "Julis",
+        "group" : "cserkesz"
       },
       "-JWjUIMpZA5Qs81dv_Tm" : {
         "auths" : {
           "simplelogin:42" : true
         },
-        "name" : "Harmadik Iván"
+        "familyname" : "Harmadik",
+        "firstname" : "Iván",
+        "group" : "cserkesz"
       },
       "-JWjUN_w31HfwUH3Jqzi" : {
         "auths" : {
           "simplelogin:43" : true
         },
-        "name" : "Negyedik Marcsa"
+        "familyname" : "Negyedik",
+        "firstname" : "Marcsa",
+        "group" : "cserkesz"
       }
     }
   }

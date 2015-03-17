@@ -11,7 +11,7 @@
         });
 
         this.resource('user', function () {
-            this.route('edit', {path: '/edit/:user_id'});
+            this.route('edit', {path: '/edit'});
         });
 
 
@@ -161,6 +161,28 @@
         }
 
     });
+
+    // Cseroldal.UserIndexRoute = Ember.Route.extend({
+
+    //     templateName: 'user'
+
+    //     // setupController: function(controller, model) {
+    //     //     this._super(controller, model);
+    //     // }
+
+    // });
+
+    // Cseroldal.UserEditRoute = Ember.Route.extend({
+
+    //     controllerName: 'user.edit',
+    //     templateName: 'user/edit',
+
+    //     setupController: function(controller, model) {
+    //         console.log('!!!!!!!!!!!');
+    //         this._super(controller, model);
+    //     }
+
+    // });
 
 
 } (window.Ember, window.Cseroldal));

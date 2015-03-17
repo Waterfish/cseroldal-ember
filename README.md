@@ -1,4 +1,4 @@
-seed-project
+Cseroldal-ember
 ============
 
-My javascript/nodejs web application startup project
+

@@ -5,53 +5,30 @@
 
         actions: {
             subscribe: function () {
-                var _this = this;
+                var _this = this,
+                    email = this.get('email'),
+                    name = this.get('name'),
+                    message = this.get('message'),
+                    id = Cseroldal.Common.emailToId(email);
 
-                this.get('auth').createUser(this.get('email'), this.get('password'), function (error, loginData) {
-                    if (error === null) {
+                // TODO check if already exist
+                // TODO check if already pending
 
-                        Cseroldal.FirebaseRef.child('pending-auths/' + loginData.uid).set({
-                            uid: loginData.uid,
-                            email: loginData.email,
-                            userName: _this.get('name')
-                        });
-
+                Cseroldal.FirebaseRef.child('register-requests/' + id).set({
+                    email: email,
+                    userName: name,
+                    message: message
+                }, function (err) {
+                    if (err) {
+                        ohSnap('Hiba történt!', 'red', 'error');
                     } else {
-                        console.warn('Error creating user: ', error);
-
-                        // TODO handle this
+                        ohSnap('Sikeres küldés!', 'green', 'info');
                     }
+
+                    _this.set('submitted', true);
+
                 });
-            },
 
-            register: function () {
-                var _this = this;
-
-                this.get('auth').createUser(this.get('email'), this.get('password'), function (error, loginData) {
-                    if (error === null) {
-
-                        var auths = {};
-
-                        auths[loginData.uid] = true;
-
-                        var ref = Cseroldal.FirebaseRef.child('user-db/users').push({
-                            name: _this.get('name'),
-                            auths: auths
-                        });
-
-                        Cseroldal.FirebaseRef.child('auths/' + loginData.uid).set({
-                            uid: loginData.uid,
-                            email: loginData.email,
-                            passwordHash: loginData.md5_hash,
-                            user: ref.name()
-                        });
-
-                    } else {
-                        console.warn('Error creating user: ', error);
-
-                        // TODO handle this
-                    }
-                });
             }
         }
 

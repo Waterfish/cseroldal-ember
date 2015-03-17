@@ -3,24 +3,19 @@
 
     Cseroldal.ManageController = Ember.ObjectController.extend({
         actions: {
-            reject: function (auth) {
-                auth.deleteRecord();
-                auth.save();
-                // var _this= this,
-                //     model = this.get('model');
 
-                // model.set('user', this.get('auth.currentUser'));
-
-                // model.save().then(function () {
-                //     _this.transitionToRoute('gameHub.view', model);
-                // });
-
+            reject: function (pending) {
+                pending.deleteRecord();
+                pending.save();
             },
 
             approve: function (auth) {
+
+                debugger;
+
                 var auths = {},
                     name = auth.get('userName'),
-                    uid = auth.get('uid');
+                    uid = auth.get('auth.uid');
 
                 auths[uid] = true;
 
