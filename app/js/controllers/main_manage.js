@@ -1,37 +1,35 @@
-(function (Ember, Cseroldal, undefined) {
+(function (Ember, Cs, undefined) {
     'use strict';
 
-    Cseroldal.ManageController = Ember.ObjectController.extend({
+    Cs.ManageController = Ember.ObjectController.extend({
         actions: {
 
             reject: function (pending) {
-                pending.deleteRecord();
-                pending.save();
-            },
-
-            approve: function (auth) {
 
                 debugger;
 
+                Cs.FirebaseRef.child(Cs.PendingAuth.path + pending.uid).remove();
+
+            },
+
+            approve: function (auth) {
                 var auths = {},
                     name = auth.get('userName'),
                     uid = auth.get('auth.uid');
 
                 auths[uid] = true;
 
-                var ref = Cseroldal.FirebaseRef.child('user-db/users').push({
+                var ref = Cs.FirebaseRef.child('user-db/users').push({
                     name: name,
                     auths: auths
                 });
 
-                Cseroldal.FirebaseRef.child('auths/' + uid).set({
+                Cs.FirebaseRef.child('auths/' + uid).set({
                     uid: uid,
                     email: auth.get('email'),
                     user: ref.name()
                 });
 
-                auth.deleteRecord();
-                auth.save();
             },
 
             delete: function (user) {

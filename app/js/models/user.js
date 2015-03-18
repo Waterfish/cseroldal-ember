@@ -1,18 +1,19 @@
-(function (Ember, Cseroldal, DS, undefined) {
+(function (Ember, Cseroldal, undefined) {
     'use strict';
 
-    Cseroldal.User = DS.Model.extend({
-        firstname: DS.attr('string'),
-        familyname: DS.attr('string'),
-        auths: DS.hasMany('auth'),
-        group: DS.belongsTo('userGroup', {
-            async: true,
-            inverse: 'user'
-        }),
+    Cseroldal.User = Cseroldal.Model.extend({
+        firstname: '',
+        familyname: '',
+        auths: null,
+        group: null,
 
         name: function() {
             return this.get('firstname') + ' ' + this.get('familyname');
         }.property('firstname', 'familyname')
+    });
+
+    Cseroldal.User.reopenClass({
+        path: 'user-db/users/'
     });
 
     /**
@@ -26,20 +27,4 @@
 
     };
 
-    Cseroldal.UserAdapter = Cseroldal.ApplicationAdapter.extend({
-        pathForType: function() {
-            return 'user-db/users';
-        }
-    });
-
-    // Cseroldal.PendingUser = Cseroldal.User.extend({
-    //     auths: null
-    // });
-
-    // Cseroldal.PendingUserAdapter = Cseroldal.ApplicationAdapter.extend({
-    //     pathForType: function() {
-    //         return 'pending-users';
-    //     }
-    // });
-
-} (window.Ember, window.Cseroldal, window.DS));
+} (window.Ember, window.Cseroldal));

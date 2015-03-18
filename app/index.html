@@ -39,11 +39,11 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             {{#link-to "index" tagName='li' }}{{#link-to "index"}}Home{{/link-to}}{{/link-to}}
-                            {{#if auth.authed}}
+                            {{#if auth.currentUser}}
                                     {{#link-to "gameHub" tagName='li' }}{{#link-to "gameHub"}}Jatek{{/link-to}}{{/link-to}}
                             {{/if}}
 
-                            {{#if auth.authed}}
+                            {{#if auth.currentUser}}
 
                                 {{#if auth.security.permissions.godmode}}
                                     {{#link-to "manage" tagName='li' }}
@@ -72,6 +72,16 @@
                     </div>
                 </div>
             </nav>
+            <div class="container">
+                {{#each auth in auths}}
+                <div class="row">
+                    {{auth.email}}
+                    {{auth.uid}}
+                    {{auth.user}}
+                    {{auth.guid}}
+                </div>
+                {{/each}}
+            </div>
 
             <div class="container">
                 <div class="row">
@@ -471,17 +481,11 @@
         <!-- <script src="lib/handlebars/3.0.0/handlebars-v3.0.0.js"></script> -->
         <script src="lib/ember/1.10.0/ember-template-compiler.js"></script>
         <script src="lib/ember/1.10.0/ember.debug.js"></script>
-        <script src="lib/emberdata/1.0.0-beta.15/ember-data.js"></script>
 
         <!-- Firebase -->
         <!-- <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script> -->
         <script src="lib/firebase/2.2.2/firebase.js"></script>
 
-
-        <!-- EmberFire -->
-        <!-- <script src="https://cdn.firebase.com/libs/emberfire/1.1.3/emberfire.min.js"></script> -->
-
-        <script src="lib/emberfire/1.4.1/emberfire.js"></script>
 
         <!-- <script src="lib/ember.localstorage/localstorage_adapter.js"></script> -->
 
@@ -504,6 +508,7 @@
         <script src="js/controllers/game_edit.js"></script>
         <script src="js/controllers/game_settings.js"></script>
 
+        <script src="js/models/_main.js"></script>
         <script src="js/models/auth.js"></script>
         <script src="js/models/user.js"></script>
         <script src="js/models/permission.js"></script>

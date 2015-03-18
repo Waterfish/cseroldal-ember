@@ -1,17 +1,12 @@
-(function (Ember, DS, Firebase, undefined) {
+(function (Ember, Firebase, undefined) {
     'use strict';
 
     // http://emberjs.com/api/classes/Ember.Application.html
-    var Cseroldal = window.Cseroldal = Ember.Application.create({
-        // LOG_TRANSITIONS: true,
-        // LOG_TRANSITIONS_INTERNAL: false,
-        // LOG_VIEW_LOOKUPS: false,
-        // LOG_ACTIVE_GENERATION: true,
-        // LOG_RESOLVER: false,
+    var Cs = window.Cseroldal = Ember.Application.create({
 
         ready: function() {
             // register AuthController factory (as a singleton)
-            this.register('main:auth', Cseroldal.AuthController);
+            this.register('main:auth', Cs.AuthController);
             this.inject('route', 'auth', 'main:auth');
             this.inject('controller', 'auth', 'main:auth');
         },
@@ -21,20 +16,10 @@
         }
     });
 
+    Cs.FirebaseUserPath = 'https://cseroldal.firebaseio.com/';
+    var fref = Cs.FirebaseRef = new Firebase('https://cseroldal.firebaseio.com/');
 
-    // Cseroldal.ApplicationAdapter = DS.FixtureAdapter.extend();
-    Cseroldal.FirebaseUserPath = 'https://cseroldal.firebaseio.com/';
-    Cseroldal.FirebaseRef = new Firebase('https://cseroldal.firebaseio.com/');
-
-    Cseroldal.ApplicationAdapter = DS.FirebaseAdapter.extend({
-        firebase: Cseroldal.FirebaseRef
-    });
-
-    // Cseroldal.ApplicationAdapter = DS.LSAdapter.extend({
-    //   namespace: 'todos-emberjs'
-    // });
-
-    Cseroldal.ApplicationRoute = Ember.Route.extend({
+    Cs.ApplicationRoute = Ember.Route.extend({
 
         actions: {
             login: function() {
@@ -52,19 +37,22 @@
         }
     });
 
-    Cseroldal.ApplicationController = Ember.Controller.extend({
+    Cs.ApplicationController = Ember.Controller.extend({
 
-        // appName: 'My First Example',
+        appName: 'Cseroldal logo',
 
         init: function () {
-            var ref = Cseroldal.FirebaseRef;
+            var _this = this;
+            // TODO uncomment
+            // this.set('auth.loginData', fref.getAuth());
+            // this.userStatusChanged();
 
-            console.log('Init');
-
-            this.set('auth.loginData', ref.getAuth());
-
-            this.userStatusChanged();
-
+            Cs.Auth.findAll().then(function (items) {
+                _this.set('auths', items);
+            },
+            function (reason) {
+                console.log('buuu', reason);
+            });
         },
 
         actions: {
@@ -84,83 +72,71 @@
                 // logged out
                 this.set('auth.currentUser', null);
                 this.set('auth.security', null);
-                this.set('auth.authed', false);
                 this.transitionToRoute('login');
                 return;
             }
 
             // logged in
-            this.store.find('auth', loginData.uid)
-            .then(function (auth) {
+            fref.child(Cs.Auth.path + loginData.uid).once('value', function (auth) {
 
-                _this.set('auth.authed', true);
+                if (auth.exists()) {
 
-                if (auth) {
+                    fref.child(Cs.User.path + auth.val().user).once('value', function (snapUser) {
+                        var user = snapUser.val();
+                        _this.set('auth.currentUser', user);
 
-                    auth.get('user')
-                        .then(function (user) {
-                            _this.set('auth.currentUser', user);
-
-                            console.log('User id', user.id, user.get('id'));
-
-                            if (user.get('group')) {
-
-                                user.get('group').then(function (group) {
-
-                                    Cseroldal.FirebaseRef.child('security/groups/' + group.get('id'))
-                                        .on('value', function (snapshot) {
-                                            _this.set('auth.security', snapshot.val());
-                                        }, function (errorObject) {
-                                            // TODO Handle this.
-                                            console.log('The read failed: ' + errorObject.code);
-                                        });
+                        if (user.group) {
+                            // TODO Change to model approach
+                            Cs.FirebaseRef.child('security/groups/' + user.group)
+                                .once('value', function (snapshot) {
+                                    _this.set('auth.security', snapshot.val());
+                                }, function (errorObject) {
+                                    // TODO Handle this.
+                                    console.log('The read failed: ' + errorObject.code);
                                 });
-                            } else {
-                                // TODO Handle this.
-                                console.log('group not set');
-                            }
-
-                        });
-
-
-                } else {
-                    Ember.Logger.log('Missing user or still pending');
-                    _this.transitionToRoute('/pending');
-                }
-
-                var previousTransition = _this.get('auth.transition');
-                // if you were trying to get somewhere, try again
-                if (previousTransition) {
-
-                    // Ember.Logger.log('Retrying route `%@`.'.fmt(previousTransition.targetName));
-
-                    if (previousTransition.targetName === _this.get('currentPath')) {
-                        _this.send('refreshRoute');
-                    } else {
-                        previousTransition.retry();
-                    }
-
-                } else if (_this.get('currentPath') === 'login') {
-                    _this.transitionToRoute('/');
-                }
-
-            }, function(reason) {
-                // Check the reason why you have no json
-                if (loginData.provider === 'google') {
-                    Cseroldal.FirebaseRef.child('register-requests/' + loginData.uid).once('value', function (snapshot) {
-
-                        if (snapshot.exists()) {
-                            _this.transitionToRoute('pending');
                         } else {
-                            _this.transitionToRoute('registerg');
+                            // TODO Handle this.
+                            console.log('group not set');
                         }
 
                     });
-                } else if (loginData.provider === 'facebook') {
-                    debugger;
-                } else if (loginData.provider === 'password') {
-                    debugger;
+
+                    var previousTransition = _this.get('auth.transition');
+                    // if you were trying to get somewhere, try again
+                    if (previousTransition) {
+
+                        // Ember.Logger.log('Retrying route `%@`.'.fmt(previousTransition.targetName));
+
+                        if (previousTransition.targetName === _this.get('currentPath')) {
+                            _this.send('refreshRoute');
+                        } else {
+                            previousTransition.retry();
+                        }
+
+                    } else if (_this.get('currentPath') === 'login') {
+                        _this.transitionToRoute('/');
+                    }
+                } else {
+                    // Check the reason why you have no json
+                    if (loginData.provider === 'google') {
+                        Cs.FirebaseRef.child('register-requests/' + loginData.uid).once('value', function (snapshot) {
+
+                            if (snapshot.exists()) {
+                                _this.transitionToRoute('pending');
+                            } else {
+                                _this.transitionToRoute('registerg');
+                            }
+
+                        });
+                    } else if (loginData.provider === 'facebook') {
+                        debugger;
+                    } else if (loginData.provider === 'password') {
+                        debugger;
+                    }
                 }
+
+            }, function(reason) {
+                console.error(reason);
 
             });
 
@@ -168,4 +144,4 @@
 
     });
 
-}(window.Ember, window.DS, window.Firebase));
+}(window.Ember, window.Firebase));

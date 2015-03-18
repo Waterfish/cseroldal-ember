@@ -53,8 +53,17 @@
 
         setupController: function(controller, model) {
             this._super(controller, model);
-            controller.set('pendingAuths', this.store.find('pendingAuth'));
-            controller.set('existingAuths', this.store.find('auth'));
+
+            Cseroldal.FirebaseRef.child(Cseroldal.PendingAuth.path).once('value', function (snapshot) {
+                var pendings = Em.$.map(snapshot.val(), function (element, key) {
+                    return Cseroldal.PendingAuth.create(element);
+                });
+
+                controller.set('pendingAuths', pendings);
+            });
+
+            // controller.set('pendingAuths', this.store.find('pendingAuth'));
+            // controller.set('existingAuths', this.store.find('auth'));
         },
 
         // init: function () {

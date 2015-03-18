@@ -1,30 +1,29 @@
-(function (Ember, Cseroldal, DS, undefined) {
+(function (Ember, Cseroldal, undefined) {
     'use strict';
 
-    Cseroldal.Auth = DS.Model.extend({
-        uid: DS.attr('string'),
-        email: DS.attr('string'),
-        passwordHash: DS.attr('string'),
-        user: DS.belongsTo('user', {async: true})
+    Cseroldal.Auth = Cseroldal.Model.extend({
+        uid: null,
+        email: '',
+        user: null
+        // serialize: function () {
+
+        // }
+    });
+
+    Cseroldal.Auth.reopenClass({
+        path: 'auths/'
     });
 
 
-    Cseroldal.AuthAdapter = Cseroldal.ApplicationAdapter.extend({
-        pathForType: function() {
-            return 'auths';
-        }
+    Cseroldal.PendingAuth = Cseroldal.Model.extend({
+        auth: null,
+        email: '',
+        message: '',
+        userName: ''
     });
 
-    Cseroldal.PendingAuth = Cseroldal.Auth.extend({
-        email: DS.attr('string'),
-        message: DS.attr('string'),
-        userName: DS.attr('string')
+    Cseroldal.PendingAuth.reopenClass({
+        path: 'register-requests/'
     });
 
-    Cseroldal.PendingAuthAdapter = Cseroldal.ApplicationAdapter.extend({
-        pathForType: function() {
-            return 'register-requests';
-        }
-    });
-
-} (window.Ember, window.Cseroldal, window.DS));
+} (window.Ember, window.Cseroldal));
