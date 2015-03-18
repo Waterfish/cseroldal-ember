@@ -1,29 +1,34 @@
-(function (Ember, Cseroldal, undefined) {
+(function (Ember, Cs, undefined) {
     'use strict';
 
-    Cseroldal.Auth = Cseroldal.Model.extend({
+    Cs.Auth = Cs.Model.extend({
         uid: null,
         email: '',
-        user: null
-        // serialize: function () {
-
-        // }
+        user: null,
+        _serialize: function () {
+            return this.getProperties(['uid', 'email', 'user']);
+        }
     });
 
-    Cseroldal.Auth.reopenClass({
-        path: 'auths/'
+    Cs.Auth.reopenClass({
+        path: 'auths/',
+        ref: Cs.FirebaseRef.child('auths/')
     });
 
 
-    Cseroldal.PendingAuth = Cseroldal.Model.extend({
+    Cs.PendingAuth = Cs.Model.extend({
         auth: null,
         email: '',
         message: '',
-        userName: ''
+        userName: '',
+        _serialize: function () {
+            return this.getProperties(['auth', 'email', 'userName', 'message']);
+        }
     });
 
-    Cseroldal.PendingAuth.reopenClass({
-        path: 'register-requests/'
+    Cs.PendingAuth.reopenClass({
+        path: 'register-requests/',
+        ref: Cs.FirebaseRef.child('register-requests/')
     });
 
 } (window.Ember, window.Cseroldal));
