@@ -19,7 +19,10 @@ module.exports = function(grunt) {
           jquery: true,
           node: true,
           esnext: false,
-          globals: {},
+          globals: {
+            console: true,
+            ohSnap: true
+          },
           globalstrict: true,
           quotmark: 'single',
           indent: 4,

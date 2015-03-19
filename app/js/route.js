@@ -33,8 +33,11 @@
             var openRoutes = ['index', 'login', 'register'];
 
             // Not logged in and attempting to access protected route, redirect to login.
-            if (openRoutes.indexOf(transition.targetName) === -1 && Ember.isEmpty(this.get('auth.loginData'))) {
-                Ember.Logger.warn('Attempting to access protected route when not logged in. Aborting.');
+            if (openRoutes.indexOf(transition.targetName) === -1 &&
+                    Ember.isEmpty(this.get('auth.loginData'))) {
+
+                Ember.Logger.warn('Attempting to access protected route ' +
+                    'when not logged in. Aborting.');
 
                 // Save the transition to try again status changes.
                 this.set('auth.transition', transition);

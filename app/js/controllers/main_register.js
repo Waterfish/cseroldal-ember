@@ -24,7 +24,9 @@
                         switch (error.code) {
                         case 'EMAIL_TAKEN':
                             ohSnap('Hiba történt!', 'red', 'error');
-                            console.log('The new user account cannot be created because the email is already in use.');
+                            console.log(['The new user account cannot be ',
+                                'created because the email is already in ',
+                                'use.'].join(''));
                             break;
                         case 'INVALID_EMAIL':
                             ohSnap('Hiba történt!', 'red', 'error');

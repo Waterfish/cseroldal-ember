@@ -37,19 +37,21 @@
                 this.setProperties(snapshot.val());
             } else {
                 // TODO not exist
-                // console.log(Ember.String.fmt('%@ snapshot removed on the backend?.', [this.constructor.path + this.guid]));
+                // console.log(Ember.String.fmt('%@ snapshot removed on the backend?.',
+                // [this.constructor.path + this.guid]));
                 this.destroy();
             }
         },
 
         save: function (key) {
-            var _this = this;
+            var _this = this,
+                ref = this.constructor.ref;
             return new Ember.RSVP.Promise(function (resolve, reject) {
                 if (Ember.isNone(_this.get('guid'))) {
                     var newRef;
 
                     if (key) {
-                        newRef = _this.constructor.ref.child(key);
+                        newRef = ref.child(key);
                         newRef.set(_this._serialize(), function (err) {
                             if (err) {
                                 reject(err);
@@ -58,7 +60,7 @@
                             resolve(_this);
                         });
                     } else {
-                        newRef = _this.constructor.ref.push(_this._serialize(), function (err) {
+                        newRef = ref.push(_this._serialize(), function (err) {
                             if (err) {
                                 reject(err);
                                 return;
@@ -70,7 +72,7 @@
                     _this.set('guid', newRef.key());
                     newRef.on('value', _this.onValueChange, _this);
                 } else {
-                    _this.constructor.ref.child(_this.guid).update(_this._serialize(), function (err) {
+                    ref.child(_this.guid).update(_this._serialize(), function (err) {
                         if (err) {
                             reject(err);
                             return;
@@ -92,10 +94,13 @@
         },
 
         _serialize: function() {
-            // Our presistance layer doesn't know about the fields that custom models need to preserve
-            // for this reason, we need a serialize function that will return a version of this model
-            // that can be saved to localStorage
-            throw new Error(Ember.String.fmt('%@ has to implement _serialize() method which is required to convert it to JSON.', [this]));
+            // Our presistance layer doesn't know about the fields that custom
+            // models need to preserve for this reason, we need a serialize
+            // function that will return a version of this model that can
+            // be saved to localStorage
+            throw new Error(
+                Ember.String.fmt(['%@ has to implement _serialize() method which',
+                    ' is required to convert it to JSON.'].join(''), [this]));
         }
     });
 

@@ -31,7 +31,8 @@
                 var _this= this,
                     model = this.get('model');
 
-                this.store.find('gameLocation', this.get('selectedLocation')).then(function(location) {
+                this.store.find('gameLocation', this.get('selectedLocation'))
+                    .then(function(location) {
                     model.get('locations').pushObject(location);
                     _this.set('selectedLocation', null);
                 });

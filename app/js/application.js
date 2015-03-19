@@ -48,7 +48,8 @@
 
         actions: {
             refreshRoute: function () {
-                alert('refreshRoute');
+                // TODO what is this doing here?
+                // alert('refreshRoute');
             }
         },
 
@@ -77,33 +78,36 @@
                     user.getGroup().then(function (group) {
                         _this.set('auth.security', group);
                     }, function (reason) {
-                        console.log('group not set');
+                        console.log('group not set', reason);
                     });
 
                 }, function (reason) {
                     console.warn('User not found.', reason);
                 });
 
-                var previousTransition = _this.get('auth.transition');
+                var prevTransition = _this.get('auth.transition');
                 // if you were trying to get somewhere, try again
-                if (previousTransition) {
+                if (prevTransition) {
 
-                    // Ember.Logger.log('Retrying route `%@`.'.fmt(previousTransition.targetName));
+                    // Ember.Logger.log('Retrying route `%@`.'.fmt(prevTransition.targetName));
 
-                    if (previousTransition.targetName === _this.get('currentPath')) {
+                    if (prevTransition.targetName === _this.get('currentPath')) {
                         _this.send('refreshRoute');
                     } else {
-                        previousTransition.retry();
+                        prevTransition.retry();
                     }
 
                 } else if (_this.get('currentPath') === 'login') {
                     _this.transitionToRoute('/');
                 }
 
-            }, function(reason) {
+            }, function(/*reason*/) {
+                var provider = loginData.provider === 'google',
+                    pendingRef = fref.child('register-requests/' + loginData.uid);
+
                 // Check the reason why you have no json
-                if (loginData.provider === 'google' || loginData.provider === 'facebook') {
-                    Cs.FirebaseRef.child('register-requests/' + loginData.uid).once('value', function (snapshot) {
+                if (provider === 'google' || provider === 'facebook') {
+                    pendingRef.once('value', function (snapshot) {
 
                         if (snapshot.exists()) {
                             _this.transitionToRoute('pending');
@@ -113,7 +117,7 @@
                         }
 
                     });
-                } else if (loginData.provider === 'password') {
+                } else if (provider === 'password') {
                     // TODO
                     console.warn('Not implemented yet!');
                 }
