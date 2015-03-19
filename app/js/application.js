@@ -42,17 +42,8 @@
         appName: 'Cseroldal logo',
 
         init: function () {
-            var _this = this;
-            // TODO uncomment
-            // this.set('auth.loginData', fref.getAuth());
-            // this.userStatusChanged();
-
-            Cs.Auth.findAll().then(function (items) {
-                _this.set('auths', items);
-            },
-            function (reason) {
-                console.log('buuu', reason);
-            });
+            this.set('auth.loginData', fref.getAuth());
+            this.userStatusChanged();
         },
 
         actions: {
@@ -77,66 +68,55 @@
             }
 
             // logged in
-            fref.child(Cs.Auth.path + loginData.uid).once('value', function (auth) {
+            Cs.Auth.find(loginData.uid).then(function (auth) {
 
-                if (auth.exists()) {
+                auth.getUser().then(function (user) {
 
-                    fref.child(Cs.User.path + auth.val().user).once('value', function (snapUser) {
-                        var user = snapUser.val();
-                        _this.set('auth.currentUser', user);
+                    _this.set('auth.currentUser', user);
 
-                        if (user.group) {
-                            // TODO Change to model approach
-                            Cs.FirebaseRef.child('security/groups/' + user.group)
-                                .once('value', function (snapshot) {
-                                    _this.set('auth.security', snapshot.val());
-                                }, function (errorObject) {
-                                    // TODO Handle this.
-                                    console.log('The read failed: ' + errorObject.code);
-                                });
-                        } else {
-                            // TODO Handle this.
-                            console.log('group not set');
-                        }
-
+                    user.getGroup().then(function (group) {
+                        _this.set('auth.security', group);
+                    }, function (reason) {
+                        console.log('group not set');
                     });
 
-                    var previousTransition = _this.get('auth.transition');
-                    // if you were trying to get somewhere, try again
-                    if (previousTransition) {
+                }, function (reason) {
+                    console.warn('User not found.', reason);
+                });
 
-                        // Ember.Logger.log('Retrying route `%@`.'.fmt(previousTransition.targetName));
+                var previousTransition = _this.get('auth.transition');
+                // if you were trying to get somewhere, try again
+                if (previousTransition) {
 
-                        if (previousTransition.targetName === _this.get('currentPath')) {
-                            _this.send('refreshRoute');
-                        } else {
-                            previousTransition.retry();
-                        }
+                    // Ember.Logger.log('Retrying route `%@`.'.fmt(previousTransition.targetName));
 
-                    } else if (_this.get('currentPath') === 'login') {
-                        _this.transitionToRoute('/');
+                    if (previousTransition.targetName === _this.get('currentPath')) {
+                        _this.send('refreshRoute');
+                    } else {
+                        previousTransition.retry();
                     }
-                } else {
-                    // Check the reason why you have no json
-                    if (loginData.provider === 'google') {
-                        Cs.FirebaseRef.child('register-requests/' + loginData.uid).once('value', function (snapshot) {
 
-                            if (snapshot.exists()) {
-                                _this.transitionToRoute('pending');
-                            } else {
-                                _this.transitionToRoute('registerg');
-                            }
-
-                        });
-                    } else if (loginData.provider === 'facebook') {
-                        debugger;
-                    } else if (loginData.provider === 'password') {
-                        debugger;
-                    }
+                } else if (_this.get('currentPath') === 'login') {
+                    _this.transitionToRoute('/');
                 }
 
             }, function(reason) {
-                console.error(reason);
+                // Check the reason why you have no json
+                if (loginData.provider === 'google' || loginData.provider === 'facebook') {
+                    Cs.FirebaseRef.child('register-requests/' + loginData.uid).once('value', function (snapshot) {
+
+                        if (snapshot.exists()) {
+                            _this.transitionToRoute('pending');
+                            _this.get('auth').logout();
+                        } else {
+                            _this.transitionToRoute('registerg');
+                        }
+
+                    });
+                } else if (loginData.provider === 'password') {
+                    // TODO
+                    console.warn('Not implemented yet!');
+                }
 
             });
 

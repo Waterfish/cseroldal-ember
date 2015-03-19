@@ -1,37 +1,78 @@
-(function (Ember, Cseroldal, Firebase, FirebaseSimpleLogin, undefined) {
+(function (Ember, Cs, undefined) {
     'use strict';
 
-    Cseroldal.RegisterController = Ember.Controller.extend({
+    Cs.RegisterController = Ember.Controller.extend({
 
         actions: {
             subscribe: function () {
                 var _this = this,
+                    auth = this.get('auth'),
                     email = this.get('email'),
                     name = this.get('name'),
-                    message = this.get('message'),
-                    id = Cseroldal.Common.emailToId(email);
+                    password = this.get('password'),
+                    message = this.get('message');
 
                 // TODO check if already exist
                 // TODO check if already pending
 
-                Cseroldal.FirebaseRef.child('register-requests/' + id).set({
+                auth.createUser({
                     email: email,
-                    userName: name,
-                    message: message
-                }, function (err) {
-                    if (err) {
-                        ohSnap('Hiba történt!', 'red', 'error');
+                    password: password
+                }, function (error, userData) {
+
+                    if (error) {
+                        switch (error.code) {
+                        case 'EMAIL_TAKEN':
+                            ohSnap('Hiba történt!', 'red', 'error');
+                            console.log('The new user account cannot be created because the email is already in use.');
+                            break;
+                        case 'INVALID_EMAIL':
+                            ohSnap('Hiba történt!', 'red', 'error');
+                            console.log('The specified email is not a valid email.');
+                            break;
+                        default:
+                            ohSnap('Hiba történt!', 'red', 'error');
+                            console.log('Error creating user:', error);
+                        }
                     } else {
-                        ohSnap('Sikeres küldés!', 'green', 'info');
+                        Cs.PendingAuth.create({
+                            userName: name,
+                            email: email,
+                            message: message,
+                            auth: {
+                                uid: userData.uid
+                            }
+                        }).save(userData.uid).then(function () {
+                            ohSnap('Sikeres küldés!', 'green', 'info');
+                            _this.set('submitted', true);
+                        }, function () {
+                            auth.removeUser({
+                                email: email,
+                                password: password
+                            });
+                            ohSnap('Hiba történt!', 'red', 'error');
+                        });
+
                     }
-
-                    _this.set('submitted', true);
-
                 });
 
             }
-        }
+        },
+
+        formInvalid: true,
+
+        checkPassword: function () {
+
+            var password = this.get('password'),
+                passwordCheck = this.get('password_check'),
+                different = password !== passwordCheck;
+
+            console.log('formInvalid', different);
+
+            this.set('formInvalid', password.length() < 8 && different);
+
+        }.observes('password', 'password_check')
 
     });
 
-} (window.Ember, window.Cseroldal, window.Firebase, window.FirebaseSimpleLogin));
+} (window.Ember, window.Cseroldal));

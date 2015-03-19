@@ -7,6 +7,9 @@
         user: null,
         _serialize: function () {
             return this.getProperties(['uid', 'email', 'user']);
+        },
+        getUser: function () {
+            return Cs.User.find(this.get('user'));
         }
     });
 

@@ -1,14 +1,11 @@
 (function (Ember, Cs, undefined) {
     'use strict';
 
-    var ref = Cs.FirebaseRef;
-
     // Inspiration: http://embersherpa.com/articles/crud-example-app-without-ember-data/
 
     Cs.Model = Ember.Object.extend({
         init: function() {
 
-            var _this = this;
             // make sure that class has a path and a ref property, otherwise throw an error
             // path is the key that's used in localStorage
             if (Ember.isNone(this.constructor.path)) {
@@ -18,7 +15,7 @@
                 throw new Error(Ember.String.fmt('%@ has to implement ref property', [this]));
             }
 
-            if (Em.isNone(this.get('guid'))) {
+            if (Ember.isNone(this.get('guid'))) {
                 // pass
             } else {
                 this.constructor.ref.child(this.guid).on('value', this.onValueChange, this);
@@ -27,6 +24,8 @@
         },
 
         destroy: function () {
+            // console.log('Element destroying', this.guid);
+
             this.constructor.ref.child(this.guid).off('value', this.onValueChange);
             this._super();
         },
@@ -35,28 +34,38 @@
 
         onValueChange: function (snapshot) {
             if(snapshot.exists()) {
-                var item = this.setProperties(snapshot.val());
+                this.setProperties(snapshot.val());
             } else {
                 // TODO not exist
-                console.log(Ember.String.fmt('%@ snapshot removed on the backend?.', [this.constructor.path + this.guid]));
+                // console.log(Ember.String.fmt('%@ snapshot removed on the backend?.', [this.constructor.path + this.guid]));
                 this.destroy();
             }
         },
 
-        save: function () {
+        save: function (key) {
             var _this = this;
             return new Ember.RSVP.Promise(function (resolve, reject) {
-                if (Em.isNone(_this.get('guid'))) {
-                    var newRef = _this.constructor.ref.push(_this._serialize(), function (err) {
-                        if (err) {
-                            reject(err);
-                            return;
-                        }
-                        resolve(_this);
-                    });
+                if (Ember.isNone(_this.get('guid'))) {
+                    var newRef;
 
-                    // TODO remove this
-                    console.log(newRef.toString());
+                    if (key) {
+                        newRef = _this.constructor.ref.child(key);
+                        newRef.set(_this._serialize(), function (err) {
+                            if (err) {
+                                reject(err);
+                                return;
+                            }
+                            resolve(_this);
+                        });
+                    } else {
+                        newRef = _this.constructor.ref.push(_this._serialize(), function (err) {
+                            if (err) {
+                                reject(err);
+                                return;
+                            }
+                            resolve(_this);
+                        });
+                    }
 
                     _this.set('guid', newRef.key());
                     newRef.on('value', _this.onValueChange, _this);
@@ -74,7 +83,7 @@
         },
 
         remove: function () {
-            if (Em.isNone(this.get('guid'))) {
+            if (Ember.isNone(this.get('guid'))) {
                 this.destroy();
             } else {
                 this.constructor.ref.child(this.guid).remove();
@@ -117,7 +126,7 @@
             var _this = this;
 
             // inspiration: https://hackhands.com/3-ways-ember-js-leverages-promises/
-            return new Ember.RSVP.Promise(function (resolve, reject) {
+            return new Ember.RSVP.Promise(function (resolve/*, reject*/) {
                 var items = [];
 
                 _this.ref.once('value', function (snapshot) {
@@ -127,14 +136,16 @@
                             item.setProperties(element);
                             items.push(item);
                         });
-                        // Resolve promise with the array
-                        resolve(items);
-
-                        _this.makeLiveCollection(items);
                     } else {
                         // TODO not exist
-                        reject(Ember.String.fmt('%@ collection not found.', [_this.path]));
+                        // console.log(Ember.String.fmt('%@ collection not found.', [_this.path]));
                     }
+
+                    // Resolve promise with the array
+                    resolve(items);
+
+                    _this.makeLiveCollection(items);
+
                 });
 
 
@@ -146,7 +157,7 @@
 
             var _this = this;
 
-            this.ref.on('child_added', function (childSnapshot, prevChildName) {
+            this.ref.on('child_added', function (childSnapshot/*, prevChildName*/) {
                 var key = childSnapshot.key(),
                     element = childSnapshot.val(),
                     existing = collection.findBy('guid', key),

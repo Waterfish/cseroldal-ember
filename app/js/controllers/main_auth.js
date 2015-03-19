@@ -7,14 +7,6 @@
         currentUser: null,
         security: null,
 
-        // init: function () {
-
-        //     var _this = this,
-        //         ref = Cseroldal.FirebaseRef;
-
-        //     this._super();
-        // },
-
         authHandler: function (error, authData) {
             if (error) {
                 console.log('Error in login', error);
@@ -45,17 +37,28 @@
             });
         },
 
+        loginFacebook: function () {
+            var _this = this;
+
+            Cseroldal.FirebaseRef.authWithOAuthPopup('facebook',
+            function (error, authData) {
+                _this.authHandler(error, authData);
+            });
+        },
+
         logout: function () {
             Cseroldal.FirebaseRef.unauth();
             this.set('loginData', null);
-        // },
+        },
 
-        // createUser: function (email, password, callback) {
-        //     this.authClient.createUser(email, password, callback);
-        // },
+        createUser: function (credentials, callback) {
+            // https://www.firebase.com/docs/web/api/firebase/createuser.html
+            Cseroldal.FirebaseRef.createUser(credentials, callback);
+        },
 
-        // removeUser: function (email, password, callback) {
-        //     this.authClient.removeUser(email, password, callback);
+        removeUser: function (credentials, callback) {
+            // https://www.firebase.com/docs/web/api/firebase/createuser.html
+            Cseroldal.FirebaseRef.removeUser(credentials, callback);
         }
 
     });

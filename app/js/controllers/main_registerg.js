@@ -1,33 +1,29 @@
-(function (Ember, Cseroldal, Firebase, FirebaseSimpleLogin, undefined) {
+(function (Ember, Cs, ohSnap, undefined) {
     'use strict';
 
-    Cseroldal.RegistergController = Ember.Controller.extend({
+    Cs.RegistergController = Ember.Controller.extend({
 
         actions: {
             subscribe: function () {
                 var _this = this,
                     loginData = this.get('auth.loginData'),
-                    name = loginData.google.displayName,
+                    name = this.get('name'),
                     email = this.get('email'),
                     message = this.get('message'),
                     auth = {
                         uid: loginData.uid
                     };
 
-                Cseroldal.FirebaseRef.child('register-requests/' + loginData.uid).set({
+                Cs.PendingAuth.create({
                     userName: name,
                     email: email,
                     message: message,
                     auth: auth
-                }, function (err) {
-                    if (err) {
-                        ohSnap('Hiba történt!', 'red', 'error');
-                    } else {
-                        ohSnap('Sikeres küldés!', 'green', 'info');
-                    }
-
+                }).save(loginData.uid).then(function () {
+                    ohSnap('Sikeres küldés!', 'green', 'info');
                     _this.set('submitted', true);
-
+                }, function () {
+                    ohSnap('Hiba történt!', 'red', 'error');
                 });
 
             },
@@ -38,7 +34,11 @@
             var loginData = this.get('auth.loginData');
 
             if (loginData) {
-                this.set('name', loginData.google.displayName);
+                if (loginData.provider === 'google') {
+                    this.set('name', loginData.google.displayName);
+                } else if (loginData.provider === 'facebook') {
+                    this.set('name', loginData.facebook.displayName);
+                }
             } else {
                 this.transitionToRoute('login');
             }
@@ -46,4 +46,4 @@
 
     });
 
-} (window.Ember, window.Cseroldal, window.Firebase, window.FirebaseSimpleLogin));
+} (window.Ember, window.Cseroldal, window.ohSnap));

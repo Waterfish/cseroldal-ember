@@ -1,0 +1,20 @@
+{
+   // Documentation: http://www.jshint.com/docs/
+  "browser": true,
+  "jquery": true,
+  "node": true,
+  "esnext": false,
+  "globals": {},
+  "globalstrict": true,
+  "quotmark": "single",
+  "indent": 4,
+  "eqeqeq": true,
+  "eqnull": true,
+  "latedef": true,
+  "newcap": true,
+  "smarttabs": true,
+  "trailing": true,
+  "undef": true,
+  "unused": true,
+  "maxlen": 100
+}

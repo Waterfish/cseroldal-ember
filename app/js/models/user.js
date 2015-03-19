@@ -1,30 +1,25 @@
-(function (Ember, Cseroldal, undefined) {
+(function (Ember, Cs, undefined) {
     'use strict';
 
-    Cseroldal.User = Cseroldal.Model.extend({
+    Cs.User = Cs.Model.extend({
         firstname: '',
         familyname: '',
         auths: null,
         group: null,
-
+        _serialize: function () {
+            return this.getProperties(['firstname', 'familyname', 'auths', 'group']);
+        },
+        getGroup: function () {
+            return Cs.UserGroup.find(this.get('group'));
+        },
         name: function() {
             return this.get('firstname') + ' ' + this.get('familyname');
         }.property('firstname', 'familyname')
     });
 
-    Cseroldal.User.reopenClass({
-        path: 'user-db/users/'
+    Cs.User.reopenClass({
+        path: 'user-db/users/',
+        ref: Cs.FirebaseRef.child('user-db/users/')
     });
-
-    /**
-     * Read from firebase
-     */
-    Cseroldal.User.getFirebaseData = function (userID, key) {
-        console.log('TODO Implement User.getFirebaseData');
-    };
-
-    Cseroldal.User.setFirebaseData = function (userID, key, snapshot) {
-
-    };
 
 } (window.Ember, window.Cseroldal));

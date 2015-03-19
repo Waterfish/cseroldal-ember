@@ -28,7 +28,6 @@
             },
 
             addLocation: function () {
-                // debugger;
                 var _this= this,
                     model = this.get('model');
 

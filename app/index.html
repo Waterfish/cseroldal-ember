@@ -258,6 +258,7 @@
                 <div class="form-group row">
                     <button class="btn btn-primary" {{action 'login'}}>Belépés</button>
                     <button class="btn" {{action 'loginGoogle'}}>Google bejelentkezés</button>
+                    <button class="btn" {{action 'loginFacebook'}}>Facebook bejelentkezés</button>
                 </div>
                 <div>
                     <ul>
@@ -279,10 +280,20 @@
                     {{#link-to "index" class="btn btn-primary" role="button" replace=true}}Vissza a kezdőoldalra{{/link-to}}
                 </div>
                 {{else}}
-                <form class="" role="form">
+                <form class="form-horizontal" role="form">
                     <div class="form-group">
                         <label class="control-label" for="email">E-mail:</label>
                         {{input type="text" placeholder="E-mail cím" value=email id="email" class="form-control"}}
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label class="control-label" for="password">Jelszó:</label>
+                            {{input type="password" placeholder="" value=password id="password" class="form-control"}}
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label" for="password_check">Jelszó ismét:</label>
+                            {{input type="password" placeholder="" value=password_check id="password_check" class="form-control"}}
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="name">Név:</label>
@@ -293,7 +304,7 @@
                         {{input type="text" placeholder="" value=message id="message" class="form-control"}}
                     </div>
                     <div class="form-group row">
-                        <button class="btn btn-primary" {{action 'subscribe'}}>Elküld</button>
+                        <button class="btn btn-primary" {{action 'subscribe'}} {{bind-attr disabled=formInvalid}}>Elküld</button>
                     </div>
                 </form>
                 {{/if}}
@@ -385,8 +396,8 @@
                 <div class="row">
                     <h3>Manage Existing users</h3>
                     <div class="list-group">
-                        {{#each user in existingAuths}}
-                            <div class="list-group-item">{{user.user.name}} {{user.email}}
+                        {{#each user in users}}
+                            <div class="list-group-item">{{user.name}}
                                 <button class="btn" {{action 'delete' user}}>Delete</button>
                             </div>
                         {{/each}}
@@ -511,7 +522,7 @@
         <script src="js/models/_main.js"></script>
         <script src="js/models/auth.js"></script>
         <script src="js/models/user.js"></script>
-        <script src="js/models/permission.js"></script>
+        <script src="js/models/security.js"></script>
 
         <script src="js/models/game.js"></script>
         <script src="js/models/game_location.js"></script>

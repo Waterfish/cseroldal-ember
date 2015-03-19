@@ -5,38 +5,40 @@
         actions: {
 
             reject: function (pending) {
-
-                debugger;
-
-                Cs.FirebaseRef.child(Cs.PendingAuth.path + pending.uid).remove();
-
+                pending.remove();
             },
 
-            approve: function (auth) {
+            approve: function (pending) {
                 var auths = {},
-                    name = auth.get('userName'),
-                    uid = auth.get('auth.uid');
+                    name = pending.get('userName'),
+                    uid = pending.get('auth.uid');
 
                 auths[uid] = true;
 
-                var ref = Cs.FirebaseRef.child('user-db/users').push({
-                    name: name,
-                    auths: auths
+                Cs.User.create({
+                    firstname: name,
+                    auths: auths,
+                    group: 'cserkesz'
+                }).save().then(function (user) {
+
+                    Cs.Auth.create({
+                        uid: uid,
+                        user: user.get('guid')
+                    }).save(uid);
+
                 });
 
-                Cs.FirebaseRef.child('auths/' + uid).set({
-                    uid: uid,
-                    email: auth.get('email'),
-                    user: ref.name()
-                });
+                pending.remove();
 
             },
 
             delete: function (user) {
+                var auths = user.get('auths');
 
-                user.deleteRecord();
-                user.save();
-
+                user.remove();
+                Ember.$.each(auths, function (key) {
+                    Cs.Auth.find(key).then(function(auth) {auth.remove();});
+                });
             }
 
         },
@@ -45,14 +47,10 @@
 
             this._super();
 
-            // this.store.find('pendingAuth')
-            //     .then(function (auths) {
-            //         this.set('pendingAuths', auths);
-            //     });
         },
 
         pendingAuths: null,
-        existingAuths: null
+        users: null
     });
 
 } (window.Ember, window.Cseroldal));

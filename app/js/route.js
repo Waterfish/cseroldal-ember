@@ -1,7 +1,7 @@
-(function (Ember, Cseroldal, undefined) {
+(function (Ember, Cs, undefined) {
     'use strict';
     // App route
-    Cseroldal.Router.map(function() {
+    Cs.Router.map(function() {
 
         this.resource('gameHub', function () {
             this.route('view', {path: '/view/:game_id'});
@@ -46,7 +46,7 @@
         }
     });
 
-    Cseroldal.ManageRoute = Ember.Route.extend({
+    Cs.ManageRoute = Ember.Route.extend({
         // model: function() {
         //     return this.store.find('game');
         // }
@@ -54,16 +54,14 @@
         setupController: function(controller, model) {
             this._super(controller, model);
 
-            Cseroldal.FirebaseRef.child(Cseroldal.PendingAuth.path).once('value', function (snapshot) {
-                var pendings = Em.$.map(snapshot.val(), function (element, key) {
-                    return Cseroldal.PendingAuth.create(element);
-                });
-
+            Cs.PendingAuth.findAll().then(function (pendings) {
                 controller.set('pendingAuths', pendings);
             });
 
-            // controller.set('pendingAuths', this.store.find('pendingAuth'));
-            // controller.set('existingAuths', this.store.find('auth'));
+            Cs.User.findAll().then(function (users) {
+                controller.set('users', users);
+            });
+
         },
 
         // init: function () {
@@ -74,7 +72,7 @@
         // }
     });
 
-    Cseroldal.LoginRoute = Ember.Route.extend({
+    Cs.LoginRoute = Ember.Route.extend({
 
         setupController: function(controller, model) {
             this._super(controller, model);
@@ -88,15 +86,15 @@
 
     });
 
-    Cseroldal.IndexRoute = Ember.Route.extend({
+    Cs.IndexRoute = Ember.Route.extend({
         templateName: 'home'
     });
 
-    // Cseroldal.PedingRoute = Ember.Route.extend({
+    // Cs.PedingRoute = Ember.Route.extend({
     //     templateName: 'pendinguser'
     // });
 
-    Cseroldal.GameHubRoute = Ember.Route.extend({
+    Cs.GameHubRoute = Ember.Route.extend({
         templateName: 'gamehub',
 
         model: function() {
@@ -104,7 +102,7 @@
         }
     });
 
-    Cseroldal.GameHubViewRoute = Ember.Route.extend({
+    Cs.GameHubViewRoute = Ember.Route.extend({
 
         templateName: 'gamehub/view',
 
@@ -113,7 +111,7 @@
         }
     });
 
-    Cseroldal.GameHubEditRoute = Ember.Route.extend({
+    Cs.GameHubEditRoute = Ember.Route.extend({
 
         templateName: 'gamehub/edit',
 
@@ -138,7 +136,7 @@
 
     });
 
-    Cseroldal.GameHubNewRoute = Ember.Route.extend({
+    Cs.GameHubNewRoute = Ember.Route.extend({
 
         controllerName: 'gameHub.edit',
         templateName: 'gamehub/edit',
@@ -156,7 +154,7 @@
 
     });
 
-    Cseroldal.GameHubSettingsRoute = Ember.Route.extend({
+    Cs.GameHubSettingsRoute = Ember.Route.extend({
 
         templateName: 'gamehub/settings',
 
@@ -171,7 +169,7 @@
 
     });
 
-    // Cseroldal.UserIndexRoute = Ember.Route.extend({
+    // Cs.UserIndexRoute = Ember.Route.extend({
 
     //     templateName: 'user'
 
@@ -181,7 +179,7 @@
 
     // });
 
-    // Cseroldal.UserEditRoute = Ember.Route.extend({
+    // Cs.UserEditRoute = Ember.Route.extend({
 
     //     controllerName: 'user.edit',
     //     templateName: 'user/edit',

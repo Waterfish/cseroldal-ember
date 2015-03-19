@@ -10,6 +10,10 @@
 
             loginGoogle: function () {
                 this.get('auth').loginGoogle();
+            },
+
+            loginFacebook: function () {
+                this.get('auth').loginFacebook();
             }
         },
 
