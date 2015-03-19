@@ -6,9 +6,13 @@
             save: function () {
                 var _this= this,
                     model = this.get('model');
+
+                model.set('user', this.get('auth.currentUser'));
+
                 model.save().then(function () {
                     _this.transitionToRoute('gameHub.view', model);
                 });
+
             },
 
             cancel: function () {
@@ -24,11 +28,11 @@
             },
 
             addLocation: function () {
-                // debugger;
                 var _this= this,
                     model = this.get('model');
 
-                this.store.find('gameLocation', this.get('selectedLocation')).then(function(location) {
+                this.store.find('gameLocation', this.get('selectedLocation'))
+                    .then(function(location) {
                     model.get('locations').pushObject(location);
                     _this.set('selectedLocation', null);
                 });

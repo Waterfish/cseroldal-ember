@@ -1,19 +1,103 @@
-(function (Ember, Cseroldal, undefined) {
+(function (Ember, Cs, undefined) {
     'use strict';
     // App route
-    Cseroldal.Router.map(function() {
+    Cs.Router.map(function() {
 
-        this.resource('gameHub', {path: '/'}, function () {
+        this.resource('gameHub', function () {
             this.route('view', {path: '/view/:game_id'});
             this.route('edit', {path: '/edit/:game_id'});
             this.route('new', {path: '/new'});
             this.route('settings', {path: '/settings'});
         });
 
+        this.resource('user', function () {
+            this.route('edit', {path: '/edit'});
+        });
+
+
+        this.route('manage');
+
+        this.route('login');
+        this.route('register');
+        this.route('registerg');
+        this.route('pending');
+
+        this.route('forbidden');
+
     });
 
+    Ember.Route.reopen({
+        beforeModel: function (transition) {
 
-    Cseroldal.GameHubRoute = Ember.Route.extend({
+            // These routes you do not need to be logged in to access.
+            var openRoutes = ['index', 'login', 'register'];
+
+            // Not logged in and attempting to access protected route, redirect to login.
+            if (openRoutes.indexOf(transition.targetName) === -1 &&
+                    Ember.isEmpty(this.get('auth.loginData'))) {
+
+                Ember.Logger.warn('Attempting to access protected route ' +
+                    'when not logged in. Aborting.');
+
+                // Save the transition to try again status changes.
+                this.set('auth.transition', transition);
+                this.set('auth.transitionToLogin', true);
+
+                // Redirect to login.
+                this.transitionTo('login');
+            }
+        }
+    });
+
+    Cs.ManageRoute = Ember.Route.extend({
+        // model: function() {
+        //     return this.store.find('game');
+        // }
+
+        setupController: function(controller, model) {
+            this._super(controller, model);
+
+            Cs.PendingAuth.findAll().then(function (pendings) {
+                controller.set('pendingAuths', pendings);
+            });
+
+            Cs.User.findAll().then(function (users) {
+                controller.set('users', users);
+            });
+
+        },
+
+        // init: function () {
+        //     // check privileges
+        //     // if (!this.get('auth.currentUser.isAdmin')) {
+        //     //     // this.set('auth.transition', transition);
+        //     // }
+        // }
+    });
+
+    Cs.LoginRoute = Ember.Route.extend({
+
+        setupController: function(controller, model) {
+            this._super(controller, model);
+            // decide if login was transited from other page
+            controller.set('hideMessage', true);
+            if (this.get('auth.transitionToLogin')) {
+                controller.set('hideMessage', false);
+                this.set('auth.transitionToLogin', false);
+            }
+        }
+
+    });
+
+    Cs.IndexRoute = Ember.Route.extend({
+        templateName: 'home'
+    });
+
+    // Cs.PedingRoute = Ember.Route.extend({
+    //     templateName: 'pendinguser'
+    // });
+
+    Cs.GameHubRoute = Ember.Route.extend({
         templateName: 'gamehub',
 
         model: function() {
@@ -21,7 +105,7 @@
         }
     });
 
-    Cseroldal.GameHubViewRoute = Ember.Route.extend({
+    Cs.GameHubViewRoute = Ember.Route.extend({
 
         templateName: 'gamehub/view',
 
@@ -30,7 +114,7 @@
         }
     });
 
-    Cseroldal.GameHubEditRoute = Ember.Route.extend({
+    Cs.GameHubEditRoute = Ember.Route.extend({
 
         templateName: 'gamehub/edit',
 
@@ -40,7 +124,9 @@
 
         setupController: function(controller, model) {
             this._super(controller, model);
-            controller.set('gameLocations', this.store.find('gameLocation'));
+            this.store.find('gameLocation').then(function (locations) {
+                controller.set('gameLocations', locations);
+            });
         }
 
         // deactivate: function () {
@@ -53,18 +139,25 @@
 
     });
 
-    Cseroldal.GameHubNewRoute = Ember.Route.extend({
+    Cs.GameHubNewRoute = Ember.Route.extend({
 
         controllerName: 'gameHub.edit',
         templateName: 'gamehub/edit',
 
         model: function () {
             return this.store.createRecord('game');
+        },
+
+        setupController: function(controller, model) {
+            this._super(controller, model);
+            this.store.find('gameLocation').then(function (locations) {
+                controller.set('gameLocations', locations);
+            });
         }
 
     });
 
-    Cseroldal.GameHubSettingsRoute = Ember.Route.extend({
+    Cs.GameHubSettingsRoute = Ember.Route.extend({
 
         templateName: 'gamehub/settings',
 
@@ -78,6 +171,28 @@
         }
 
     });
+
+    // Cs.UserIndexRoute = Ember.Route.extend({
+
+    //     templateName: 'user'
+
+    //     // setupController: function(controller, model) {
+    //     //     this._super(controller, model);
+    //     // }
+
+    // });
+
+    // Cs.UserEditRoute = Ember.Route.extend({
+
+    //     controllerName: 'user.edit',
+    //     templateName: 'user/edit',
+
+    //     setupController: function(controller, model) {
+    //         console.log('!!!!!!!!!!!');
+    //         this._super(controller, model);
+    //     }
+
+    // });
 
 
 } (window.Ember, window.Cseroldal));
