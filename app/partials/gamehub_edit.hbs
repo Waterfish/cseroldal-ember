@@ -1,0 +1,47 @@
+<div>
+    <h2>Játék szerkesztése</h2>
+    <form class="" role="form">
+        <div class="form-group">
+            <label class="control-label" for="game-title">Cím:</label>
+            {{input type="text" placeholder="A játék címe" value=title id="game-title" class="form-control"}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="game-location">Helyigény:</label>
+            {{view Ember.Select
+                id="game-location"
+                prompt="Válassz helyszínt"
+                content=gameLocations
+                optionValuePath="content.id"
+                optionLabelPath="content.label"
+                value=selectedLocation}}
+            <button class="btn btn-primary pull-right" {{action 'addLocation'}}>Add</button>
+        </div>
+        <div class="small list-group">
+            <span>Location:</span>
+            {{#each location in locations}}
+                <span class="list-item-bullet">
+                    {{location.label}}
+                    <a class="glyphicon glyphicon-remove btn-nostyle" {{action 'removeLocation' location}}>
+                    </a>
+                </span>
+            {{/each}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="game-short-description">Rövid leírás:</label>
+            {{input type="text" placeholder="Rövid leírás" value=shortDescription id="game-short-description" class="form-control"}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="game-description">Leírás:</label>{{textarea placeholder="Részletes leírás" value=description id="game-description" class="form-control"}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="game-players-number">Játékosok száma:</label>{{input placeholder="min player-max player" value=playersNumber id="game-players-number" class="form-control"}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="game-play-time">Játékidő:</label>{{input placeholder="min time-max time" value=playTime id="game-play-time" class="form-control"}}
+        </div>
+    </form>
+    <div class="clearfix">
+        <button class="btn pull-right" {{action 'cancel'}}>Cancel</button>
+        <button class="btn btn-primary pull-right" {{action 'save'}}>Save</button>
+    </div>
+</div>

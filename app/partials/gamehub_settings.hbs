@@ -1,0 +1,16 @@
+<form class="" role="form">
+    <div class="form-group">
+        <label class="control-label" for="location">New location:</label>
+        {{input type="text" placeholder="Add location" value=locationLabel id="location" class="form-control" action="addLocation"}}
+        <!-- <button class="btn pull-right" {{action 'addLocation'}}>Add</button> -->
+    </div>
+    <div class="small list-group">
+        {{#each location in locations}}
+            <span class="list-item-bullet">
+                {{location.label}}
+                <a class="glyphicon glyphicon-remove btn-nostyle" {{action 'removeLocation' location}}>
+                </a>
+            </span>
+        {{/each}}
+    </div>
+</form>

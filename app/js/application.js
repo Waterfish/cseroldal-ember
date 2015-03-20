@@ -102,7 +102,7 @@
                 }
 
             }, function(/*reason*/) {
-                var provider = loginData.provider === 'google',
+                var provider = loginData.provider,
                     pendingRef = fref.child('register-requests/' + loginData.uid);
 
                 // Check the reason why you have no json

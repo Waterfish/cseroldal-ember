@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <h3>Manage Pending users</h3>
+        <div class="list-group">
+            {{#each pending in pendingAuths}}
+                <div class="list-group-item">{{pending.email}}
+                    <button class="btn" {{action 'approve' pending}}>Approve</button>
+                    <button class="btn" {{action 'reject' pending}}>Reject</button>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="row">
+        <h3>Manage Existing users</h3>
+        <div class="list-group">
+            {{#each user in users}}
+                <div class="list-group-item">{{user.name}}
+                    <button class="btn" {{action 'delete' user}}>Delete</button>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

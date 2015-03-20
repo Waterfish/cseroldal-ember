@@ -39,6 +39,20 @@ module.exports = function(grunt) {
       // You get to make the name
       // The paths tell JSHint which files to validate
       myFiles: ['app/js/**/*.js']
+    },
+    emberTemplates: {
+      files: {
+        src: 'app/partials/**/*.hbs',
+        dest: 'app/build/dev_templates.js'
+      },
+      options: {
+        // amd: true,
+        templateBasePath: /app\/partials\//,
+        templateNamespace: 'Handlebars',
+        // templateName: function(name) {
+        //   return name.replace('_', '/');
+        // }
+      }
     }
     // simplemocha: {
     //   backend: {
@@ -57,7 +71,11 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-ember-templates');
 
   // Default task(s).
   grunt.registerTask('default', ['jshint']);
+
+  grunt.registerTask('hbs', ['emberTemplates']);
+
 };
