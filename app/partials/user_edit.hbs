@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        Edit user profile
+    </div>
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label for="familyname"
+               class="col-sm-2 control-label">
+               Family name
+        </label>
+        <div class="col-sm-10">
+          {{input id="familyname"
+                  class="form-control"
+                  type="text"
+                  placeholder="Familyname"
+                  value=userProfile.familyname
+                  }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="firstname"
+               class="col-sm-2 control-label">
+               First name
+        </label>
+        <div class="col-sm-10">
+            {{input id="firstname"
+                    class="form-control"
+                    type="text"
+                    placeholder="Firstname"
+                    value=userProfile.firstname
+                    }}
+        </div>
+      </div>
+    </form>
+</div>

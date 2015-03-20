@@ -1,0 +1,21 @@
+<div>
+    <h3>
+        {{title}}
+        <button class="btn btn-warning pull-right" {{action 'delete'}}>Delete</button>
+        {{#if isOwner}}
+        {{#link-to "gameHub.edit" this class="btn btn-default pull-right" role="button"}}
+            Edit
+        {{/link-to}}
+        {{/if}}
+    </h3>
+    <div class="small list-group">
+        <span>Location:</span>
+        {{#each location in locations}}
+            <span class="list-item-bullet">
+                {{location.label}}
+            </span>
+        {{/each}}
+    </div>
+    <p><quote>{{shortDescription}}</quote></p>
+    <p>{{description}}</p>
+</div>

@@ -1,0 +1,66 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">{{appName}}</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                {{#link-to "index" tagName='li' }}{{#link-to "index"}}Home{{/link-to}}{{/link-to}}
+                {{#if auth.currentUser}}
+                        {{#link-to "gameHub" tagName='li' }}{{#link-to "gameHub"}}Jatek{{/link-to}}{{/link-to}}
+                {{/if}}
+
+                {{#if auth.currentUser}}
+
+                    {{#if auth.security.permissions.godmode}}
+                        {{#link-to "manage" tagName='li' }}
+                            {{#link-to "manage"}}
+                            <span class="glyphicon glyphicon-wrench"></span>
+                            Manage
+                            {{/link-to}}
+                        {{/link-to}}
+                    {{/if}}
+
+                    {{#link-to "user" tagName='li' }}
+                        {{#link-to "user"}}
+                        Profile {{auth.currentUser.name}}
+                        {{/link-to}}
+                    {{/link-to}}
+                    <li class="pull-right">
+                        <a href="#" {{action 'logout'}}>
+                            Logout
+                        </a>
+                    </li>
+                {{else}}
+                    {{#link-to "login" tagName='li' }}{{#link-to "login"}}Login{{/link-to}}{{/link-to}}
+                    {{#link-to "register" tagName='li' }}{{#link-to "register"}}Register{{/link-to}}{{/link-to}}
+                {{/if}}
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    {{#each auth in auths}}
+    <div class="row">
+        {{auth.email}}
+        {{auth.uid}}
+        {{auth.user}}
+        {{auth.guid}}
+    </div>
+    {{/each}}
+</div>
+
+<div class="container">
+    <div class="row">
+        {{outlet}}
+    </div>
+</div>

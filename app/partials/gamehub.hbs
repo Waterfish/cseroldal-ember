@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+        <div class="gamelist col-md-4">
+            <div class="panel">
+                <div class="panel-body">
+                    {{#link-to "gameHub.new" class="btn btn-primary" role="button" activeClass="selected" replace=true}}New{{/link-to}}
+                    {{#link-to "gameHub.settings" class="btn btn-default" role="button" activeClass="selected" replace=true}}Settings{{/link-to}}
+                </div>
+            </div>
+            <div class="list-group">
+                {{#each model}}
+                    {{#link-to "gameHub.view" this class="list-group-item"}}
+                        {{title}}
+                        <div class="small">
+                            {{shortDescription}}
+                        </div>
+                    {{/link-to}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="gamedetail col-md-8">
+            {{outlet}}
+        </div>
+    </div>
+</div>

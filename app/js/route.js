@@ -107,7 +107,7 @@
 
     Cs.GameHubViewRoute = Ember.Route.extend({
 
-        templateName: 'gamehub/view',
+        templateName: 'gamehub_view',
 
         model: function (params) {
             return this.store.find('game', params.game_id);
@@ -116,7 +116,7 @@
 
     Cs.GameHubEditRoute = Ember.Route.extend({
 
-        templateName: 'gamehub/edit',
+        templateName: 'gamehub_edit',
 
         model: function (params) {
             return this.store.find('game', params.game_id);
@@ -142,7 +142,7 @@
     Cs.GameHubNewRoute = Ember.Route.extend({
 
         controllerName: 'gameHub.edit',
-        templateName: 'gamehub/edit',
+        templateName: 'gamehub_edit',
 
         model: function () {
             return this.store.createRecord('game');
@@ -159,7 +159,7 @@
 
     Cs.GameHubSettingsRoute = Ember.Route.extend({
 
-        templateName: 'gamehub/settings',
+        templateName: 'gamehub_settings',
 
         // model: function () {
         //     // return this.store.createRecord('game');

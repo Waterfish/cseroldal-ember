@@ -1,0 +1,32 @@
+{{#if submitted}}
+<div class="message">
+    A kérelmed sikeresen el lett küldve.
+    {{#link-to "index" class="btn btn-primary" role="button" replace=true}}Vissza a kezdőoldalra{{/link-to}}
+</div>
+{{else}}
+<form class="" role="form">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            Nem regisztrált felhasználó
+        </div>
+        <div class="panel-body">
+            Még nem vagy regisztrálva. Küldj egy kérelmet a feljelentkezése!
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="email">E-mail:</label>
+        {{input type="text" placeholder="E-mail cím" value=email id="email" class="form-control"}}
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="name">Név:</label>
+        {{input type="text" placeholder="Név" value=name id="név" class="form-control" readonly="readonly"}}
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="message">Üzenet:</label>
+        {{input type="text" placeholder="" value=message id="message" class="form-control"}}
+    </div>
+    <div class="form-group row">
+        <button class="btn btn-primary" {{action 'subscribe'}}>Elküld</button>
+    </div>
+</form>
+{{/if}}
