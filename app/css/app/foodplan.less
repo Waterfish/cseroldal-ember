@@ -1,0 +1,113 @@
+#foodplans-template {
+    .plan-day {
+        h2 {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .meal-container {
+            .flex-display(flex);
+            .flex-direction(row);
+        }
+    }
+
+    .meal {
+        .flex(0 1 auto);
+
+        width: 360px;
+        padding: 20px;
+
+        .meal-header {
+            .flex-display(flex);
+            .flex-direction(row);
+
+            .meal-type {
+                .flex(1 0 auto);
+                font-size: 16px;
+                text-transform: capitalize;
+            }
+
+            .serving {
+                .flex(1 0 auto);
+                text-align: right;
+
+                em {
+                    font-weight: bold;
+                    font-style: normal;
+                    font-family: monospace;
+                }
+            }
+
+        }
+
+        table {
+            font-size: 12px;
+
+            .food-name {
+                text-transform: capitalize;
+            }
+
+            .quantity {
+                input {
+                    width: 70px;
+                }
+            }
+
+
+        }
+    }
+
+    .others {
+        .name {
+            text-transform: capitalize;
+            font-weight: bold;
+        }
+
+        .quantity {
+            padding-left: 20px;
+        }
+
+        .cost {
+            padding-left: 40px;
+        }
+    }
+
+    .full-cost-for-plan {
+        .full-cost {
+            border-top: 1px solid #666;
+        }
+
+        td:nth-of-type(1) {
+            padding-right: 20px;
+        }
+    }
+
+
+    @media print {
+    .plan-day {
+        .meal-container {
+            .flex-display(flex);
+            .flex-direction(row);
+            .flex-wrap(wrap);
+        }
+    }
+    .meal {
+
+        table {
+            thead th:nth-of-type(2),
+            tr.food-item .quantity {
+                display: none !important;
+            }
+
+
+
+
+            }
+        }
+
+        .plan-day,
+        .others {
+            page-break-after: always;
+        }
+    }
+}

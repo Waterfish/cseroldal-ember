@@ -10,6 +10,20 @@
             this.route('settings', {path: '/settings'});
         });
 
+        this.resource('foodplans', function () {
+            // this.route('view', {path: '/view/:game_id'});
+            this.route('edit', {path: '/edit/:plan_id'});
+            this.route('new', {path: '/new'});
+            // this.resource('foods', function () {
+
+            // });
+            // this.resource('meals', function () {
+
+            // });
+        });
+
+
+
         this.resource('user', function () {
             this.route('edit', {path: '/edit'});
         });
@@ -23,6 +37,8 @@
         this.route('pending');
 
         this.route('forbidden');
+
+        this.route('notfound');
 
     });
 
@@ -194,5 +210,162 @@
 
     // });
 
+    Cs.FoodplansRoute = Ember.Route.extend({
+        // model: function() {
+        //     return this.store.find('game');
+        // }
+        //
+        // templateName: 'foodplans',
+
+        setupController: function(controller, model) {
+            this._super(controller, model);
+
+            // Cs.PendingAuth.findAll().then(function (pendings) {
+            //     controller.set('pendingAuths', pendings);
+            // });
+
+            // Cs.User.findAll().then(function (users) {
+            //     controller.set('users', users);
+            // });
+
+        }
+
+    });
+
+    Cs.FoodplansIndexRoute = Ember.Route.extend({
+        // model: function() {
+        //     return this.store.find('game');
+        // }
+
+        renderTemplate: function() {
+            this.render('foodplans_index',
+                {
+                    outlet: 'right'
+            });
+        },
+
+
+        setupController: function(controller, model) {
+            this._super(controller, model);
+
+            // Cs.PendingAuth.findAll().then(function (pendings) {
+            //     controller.set('pendingAuths', pendings);
+            // });
+
+            // Cs.User.findAll().then(function (users) {
+            //     controller.set('users', users);
+            // });
+
+        }
+
+    });
+
+    Cs.FoodplansNewRoute = Ember.Route.extend({
+        controllerName: 'foodplans_edit',
+
+        model: function() {
+            return Cs.Foodplan.create({
+            });
+        },
+
+        // templateName: 'foodplans_edit',
+
+        renderTemplate: function() {
+            this.render('foodplans_edit', {
+                outlet: 'right'
+            });
+        },
+
+
+        setupController: function(controller, model) {
+            this._super(controller, model);
+        }
+
+    });
+
+    Cs.FoodplansEditRoute = Ember.Route.extend({
+
+        model: function(params) {
+            return Cs.Foodplan.find(params.plan_id);
+        },
+
+        renderTemplate: function() {
+            this.render('foodplans_edit', {
+                outlet: 'right'
+            });
+        },
+
+        serialize: function(model) {
+            return { plan_id: model.get('guid')};
+        },
+
+
+        setupController: function(controller, model) {
+            this._super(controller, model);
+        },
+
+        actions: {
+            error: function(error/*, transition*/) {
+                console.debug(error);
+                this.transitionTo('notfound');
+            }
+        }
+
+    });
+
+    Cs.FoodsRoute = Ember.Route.extend({
+        // model: function() {
+        //     return this.store.find('game');
+        // }
+
+        renderTemplate: function() {
+            this.render('foodplans_foods',
+                {
+                    outlet: 'left'
+                });
+        },
+
+
+        setupController: function(controller, model) {
+            this._super(controller, model);
+
+            // Cs.PendingAuth.findAll().then(function (pendings) {
+            //     controller.set('pendingAuths', pendings);
+            // });
+
+            // Cs.User.findAll().then(function (users) {
+            //     controller.set('users', users);
+            // });
+
+        }
+
+    });
+
+    Cs.FoodsIndexRoute = Ember.Route.extend({
+        // model: function() {
+        //     return this.store.find('game');
+        // }
+
+        renderTemplate: function() {
+            this.render('foodplans_foods_index', {
+                outlet: 'food'
+            });
+        },
+
+
+        setupController: function(controller, model) {
+            this._super(controller, model);
+
+            // Cs.PendingAuth.findAll().then(function (pendings) {
+            //     controller.set('pendingAuths', pendings);
+            // });
+
+            // Cs.User.findAll().then(function (users) {
+            //     controller.set('users', users);
+            // });
+
+        }
+
+    });
 
 } (window.Ember, window.Cseroldal));

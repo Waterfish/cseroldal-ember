@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <h2>Kaja-terv szerkesztése</h2>
+    <form class="" role="form">
+        <div class="form-group">
+            <label class="control-label" for="plan-title">Terv címe:</label>
+            {{input type="text" placeholder="Cím" value=title id="plan-title" class="form-control"}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="plan-description">Leírás:</label>
+            {{input type="text" placeholder="Leírás" value=description id="plan-description" class="form-control"}}
+        </div>
+        <div class="small form-group">
+            <label class="control-label" for="plan-authors">Szerkesztő:</label>
+            {{input type="text" placeholder="Szerzők" value=authors id="plan-authors" class="form-control"}}
+        </div>
+        {{#if days}}
+        <div>
+            {{#each day in days}}
+            <div class="plan-day" {{bind-attr data-date=day.date}}>
+                <h2>
+                    {{input type="date" placeholder="Date" value=date id="" class="form-control"}}
+                </h2>
+                {{#if day.meals}}
+                <div class="meal-container">
+                    {{#each meal in day.meals}}
+                    <div class="meal" {{bind-attr data-serving=meal.serving}}>
+                        <div class="meal-header">
+                            <span class="meal-type">
+                            {{input type="text" placeholder="reggeli/tizorai/ebed/uszonna/vacsora" value=type id="" class="form-control"}}
+                            </span>
+                            <span class="serving">
+                            <em>{{input type="text" placeholder="X" value=servings id="" class="form-control"}}</em> fő
+                            </span>
+                        </div>
+                        <div>
+                            {{input type="text" placeholder="Étel név" value=foodName id="" class="form-control"}}
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Étel</th>
+                                    <th>per/fő</th>
+                                    <th>egész</th>
+                                    <th>píz</th>
+                                </tr>
+                            </thead>
+                            {{#if meal.foods}}
+                            <tbody>
+                                {{#each food in meal.foods}}
+                                <tr class="food-item" {{bind-attr data-serving=meal.serving data-food-id=food.id}}>
+                                    <td class="food-name"></td>
+                                    <td class="quantity">
+                                        {{input type="text" placeholder="mennyiseg" value=est_quantity id="" class="form-control"}}
+                                    </td>
+                                    <td class="sum_quantity"></td>
+                                    <td class="cost"></td>
+                                </tr>
+                                {{/each}}
+                                <tr class="full-cost">
+                                    <td colspan="2">
+                                        Teljes ár
+                                    </td>
+                                    <td colspan="2">
+                                        <span class="value"></span> rsd
+                                    </td>
+                                </tr>
+                            </tbody>
+                            {{/if}}
+                        </table>
+                        <button {{action 'addFood' meal}}>Plusz kaja</button>
+                    </div>
+                    {{/each}}
+
+                </div>
+                {{/if}}
+                <button {{action 'addMeal' day}}>Plusz étkezés</button>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+        <div>
+        <button {{action 'addDay'}}>Plusz nap</button>
+        </div>
+    </form>
+    <div class="clearfix">
+        <button class="btn pull-right" {{action 'cancel'}}>Cancel</button>
+        <button class="btn btn-primary pull-right" {{action 'save'}}>Save</button>
+    </div>
+</div>
