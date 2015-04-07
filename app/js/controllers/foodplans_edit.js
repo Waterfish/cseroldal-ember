@@ -13,7 +13,7 @@
             },
 
             addFood: function (meal) {
-                this.model.addFood(meal);
+                meal.addFood();
             },
 
             save: function () {
@@ -28,6 +28,14 @@
 
             }
 
+        },
+
+        mealTypes: Cs.Foodplan.staticMealTypes,
+
+        init: function () {
+            this._super.apply(this, arguments);
+
+            console.log(Cs.Foodplan.staticMealTypes);
         }
 
     });

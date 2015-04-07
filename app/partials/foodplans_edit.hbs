@@ -18,7 +18,7 @@
             {{#each day in days}}
             <div class="plan-day" {{bind-attr data-date=day.date}}>
                 <h2>
-                    {{input type="date" placeholder="Date" value=date id="" class="form-control"}}
+                    {{input type="date" placeholder="Date" value=day.date id="" class="form-control"}}
                 </h2>
                 {{#if day.meals}}
                 <div class="meal-container">
@@ -26,33 +26,42 @@
                     <div class="meal" {{bind-attr data-serving=meal.serving}}>
                         <div class="meal-header">
                             <span class="meal-type">
-                            {{input type="text" placeholder="reggeli/tizorai/ebed/uszonna/vacsora" value=type id="" class="form-control"}}
+                            {{view "select"
+                               content=mealTypes
+                               optionValuePath="content.value"
+                               optionLabelPath="content.label"
+                               value=meal.type
+                               prompt="Valasz"}}
+
+                            {{! input type="text" placeholder="reggeli/tizorai/ebed/uszonna/vacsora" value=meal.type id="" class="form-control" }}
                             </span>
                             <span class="serving">
-                            <em>{{input type="text" placeholder="X" value=servings id="" class="form-control"}}</em> fő
+                            <em>{{input type="text" placeholder="X" value=meal.serving id="" class="form-control"}}</em> fő
                             </span>
                         </div>
                         <div>
-                            {{input type="text" placeholder="Étel név" value=foodName id="" class="form-control"}}
+                            {{input type="text" placeholder="Étel név" value=meal.foodName id="" class="form-control"}}
                         </div>
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>Étel</th>
                                     <th>per/fő</th>
-                                    <th>egész</th>
+                                    <!-- <th>egész</th> -->
                                     <th>píz</th>
                                 </tr>
                             </thead>
                             {{#if meal.foods}}
                             <tbody>
                                 {{#each food in meal.foods}}
-                                <tr class="food-item" {{bind-attr data-serving=meal.serving data-food-id=food.id}}>
-                                    <td class="food-name"></td>
-                                    <td class="quantity">
-                                        {{input type="text" placeholder="mennyiseg" value=est_quantity id="" class="form-control"}}
+                                <tr class="food-item" {{bind-attr data-serving=meal.serving data-food-id=food.food_id}}>
+                                    <td class="food-name">
+                                        {{input type="text" placeholder="food_id" value=food.food_id id="" class="form-control"}}
                                     </td>
-                                    <td class="sum_quantity"></td>
+                                    <td class="quantity">
+                                        {{input type="number" placeholder="mennyiseg" value=food.est_quantity id="" class="form-control"}}
+                                    </td>
+                                    <!-- <td class="sum_quantity"></td> -->
                                     <td class="cost"></td>
                                 </tr>
                                 {{/each}}
