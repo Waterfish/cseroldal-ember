@@ -1,4 +1,13 @@
 #foodplans-template {
+    .plan-info {
+        em {
+            padding-right: 5px;
+            font-weight: bold;
+        }
+
+        margin-bottom: 20px;
+    }
+
     .plan-day {
         h2 {
             text-align: center;
@@ -8,6 +17,9 @@
         .meal-container {
             .flex-display(flex);
             .flex-direction(row);
+            .justify-content(space-between);
+
+            padding: 10px 0;
         }
     }
 
@@ -15,27 +27,10 @@
         .flex(0 1 auto);
 
         width: 360px;
-        padding: 20px;
+        padding: 0 10px;
 
         .meal-header {
-            .flex-display(flex);
-            .flex-direction(row);
-
-            .meal-type {
-                .flex(1 0 auto);
-                font-size: 16px;
-                text-transform: capitalize;
-            }
-
-            .serving {
-                .flex(1 0 auto);
-                text-align: right;
-
-                em {
-                    font-weight: bold;
-                    font-style: normal;
-                    font-family: monospace;
-                }
+            .meal-header-item {
             }
 
         }

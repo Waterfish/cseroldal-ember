@@ -210,32 +210,12 @@
 
     // });
 
-    Cs.FoodplansRoute = Ember.Route.extend({
-        // model: function() {
-        //     return this.store.find('game');
-        // }
-        //
-        // templateName: 'foodplans',
-
-        setupController: function(controller, model) {
-            this._super(controller, model);
-
-            // Cs.PendingAuth.findAll().then(function (pendings) {
-            //     controller.set('pendingAuths', pendings);
-            // });
-
-            // Cs.User.findAll().then(function (users) {
-            //     controller.set('users', users);
-            // });
-
-        }
-
-    });
+    Cs.FoodplansRoute = Ember.Route.extend({});
 
     Cs.FoodplansIndexRoute = Ember.Route.extend({
-        // model: function() {
-        //     return this.store.find('game');
-        // }
+        model: function() {
+            return Cs.Foodplan.findAll();
+        },
 
         renderTemplate: function() {
             this.render('foodplans_index',

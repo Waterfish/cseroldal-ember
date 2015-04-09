@@ -1,1 +1,27 @@
-{{#link-to "foodplans.new" class="btn btn-primary" role="button" activeClass="selected" replace=true}}Új kajaterv{{/link-to}}
+<div>
+    <div>
+        {{#link-to "foodplans.new" class="btn btn-primary" role="button" activeClass="selected" replace=true}}Új kajaterv{{/link-to}}
+    </div>
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Cim</th><th>Létrehozva/Módosítva</th><th>Szerzok</th><th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each plan in model}}
+                    <tr>
+                        <td>{{plan.title}}</td>
+                        <td>{{plan.createdModifiedDate}}</td>
+                        <td>{{plan.authorList}}</td>
+                        <td>
+                            <button {{action 'edit' plan}}>Edit</button>
+                            <button {{action 'delete' plan}}>Torol</button>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

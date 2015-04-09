@@ -1,10 +1,12 @@
-(function (Ember, Cs, undefined) {
+(function (Ember, Cs, moment, undefined) {
     'use strict';
 
     Cs.Foodplan = Cs.Model.extend({
         title: '',
         description: '',
-        author: null,
+        created: null,
+        modified: null,
+        authors: [],
         days: [],
 
         addDay: function () {
@@ -55,6 +57,27 @@
             }
         }.observes('days'),
 
+        // Computed properties
+        createdDate: function () {
+            return moment(this.get('created')).format('lll');
+        }.property('created'),
+
+        modifiedDate: function () {
+            return moment(this.get('modified')).format('lll');
+        }.property('modified'),
+
+        createdModified: function () {
+            if (Ember.isNone(this.get('modified'))) {
+                return this.get('createdDate');
+            } else {
+                return this.get('createdDate') + ' / ' + this.get('modifiedDate');
+            }
+        }.property('created', 'modified'),
+
+        authorList: function () {
+            return this.get('authors').join(', ');
+        }.property('authors'),
+
 
         // // THIS SHOULD WORK
         // setUnknownProperty: function(key, value){
@@ -67,7 +90,13 @@
         // },
 
         _serialize: function () {
-            var object = this.getProperties(['title', 'description', 'author']);
+            var object = this.getProperties(['title', 'description', 'authors']);
+
+            if (Ember.isNone(this.get('guid'))) {
+                object.created = moment().toJSON();
+            } else {
+                object.modified = moment().toJSON();
+            }
 
             object.days = this.days.map(function (item) {
                 return {
@@ -147,9 +176,11 @@
         _serialize: function () {
             var object = this.getProperties(['type', 'order', 'serving', 'foodName']);
 
-            object.foods = this.foods.map(function (item) {
-                return item._serialize();
-            });
+            if (this.food) {
+                object.foods = this.foods.map(function (item) {
+                    return item._serialize();
+                });
+            }
 
             return object;
         }
@@ -196,4 +227,4 @@
         ref: Cs.FirebaseRef.child('foodplan/food/')
     });
 
-} (window.Ember, window.Cseroldal));
+} (window.Ember, window.Cseroldal, window.moment));

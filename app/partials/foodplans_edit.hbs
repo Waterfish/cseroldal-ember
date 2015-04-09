@@ -1,6 +1,17 @@
 <div class="container-fluid">
     <h2>Kaja-terv szerkesztése</h2>
     <form class="" role="form">
+        <div class="small plan-info">
+            {{#if authors}}
+            <em>Szerkesztő:</em><span>{{authorList}}</span>
+            {{/if}}
+            {{#if created}}
+            <em>Létrehozva:</em><span>{{createdDate}}</span>
+            {{/if}}
+            {{#if modified}}
+            <em>Módosítva:</em><span>{{modifiedDate}}</span>
+            {{/if}}
+        </div>
         <div class="form-group">
             <label class="control-label" for="plan-title">Terv címe:</label>
             {{input type="text" placeholder="Cím" value=title id="plan-title" class="form-control"}}
@@ -9,38 +20,37 @@
             <label class="control-label" for="plan-description">Leírás:</label>
             {{input type="text" placeholder="Leírás" value=description id="plan-description" class="form-control"}}
         </div>
-        <div class="small form-group">
-            <label class="control-label" for="plan-authors">Szerkesztő:</label>
-            {{input type="text" placeholder="Szerzők" value=authors id="plan-authors" class="form-control"}}
-        </div>
         {{#if days}}
+        <h3>Napok</h3>
         <div>
             {{#each day in days}}
-            <div class="plan-day" {{bind-attr data-date=day.date}}>
-                <h2>
+            <div class="plan-day">
+                <div>
                     {{input type="date" placeholder="Date" value=day.date id="" class="form-control"}}
-                </h2>
+                </div>
                 {{#if day.meals}}
-                <div class="meal-container">
+                <div class="meal-container panel panel-default">
                     {{#each meal in day.meals}}
-                    <div class="meal" {{bind-attr data-serving=meal.serving}}>
+                    <div class="meal">
                         <div class="meal-header">
-                            <span class="meal-type">
-                            {{view "select"
-                               content=mealTypes
-                               optionValuePath="content.value"
-                               optionLabelPath="content.label"
-                               value=meal.type
-                               prompt="Valasz"}}
-
-                            {{! input type="text" placeholder="reggeli/tizorai/ebed/uszonna/vacsora" value=meal.type id="" class="form-control" }}
-                            </span>
-                            <span class="serving">
-                            <em>{{input type="text" placeholder="X" value=meal.serving id="" class="form-control"}}</em> fő
-                            </span>
-                        </div>
-                        <div>
+                            <div class="meal-header-item">
+                                <label>Étkezés tipusa:</label>
+                                {{view "select"
+                                   content=mealTypes
+                                   optionValuePath="content.value"
+                                   optionLabelPath="content.label"
+                                   value=meal.type
+                                   prompt="Valasz"}}
+                            </div>
+                            <div class="meal-header-item">
+                                <div class="input-group">
+                                    {{input type="text" placeholder="porció" value=meal.serving class="form-control"}}
+                                    <span class="input-group-addon">fő</span>
+                                </div>
+                            </div>
+                            <div class="meal-header-item">
                             {{input type="text" placeholder="Étel név" value=meal.foodName id="" class="form-control"}}
+                            </div>
                         </div>
                         <table class="table">
                             <thead>
