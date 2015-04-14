@@ -8,12 +8,24 @@
                 this.model.addDay();
             },
 
+            removeDay: function (day) {
+                this.model.removeDay(day);
+            },
+
             addMeal: function (day) {
                 this.model.addMeal(day);
             },
 
+            removeMeal: function (day, meal) {
+                this.model.removeMeal(day, meal);
+            },
+
             addFood: function (meal) {
                 meal.addFood();
+            },
+
+            removeFood: function (meal, food) {
+                meal.removeFood(food);
             },
 
             save: function () {
@@ -42,9 +54,13 @@
         mealTypes: Cs.Foodplan.staticMealTypes,
 
         init: function () {
+            var _this = this;
+
             this._super.apply(this, arguments);
 
-            console.log(Cs.Foodplan.staticMealTypes);
+            Cs.Food.findAll().then(function (data) {
+                _this.set('food_list', data);
+            });
         }
 
     });

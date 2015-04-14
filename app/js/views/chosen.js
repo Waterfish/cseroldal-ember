@@ -13,7 +13,7 @@
         didInsertElement: function () {
             var _this = this;
 
-            Ember.$(this.element).chosen({
+            this.$().chosen({
                 // todayHighlight: true,
                 no_results_text: this.noResultText,
                 max_selected_options: this.maxSelect,
@@ -21,6 +21,11 @@
                 placeholder_text_single: this.placeholderTextSingle
             });
 
+        },
+
+        willDestroyElement: function(){
+            // do cleanup if needed
+            this._super();
         },
 
         _updateSelect: function () {

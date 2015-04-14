@@ -26,7 +26,9 @@
             {{#each day in days}}
             <div class="plan-day">
                 <div>
-                    {{input type="date" placeholder="Date" value=day.date id="" class="form-control"}}
+                    {{view 'datepicker' placeholder="Dátum" value=day.date class="form-control"}}
+                    <button class="btn" {{action 'addMeal' day}}>Plusz étkezés</button>
+                    <button class="btn" {{action 'removeDay' day}}>Törlés</button>
                 </div>
                 {{#if day.meals}}
                 <div class="meal-container panel panel-default">
@@ -40,7 +42,10 @@
                                    optionValuePath="content.value"
                                    optionLabelPath="content.label"
                                    value=meal.type
-                                   prompt="Valasz"}}
+                                   prompt="Valasz"
+                                   class="form-control"}}
+
+                                <button class="btn" {{action 'removeMeal' day meal}}>Törlés</button>
                             </div>
                             <div class="meal-header-item">
                                 <div class="input-group">
@@ -52,53 +57,68 @@
                             {{input type="text" placeholder="Étel név" value=meal.foodName id="" class="form-control"}}
                             </div>
                         </div>
+                        {{#if meal.foods}}
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>Étel</th>
-                                    <th>per/fő</th>
-                                    <!-- <th>egész</th> -->
-                                    <th>píz</th>
+                                    <th colspan="2">mennyiseg/fő</th>
                                 </tr>
                             </thead>
-                            {{#if meal.foods}}
                             <tbody>
                                 {{#each food in meal.foods}}
-                                <tr class="food-item" {{bind-attr data-serving=meal.serving data-food-id=food.food_id}}>
-                                    <td class="food-name">
-                                        {{input type="text" placeholder="food_id" value=food.food_id id="" class="form-control"}}
+                                <tr class="food-item">
+                                    <td class="food-name" colspan="2">
+                                        {{view "chosen"
+                                           content=food_list
+                                           optionValuePath="content.guid"
+                                           optionLabelPath="content.label"
+                                           prompt="Valassz"
+                                           value=food.food_id
+                                           class=""}}
                                     </td>
                                     <td class="quantity">
-                                        {{input type="number" placeholder="mennyiseg" value=food.est_quantity id="" class="form-control"}}
+                                        {{input type="number" placeholder="mennyiseg" value=food.head_quantity id="" class="form-control"}}
                                     </td>
-                                    <!-- <td class="sum_quantity"></td> -->
-                                    <td class="cost"></td>
                                 </tr>
+                                <tr class="food-item">
+                                    <td class="">{{food.serving}}</td>
+                                    <td class="cost">{{food.price.rsd}}</td>
+                                    <td class="cost">{{food.cost}}</td>
+                                    <td class="actions">
+                                        <button class="btn btn-sm" {{action 'removeFood' meal food}}>Remove</button>
+                                    </td>
+                                </tr>
+                                <!-- <tr class="food-item">
+                                    <td class="food-test" colspan="3">
+                                    {{!food.food_id}}
+                                    </td>
+                                </tr> -->
                                 {{/each}}
                                 <tr class="full-cost">
                                     <td colspan="2">
                                         Teljes ár
                                     </td>
                                     <td colspan="2">
-                                        <span class="value"></span> rsd
+                                        <span class="value">{{meal.sumPrice}}</span> rsd
                                     </td>
                                 </tr>
                             </tbody>
-                            {{/if}}
                         </table>
-                        <button {{action 'addFood' meal}}>Plusz kaja</button>
+                        {{else}}
+                        <button class="btn btn-sm" {{action 'addFood' meal}}>Plusz kaja</button>
+                        {{/if}}
                     </div>
                     {{/each}}
 
                 </div>
                 {{/if}}
-                <button {{action 'addMeal' day}}>Plusz étkezés</button>
             </div>
             {{/each}}
         </div>
         {{/if}}
         <div>
-        <button {{action 'addDay'}}>Plusz nap</button>
+        <button class="btn" {{action 'addDay'}}>Plusz nap</button>
         </div>
     </form>
     <div class="clearfix">

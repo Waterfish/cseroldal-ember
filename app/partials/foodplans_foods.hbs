@@ -1,8 +1,84 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        Foodplans foods
+        <div class="col-md-8">
+        <h3>Ételek</h3>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary" {{action "newFood"}}>Uj etel</button>
+        </div>
+    </div>
+
+    {{#if currentFood}}
+    <div class="row panel panel-default">
+        <form class="col-md-12 food-edit-form" role="form">
+            <div class="form-group">
+                <label class="control-label" for="food-title">Cím:</label>
+                {{input type="text" placeholder="Cím" value=currentFood.label id="food-title" class="form-control"}}
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="food-info">Leírás:</label>
+                {{input type="text" placeholder="Részletes leírás" value=currentFood.info id="food-info" class="form-control"}}
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="control-label" for="food-price">Ár:</label>
+                    {{input type="number" placeholder="Ár dinárban" value=currentFood.price.rsd id="food-price" class="form-control"}}
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="control-label" for="food-baseunit">Egység:</label>
+                    {{input type="text" placeholder="pl: 1 kg, 1 liter, db" value=currentFood.baseunit id="food-baseunit" class="form-control"}}
+                </div>
+                <!-- <div class="form-group col-md-6">
+                    <label class="control-label" for="food-currency">Valuta:</label>
+                    {{!view "select"
+                       content=currency
+                       optionValuePath="content.value"
+                       optionLabelPath="content.label"
+                       value=meal.type
+                       prompt="Valassz"
+                       class="form-control disabled"}}
+                </div> -->
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="control-label" for="food-price-link">Link:</label>
+                    {{input type="text" placeholder="Link a forrásra" value=currentFood.price.link id="food-price-link" class="form-control"}}
+                </div>
+            </div>
+            <div class="row">
+                <button class="col-xs-4 col-xs-offset-1 btn btn-primary"
+                    {{action "saveFoodEdit" currentFood}}>Mentés</button>
+                <button class="col-xs-4 col-xs-offset-2 btn btn-secondary" {{action "cancelFoodEdit" currentFood}}>Mégse</button>
+            </div>
+        </form>
+    </div>
+    {{/if}}
+    <div class="row">
         <div class="col-md-12">
-            {{outlet "food"}}
+            {{#each food in model}}
+                <div class="foode row">
+                    <div class="col-md-8">
+                        {{food.label}}
+                    </div>
+                    <div class="col-md-4">
+                        {{food.price.rsd}} rsd / {{food.baseunit}}
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="small col-md-12">
+                        {{food.info}}
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <button class="btn btn-default btn-sm " {{action "editFood" food}}>Modosit</button>
+                        <button class="btn btn-danger btn-sm " {{action "deleteFood" food}}>Torol</button>
+                    </div>
+                    <span class="col-md-4">
+                        <a class="btn btn-info" target="_blank" {{bind-attr href=food.price.link}}>Link</a>
+                    </span>
+                </div>
+            {{/each}}
         </div>
     </div>
 </div>

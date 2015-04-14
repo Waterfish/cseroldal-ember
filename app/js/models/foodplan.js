@@ -22,6 +22,10 @@
 
         },
 
+        removeDay: function (day) {
+            this.get('days').removeObject(day);
+        },
+
         addMeal: function (day) {
 
             if (!day.meals) {
@@ -40,19 +44,23 @@
 
         },
 
+        removeMeal: function (day, meal) {
+            day.meals.removeObject(meal);
+        },
+
         // this observes is making sure that object returned from
         // firebase has arrays. This can be removed if some way is found for
         // setting the previously undefined arrays.
         onDaysChange: function () {
-            console.log('onDays observed');
+            var convertMeals = function (meal) {
+                    return Cs.PlanMeal.create(meal);
+                };
 
-            for(var i = 0; i < this.days.length; i++) {
+            for (var i = 0; i < this.days.length; i++) {
                 if (!this.days[i].meals) {
                     this.days[i].meals = [];
                 } else {
-                    this.days[i].meals = this.days[i].meals.map(function (item, index) {
-                        return Cs.PlanMeal.create(item);
-                    });
+                    this.days[i].meals = this.days[i].meals.map(convertMeals);
                 }
             }
         }.observes('days'),
@@ -142,44 +150,99 @@
 
 
     Cs.PlanMeal = Ember.Object.extend({
-        // type: '',
-        // order: 0,
-        // serving: 0,
-        // foodName: '',
-        // foods: [],
 
         init: function () {
             this._super();
+
+            if (Ember.isNone(this.get('foods'))) {
+                this.set('foods', []);
+            } else {
+                this.set('foods', this.foods.map(function (item) {
+
+                    item.serving = this.get('serving');
+
+                    return Cs.PlanFood.create(item);
+                }, this));
+
+                if (this.foods.length !== 0) {
+                    this.addFood();
+                }
+            }
+
         },
 
-        onFoodsChange: function () {
-            console.log('onFoodsChange observed');
+        oneFoodChange: function () {
+            var foods = this.get('foods'),
+                lastFood;
 
-            this.foods = this.foods.map(function (item) {
-                return Cs.PlanFood.create(item);
-            });
+            if (foods.length === 0) {
+                return;
+            }
 
-        }.observes('foods'),
+            // foods.get('lastObject') is not working for some reason
+            lastFood = foods[foods.length - 1];
+
+            if (lastFood.food_id !== undefined) {
+                this.addFood();
+            }
+
+        }.observes('foods.@each.food_id'),
+
+        sumPrice: function () {
+
+            // var sum = 0;
+
+            return this.get('foods')
+                .filterBy('cost')
+                .reduce (function (prevValue, food) {
+                    return prevValue + food.get('cost');
+                }, 0);
+
+                // .forEach(function (food) {
+                //     sum += food.get('cost');
+                // });
+
+            // return sum;
+
+        }.property('foods.@each.cost'),
 
         addFood: function () {
 
             if (!this.foods) {
-                // meal.foods = [];
-                // these should never happen. onDays observer is there for this
                return;
             }
 
-            this.foods.addObject(Cs.PlanFood.create());
+            this.foods.pushObject(Cs.PlanFood.create({
+                serving: this.get('serving')
+            }));
 
+        },
+
+        updateFoods: function () {
+            var serving = this.get('serving');
+
+            if (!this.foods) {
+               return;
+            }
+
+            this.foods.forEach(function (food) {
+                food.set('serving', serving);
+            });
+        }.observes('serving'),
+
+        removeFood: function (food) {
+            this.get('foods').removeObject(food);
         },
 
         _serialize: function () {
             var object = this.getProperties(['type', 'order', 'serving', 'foodName']);
 
-            if (this.food) {
-                object.foods = this.foods.map(function (item) {
-                    return item._serialize();
-                });
+            if (this.foods) {
+                object.foods = this.foods
+                    .filterBy('food_id')
+                    .map(function (item) {
+                        return item._serialize();
+                    });
             }
 
             return object;
@@ -187,15 +250,61 @@
     });
 
     Cs.PlanFood = Ember.Object.extend({
+
+        init: function () {
+            this._super();
+
+            if (!Ember.isNone(this.get('food_id'))) {
+                this.get_food();
+            }
+        },
+
         // food_id: '',
         // est_quantity: 0.1,
         // custom_quantity: null,
-        // info: '',
+        //
+        get_food: function () {
+            var _this = this,
+                foodId = this.get('food_id');
+
+            if (foodId) {
+                Cs.Food.find(foodId).then(function (food) {
+                    _this.set('food', food);
+                });
+            }
+
+        }.observes('food_id'),
+
+        cost: function () {
+
+            var food = this.get('food'),
+                serving = this.get('serving'),
+                quantity = this.get('head_quantity');
+
+            if (Ember.isNone(food) || Ember.isNone(quantity) || quantity === 0) {
+                return 0;
+            }
+
+            // multiply the price with the quantity (per head) with the number
+            // of servings
+            return this.get('food.price.rsd') * quantity * serving;
+
+        }.property('food', 'food.price.rsd', 'head_quantity', 'serving'),
+
+        destroy: function () {
+            if (!Ember.isNone(this.get('food'))) {
+                this.get('food').destroy();
+            }
+            this._super();
+        },
 
         _serialize: function () {
-            return this.getProperties(['food_id', 'est_quantity', 'custom_quantity', 'info']);
+            return this.getProperties(['food_id', 'head_quantity']);
         }
     });
+
+
+    ////////////////////////////////////////////////////////////////////////////
 
 
     Cs.Food = Cs.Model.extend({
@@ -204,7 +313,7 @@
          */
         baseunit: '',
         label: '',
-        price: null,
+        price: {},
 
         /**
          * Support multiple prices
@@ -214,12 +323,6 @@
         _serialize: function () {
             return this.getProperties(['baseunit', 'label', 'price', 'info']);
         }
-        // getGroup: function () {
-        //     return Cs.UserGroup.find(this.get('group'));
-        // },
-        // name: function() {
-        //     return this.get('firstname') + ' ' + this.get('familyname');
-        // }.property('firstname', 'familyname')
     });
 
     Cs.Food.reopenClass({

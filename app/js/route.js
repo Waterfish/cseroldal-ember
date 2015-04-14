@@ -210,7 +210,19 @@
 
     // });
 
-    Cs.FoodplansRoute = Ember.Route.extend({});
+    Cs.FoodplansRoute = Ember.Route.extend({
+
+        renderTemplate: function() {
+            this.render('foodplans');
+
+            this.render('foodplans_foods', {
+                into: 'foodplans',
+                outlet: 'left',
+                controller: 'foodplans.foods'
+            });
+        },
+
+    });
 
     Cs.FoodplansIndexRoute = Ember.Route.extend({
         model: function() {
@@ -222,6 +234,11 @@
                 {
                     outlet: 'right'
             });
+
+            // this.render('foodplans_foods', {
+            //     outlet: 'left',
+            //     controller: 'foodplans.foods'
+            // });
         },
 
 
