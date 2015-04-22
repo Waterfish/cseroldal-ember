@@ -11,12 +11,19 @@
 
         addDay: function () {
 
+            var newDate;
+
             if (!this.days) {
                 this.set('days', []);
+                newDate = moment().toJSON();
+            } else {
+                newDate = this.days[this.days.length - 1].date;
+
+                newDate = moment(newDate).add('days', 1).toJSON();
             }
 
             this.days.addObject({
-                date: '',
+                date: newDate,
                 meals: []
             });
 
@@ -314,6 +321,9 @@
         baseunit: '',
         label: '',
         price: {},
+
+        // list of tags, reserved
+        tags: null,
 
         /**
          * Support multiple prices

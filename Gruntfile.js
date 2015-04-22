@@ -56,7 +56,7 @@ module.exports = function(grunt) {
     },
     watch: {
       templates: {
-        files: ['app/partials/**/*.hbs'],
+        files: ['app/partials/**/**/*.hbs'],
         tasks: ['emberTemplates'],
         options: {
           spawn: false,

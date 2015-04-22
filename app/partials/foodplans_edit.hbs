@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid foodplan-edit">
     <h2>Kaja-terv szerkesztése</h2>
     <form class="" role="form">
         <div class="small plan-info">
@@ -25,36 +25,55 @@
         <div>
             {{#each day in days}}
             <div class="plan-day">
-                <div>
+                <div class="plan-day-header">
                     {{view 'datepicker' placeholder="Dátum" value=day.date class="form-control"}}
-                    <button class="btn" {{action 'addMeal' day}}>Plusz étkezés</button>
-                    <button class="btn" {{action 'removeDay' day}}>Törlés</button>
+
+                    <div class="plan-day-header-actions">
+                        <button class="btn btn-ghost"
+                                {{action 'addMeal' day}}>
+                            <span class="glyphicon glyphicon-plus"
+                                aria-hidden="true">
+                            </span>
+
+                        </button>
+                        <button class="btn btn-ghost"
+                                {{action 'removeDay' day}}>
+                            <span class="glyphicon glyphicon-trash"
+                                aria-hidden="true">
+                            </span>
+                        </button>
+                    </div>
                 </div>
                 {{#if day.meals}}
-                <div class="meal-container panel panel-default">
+                <div class="plan-day-meal-container panel panel-default">
                     {{#each meal in day.meals}}
-                    <div class="meal">
+                    <div class="plan-day-meal">
                         <div class="meal-header">
                             <div class="meal-header-item">
-                                <label>Étkezés tipusa:</label>
                                 {{view "select"
                                    content=mealTypes
                                    optionValuePath="content.value"
                                    optionLabelPath="content.label"
                                    value=meal.type
-                                   prompt="Valasz"
+                                   prompt="Étkezés tipusa"
                                    class="form-control"}}
 
-                                <button class="btn" {{action 'removeMeal' day meal}}>Törlés</button>
-                            </div>
-                            <div class="meal-header-item">
-                                <div class="input-group">
-                                    {{input type="text" placeholder="porció" value=meal.serving class="form-control"}}
-                                    <span class="input-group-addon">fő</span>
+                                <div class="meal-header-actions">
+                                    <button class="btn btn-ghost" {{action 'removeMeal' day meal}}>
+                                        <span class="glyphicon glyphicon-trash"
+                                            aria-hidden="true">
+                                        </span>
+                                    </button>
                                 </div>
                             </div>
                             <div class="meal-header-item">
-                            {{input type="text" placeholder="Étel név" value=meal.foodName id="" class="form-control"}}
+                                {{input type="text" placeholder="Étel név" value=meal.foodName id="" class="form-control meal-name"}}
+
+                                <span class="gutter"></span>
+                                <div class="input-group">
+                                    {{input type="text" placeholder="porció" value=meal.serving class="form-control meal-portion"}}
+                                    <span class="input-group-addon">fo</span>
+                                </div>
                             </div>
                         </div>
                         {{#if meal.foods}}
@@ -106,7 +125,11 @@
                             </tbody>
                         </table>
                         {{else}}
-                        <button class="btn btn-sm" {{action 'addFood' meal}}>Plusz kaja</button>
+                        <button class="btn btn-ghost" {{action 'addFood' meal}}>
+                            <span class="glyphicon glyphicon-plus"
+                                aria-hidden="true">
+                            </span>
+                        </button>
                         {{/if}}
                     </div>
                     {{/each}}
@@ -117,8 +140,13 @@
             {{/each}}
         </div>
         {{/if}}
-        <div>
-        <button class="btn" {{action 'addDay'}}>Plusz nap</button>
+        <div class="form-group plan-actions">
+            <button class="btn btn-primary" {{action 'addDay'}}>
+                <span class="glyphicon glyphicon-plus"
+                      aria-hidden="true">
+                </span>
+                Adj hozza napot
+            </button>
         </div>
     </form>
     <div class="clearfix">

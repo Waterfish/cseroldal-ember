@@ -1,10 +1,12 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-8">
-        <h3>Ételek</h3>
-        </div>
-        <div class="col-md-4">
-            <button class="btn btn-primary" {{action "newFood"}}>Uj etel</button>
+<div class="container-fluid food-list-panel">
+    <div class="row food-list-panel-header">
+        <div class="col-md-12">
+            <h3>Ételek</h3>
+            <button class="btn btn-ghost" {{action "newFood"}}>
+                <span class="glyphicon glyphicon-plus"
+                    aria-hidden="true">
+                </span>
+            </button>
         </div>
     </div>
 
@@ -56,28 +58,40 @@
     <div class="row">
         <div class="col-md-12">
             {{#each food in model}}
-                <div class="foode row">
-                    <div class="col-md-8">
+            <div class="food">
+                <div class="food-row">
+                    <div class="food-label">
                         {{food.label}}
                     </div>
-                    <div class="col-md-4">
+                    <div class="food-price">
                         {{food.price.rsd}} rsd / {{food.baseunit}}
                     </div>
-                </div>
-                <div class="row">
-                    <span class="small col-md-12">
-                        {{food.info}}
-                    </span>
-                </div>
-                <div class="row">
-                    <div class="col-md-8">
-                        <button class="btn btn-default btn-sm " {{action "editFood" food}}>Modosit</button>
-                        <button class="btn btn-danger btn-sm " {{action "deleteFood" food}}>Torol</button>
+                    <div class="food-actions">
+                        <a class="btn btn-ghost btn-sm" target="_blank" {{bind-attr href=food.price.link}}>
+                            <span
+                                class="glyphicon glyphicon-shopping-cart"
+                                aria-hidden="true">
+                            </span>
+                        </a>
+                        <button class="btn btn-ghost btn-sm"
+                                {{action "editFood" food}}>
+                            <span
+                                class="glyphicon glyphicon-edit"
+                                aria-hidden="true">
+                            </span>
+                        </button>
+                        <button class="btn btn-ghost btn-sm" {{action "deleteFood" food}}>
+                            <span
+                                class="glyphicon glyphicon-trash"
+                                aria-hidden="true">
+                            </span>
+                        </button>
                     </div>
-                    <span class="col-md-4">
-                        <a class="btn btn-info" target="_blank" {{bind-attr href=food.price.link}}>Link</a>
-                    </span>
                 </div>
+                <div class="food-row food-info">
+                    {{food.info}}
+                </div>
+            </div>
             {{/each}}
         </div>
     </div>
