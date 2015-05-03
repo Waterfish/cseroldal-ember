@@ -7,7 +7,7 @@
         created: null,
         modified: null,
         authors: [],
-        days: [],
+        emdays: [],
 
         addDay: function () {
 
@@ -15,17 +15,20 @@
 
             if (!this.days) {
                 this.set('days', []);
+            }
+
+            if (this.days.length === 0) {
                 newDate = moment().toJSON();
             } else {
                 newDate = this.days[this.days.length - 1].date;
 
-                newDate = moment(newDate).add('days', 1).toJSON();
+                newDate = moment(newDate).add(1, 'days').toJSON();
             }
 
-            this.days.addObject({
+            this.days.addObject(Cs.PlanDay.create({
                 date: newDate,
                 meals: []
-            });
+            }));
 
         },
 
@@ -33,44 +36,33 @@
             this.get('days').removeObject(day);
         },
 
-        addMeal: function (day) {
-
-            if (!day.meals) {
-               // day.meals = [];
-               // these should never happen. onDays observer is there for this
-               return;
-            }
-
-            day.meals.addObject(Cs.PlanMeal.create({
-                type: '',
-                order: 0,
-                serving: 0,
-                foodName: '',
-                foods: [],
-            }));
-
-        },
-
-        removeMeal: function (day, meal) {
-            day.meals.removeObject(meal);
-        },
-
         // this observes is making sure that object returned from
         // firebase has arrays. This can be removed if some way is found for
         // setting the previously undefined arrays.
         onDaysChange: function () {
-            var convertMeals = function (meal) {
-                    return Cs.PlanMeal.create(meal);
-                };
 
-            for (var i = 0; i < this.days.length; i++) {
-                if (!this.days[i].meals) {
-                    this.days[i].meals = [];
-                } else {
-                    this.days[i].meals = this.days[i].meals.map(convertMeals);
-                }
+            // if (this.daysConverted) {
+            //     Ember.Logger.debug('already converted');
+            //     return;
+            // }
+
+            // this.daysConverted = true;
+
+            // var days = this.get('days').map(function (item) {
+            //     return Cs.PlanDay.create(item);
+            // });
+
+            // this.set('days', days);
+            //
+            if (Ember.isNone(this.get('emdays'))) {
+                this.set('days', []);
+            } else {
+                this.set('days', this.emdays.map(function (item) {
+                    return Cs.PlanDay.create(item);
+                }, this));
             }
-        }.observes('days'),
+
+        }.observes('emdays'),
 
         // Computed properties
         createdDate: function () {
@@ -93,17 +85,6 @@
             return this.get('authors').join(', ');
         }.property('authors'),
 
-
-        // // THIS SHOULD WORK
-        // setUnknownProperty: function(key, value){
-        //     console.log('setUnknownProperty', key, value);
-        // },
-
-        // // THIS SHOULD WORK
-        // unknownProperty: function (key) {
-        //     console.log('unknownProperty', key);
-        // },
-
         _serialize: function () {
             var object = this.getProperties(['title', 'description', 'authors']);
 
@@ -113,24 +94,14 @@
                 object.modified = moment().toJSON();
             }
 
-            object.days = this.days.map(function (item) {
-                return {
-                    date: item.date,
-                    meals: item.meals.map(function (meal) {
-                        return meal._serialize();
-                    })
-                };
-            });
+            if (this.days) {
+                object.emdays = this.days.map(function (day) {
+                    return day._serialize();
+                });
+            }
 
             return object;
         }
-        // getGroup: function () {
-        //     return Cs.UserGroup.find(this.get('group'));
-        // },
-        // name: function() {
-        //     return this.get('firstname') + ' ' + this.get('familyname');
-        // }.property('firstname', 'familyname')
-        //
 
     });
 
@@ -155,6 +126,58 @@
         }]
     });
 
+    Cs.PlanDay = Ember.Object.extend({
+
+        init: function () {
+            this._super();
+
+            if (Ember.isNone(this.get('meals'))) {
+                this.set('meals', []);
+            } else {
+                this.set('meals', this.meals.map(function (item) {
+                    return Cs.PlanMeal.create(item);
+                }, this));
+            }
+
+        },
+
+        dayName: function () {
+            return moment(this.get('date')).format('dddd');
+        }.property('date'),
+
+        addMeal: function () {
+
+            if (!this.meals) {
+               // this.meals = [];
+               // these should never happen.
+               Ember.Logger.error('Adding new meal but day.meals not defined!')
+               return;
+            }
+
+            this.meals.addObject(Cs.PlanMeal.create({
+                type: '',
+                order: 0,
+                serving: 0,
+                foodName: '',
+                foods: [],
+            }));
+
+        },
+
+        removeMeal: function (meal) {
+            this.meals.removeObject(meal);
+        },
+
+        _serialize: function () {
+            var object = this.getProperties(['date']);
+
+            object.meals = this.meals.map(function (meal) {
+                return meal._serialize();
+            });
+
+            return object;
+        }
+    });
 
     Cs.PlanMeal = Ember.Object.extend({
 
@@ -197,21 +220,24 @@
 
         sumPrice: function () {
 
-            // var sum = 0;
-
             return this.get('foods')
                 .filterBy('cost')
                 .reduce (function (prevValue, food) {
                     return prevValue + food.get('cost');
                 }, 0);
 
-                // .forEach(function (food) {
-                //     sum += food.get('cost');
-                // });
-
-            // return sum;
-
         }.property('foods.@each.cost'),
+
+        sumPricePerHead: function () {
+            var serving = this.get('serving');
+
+            if (serving) {
+                return this.get('sumPrice') / this.get('serving');
+            } else {
+                return 0;
+            }
+
+        }.property('sumPrice'),
 
         addFood: function () {
 
@@ -297,6 +323,19 @@
             return this.get('food.price.rsd') * quantity * serving;
 
         }.property('food', 'food.price.rsd', 'head_quantity', 'serving'),
+
+        priceInfo: function () {
+            var serving = this.get('serving'),
+                quantity = this.get('head_quantity'),
+                cost = this.get('cost');
+
+            if (cost === 0) {
+                return false;
+            }
+
+            return this.get('food.price.rsd') + ' rsd/kg  ×  ' + quantity + ' kg/fő  ×  ' + serving + ' fő  =  ' + cost + ' rsd';
+
+        }.property('cost'),
 
         destroy: function () {
             if (!Ember.isNone(this.get('food'))) {

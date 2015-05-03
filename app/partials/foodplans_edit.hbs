@@ -27,7 +27,7 @@
             <div class="plan-day">
                 <div class="plan-day-header">
                     {{view 'datepicker' placeholder="Dátum" value=day.date class="form-control"}}
-
+                    <div class="plan-day-header-dayname">{{day.dayName}}</div>
                     <div class="plan-day-header-actions">
                         <button class="btn btn-ghost"
                                 {{action 'addMeal' day}}>
@@ -72,58 +72,65 @@
                                 <span class="gutter"></span>
                                 <div class="input-group">
                                     {{input type="text" placeholder="porció" value=meal.serving class="form-control meal-portion"}}
-                                    <span class="input-group-addon">fo</span>
+                                    <span class="input-group-addon">fő</span>
                                 </div>
                             </div>
                         </div>
                         {{#if meal.foods}}
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Étel</th>
-                                    <th colspan="2">mennyiseg/fő</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each food in meal.foods}}
-                                <tr class="food-item">
-                                    <td class="food-name" colspan="2">
-                                        {{view "chosen"
-                                           content=food_list
-                                           optionValuePath="content.guid"
-                                           optionLabelPath="content.label"
-                                           prompt="Valassz"
-                                           value=food.food_id
-                                           class=""}}
-                                    </td>
-                                    <td class="quantity">
-                                        {{input type="number" placeholder="mennyiseg" value=food.head_quantity id="" class="form-control"}}
-                                    </td>
-                                </tr>
-                                <tr class="food-item">
-                                    <td class="">{{food.serving}}</td>
-                                    <td class="cost">{{food.price.rsd}}</td>
-                                    <td class="cost">{{food.cost}}</td>
-                                    <td class="actions">
-                                        <button class="btn btn-sm" {{action 'removeFood' meal food}}>Remove</button>
-                                    </td>
-                                </tr>
-                                <!-- <tr class="food-item">
-                                    <td class="food-test" colspan="3">
-                                    {{!food.food_id}}
-                                    </td>
-                                </tr> -->
-                                {{/each}}
-                                <tr class="full-cost">
-                                    <td colspan="2">
-                                        Teljes ár
-                                    </td>
-                                    <td colspan="2">
-                                        <span class="value">{{meal.sumPrice}}</span> rsd
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="food-list">
+                            <div class="food-list-header">
+                                <div class="food-list-header-item">
+                                    Étel
+                                </div>
+                                <div class="food-list-header-item">
+                                    g/fő
+                                </div>
+                            </div>
+                            {{#each food in meal.foods}}
+                            <div class="food-list-item">
+                                <div class="name">
+                                    {{view "chosen"
+                                       content=food_list
+                                       optionValuePath="content.guid"
+                                       optionLabelPath="content.label"
+                                       prompt="Valassz"
+                                       value=food.food_id
+                                       class=""}}
+                                </div>
+                                <div class="quantity">
+                                    {{input type="number" placeholder="mennyiseg" value=food.head_quantity id="" class="form-control input-sm"}}
+                                </div>
+                                <div class="actions">
+                                    <button class="btn btn-ghost" {{action 'removeFood' meal food}}>
+                                        <span class="glyphicon glyphicon-trash"
+                                            aria-hidden="true">
+                                        </span>
+                                    </button>
+                                </div>
+
+                                {{#if food.priceInfo}}
+                                <div class="info">
+                                    {{food.priceInfo}}
+                                </div>
+                                {{/if}}
+                            </div>
+                            {{/each}}
+                            <div class="food-list-footer">
+                                <div class="footer-row">
+                                    <div>Ár per fő:</div>
+                                    <div class="">
+                                        {{meal.sumPricePerHead}} rsd
+                                    </div>
+                                </div>
+                                <div class="footer-row">
+                                    <div>Teljes ár:</div>
+                                    <div class="">
+                                        {{meal.sumPrice}} rsd
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         {{else}}
                         <button class="btn btn-ghost" {{action 'addFood' meal}}>
                             <span class="glyphicon glyphicon-plus"

@@ -13,11 +13,11 @@
             },
 
             addMeal: function (day) {
-                this.model.addMeal(day);
+                day.addMeal();
             },
 
             removeMeal: function (day, meal) {
-                this.model.removeMeal(day, meal);
+                day.removeMeal(meal);
             },
 
             addFood: function (meal) {
@@ -36,6 +36,10 @@
 
                 this.model.save().then(function (foodplan) {
                     _this.transitionToRoute('foodplans.edit', foodplan);
+                    ohSnap('Elmentve', 'green', 'info');
+                }, function (error) {
+                    Ember.Logger.error(error);
+                    ohSnap('Sikertelen mentés', 'red', 'error');
                 });
 
             },

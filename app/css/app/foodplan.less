@@ -77,7 +77,14 @@
 
                 input {
                     .flex(0 0 auto);
-                    width: 150px;
+                    width: 100px;
+                }
+
+                .plan-day-header-dayname {
+                    .flex(0 0 auto);
+                    text-transform: capitalize;
+                    line-height: 35px;
+                    padding: 0 15px;
                 }
 
                 .plan-day-header-actions {
@@ -135,25 +142,77 @@
 
             }
 
-            table {
+            .food-list {
                 font-size: 12px;
 
-                .food-name {
-                    text-transform: capitalize;
-                }
+                .food-list-header {
+                    .flex-display(flex);
+                    font-weight: bold;
 
-                .quantity {
-                    input {
-                        width: 70px;
+                    .food-list-header-item {
+                        &:nth-child(1) {
+                            .flex(0 0 auto);
+                            width: 130px;
+                        }
+
+                        &:nth-child(2) {
+                            .flex(1 1 auto);
+                            width: 200px;
+                        }
                     }
                 }
 
+                .food-list-item {
+                    .flex-display(flex);
+                    .flex-wrap(wrap);
+
+                    border-bottom: 1px solid #dddddd;
+                    margin-bottom: 3px;
+
+                    .name {
+                        .flex(0 0 auto);
+                        width: 130px;
+                        padding: 6px 0px;
+                        text-transform: capitalize;
+                    }
+
+                    .quantity {
+                        .flex(1 1 auto);
+                        padding: 3px 0px;
+                    }
+
+                    .actions {
+                        .flex(0 0 auto);
+                        padding-left: 10px;
+                    }
+
+                    .info {
+                        .flex(1 0 auto);
+                        width: 100%;
+                        padding-bottom: 3px;
+                    }
+
+                }
+
+                .food-list-footer {
+                    .footer-row {
+                        .flex-display(flex);
+
+                        div {
+                            .flex(1 1 auto);
+                        }
+
+                        div:nth-child(1) {
+                            .flex(0 0 auto);
+                            width: 130px;
+                        }
+                    }
+                }
 
             }
         }
 
         .plan-actions {
-
             padding-top: 15px;
             border-top: 1px solid #AAA;
         }

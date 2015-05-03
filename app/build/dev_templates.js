@@ -189,7 +189,10 @@ Ember.TEMPLATES["foodplans_edit"] = Ember.Handlebars.template({"1":function(dept
     'value': ("day.date"),
     'placeholder': ("Dátum")
   },"hashTypes":{'class': "STRING",'value': "ID",'placeholder': "STRING"},"hashContexts":{'class': depth0,'value': depth0,'placeholder': depth0},"types":["STRING"],"contexts":[depth0],"data":data})));
-  data.buffer.push("\n\n                    <div class=\"plan-day-header-actions\">\n                        <button class=\"btn btn-ghost\"\n                                ");
+  data.buffer.push("\n                    <div class=\"plan-day-header-dayname\">");
+  stack1 = helpers._triageMustache.call(depth0, "day.dayName", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("</div>\n                    <div class=\"plan-day-header-actions\">\n                        <button class=\"btn btn-ghost\"\n                                ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "addMeal", "day", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
   data.buffer.push(">\n                            <span class=\"glyphicon glyphicon-plus\"\n                                aria-hidden=\"true\">\n                            </span>\n\n                        </button>\n                        <button class=\"btn btn-ghost\"\n                                ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "removeDay", "day", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
@@ -233,24 +236,27 @@ Ember.TEMPLATES["foodplans_edit"] = Ember.Handlebars.template({"1":function(dept
     'placeholder': ("porció"),
     'type': ("text")
   },"hashTypes":{'class': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
-  data.buffer.push("\n                                    <span class=\"input-group-addon\">fo</span>\n                                </div>\n                            </div>\n                        </div>\n");
-  stack1 = helpers['if'].call(depth0, "meal.foods", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(11, data),"inverse":this.program(14, data),"types":["ID"],"contexts":[depth0],"data":data});
+  data.buffer.push("\n                                    <span class=\"input-group-addon\">fő</span>\n                                </div>\n                            </div>\n                        </div>\n");
+  stack1 = helpers['if'].call(depth0, "meal.foods", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(11, data),"inverse":this.program(15, data),"types":["ID"],"contexts":[depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("                    </div>\n");
   return buffer;
 },"11":function(depth0,helpers,partials,data) {
   var stack1, buffer = '';
-  data.buffer.push("                        <table class=\"table\">\n                            <thead>\n                                <tr>\n                                    <th>Étel</th>\n                                    <th colspan=\"2\">mennyiseg/fő</th>\n                                </tr>\n                            </thead>\n                            <tbody>\n");
+  data.buffer.push("                        <div class=\"food-list\">\n                            <div class=\"food-list-header\">\n                                <div class=\"food-list-header-item\">\n                                    Étel\n                                </div>\n                                <div class=\"food-list-header-item\">\n                                    g/fő\n                                </div>\n                            </div>\n");
   stack1 = helpers.each.call(depth0, "food", "in", "meal.foods", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(12, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
-  data.buffer.push("                                <tr class=\"full-cost\">\n                                    <td colspan=\"2\">\n                                        Teljes ár\n                                    </td>\n                                    <td colspan=\"2\">\n                                        <span class=\"value\">");
+  data.buffer.push("                            <div class=\"food-list-footer\">\n                                <div class=\"footer-row\">\n                                    <div>Ár per fő:</div>\n                                    <div class=\"\">\n                                        ");
+  stack1 = helpers._triageMustache.call(depth0, "meal.sumPricePerHead", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push(" rsd\n                                    </div>\n                                </div>\n                                <div class=\"footer-row\">\n                                    <div>Teljes ár:</div>\n                                    <div class=\"\">\n                                        ");
   stack1 = helpers._triageMustache.call(depth0, "meal.sumPrice", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
-  data.buffer.push("</span> rsd\n                                    </td>\n                                </tr>\n                            </tbody>\n                        </table>\n");
+  data.buffer.push(" rsd\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n\n");
   return buffer;
 },"12":function(depth0,helpers,partials,data) {
   var stack1, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, buffer = '';
-  data.buffer.push("                                <tr class=\"food-item\">\n                                    <td class=\"food-name\" colspan=\"2\">\n                                        ");
+  data.buffer.push("                            <div class=\"food-list-item\">\n                                <div class=\"name\">\n                                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "chosen", {"name":"view","hash":{
     'class': (""),
     'value': ("food.food_id"),
@@ -259,28 +265,29 @@ Ember.TEMPLATES["foodplans_edit"] = Ember.Handlebars.template({"1":function(dept
     'optionValuePath': ("content.guid"),
     'content': ("food_list")
   },"hashTypes":{'class': "STRING",'value': "ID",'prompt': "STRING",'optionLabelPath': "STRING",'optionValuePath': "STRING",'content': "ID"},"hashContexts":{'class': depth0,'value': depth0,'prompt': depth0,'optionLabelPath': depth0,'optionValuePath': depth0,'content': depth0},"types":["STRING"],"contexts":[depth0],"data":data})));
-  data.buffer.push("\n                                    </td>\n                                    <td class=\"quantity\">\n                                        ");
+  data.buffer.push("\n                                </div>\n                                <div class=\"quantity\">\n                                    ");
   data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
-    'class': ("form-control"),
+    'class': ("form-control input-sm"),
     'id': (""),
     'value': ("food.head_quantity"),
     'placeholder': ("mennyiseg"),
     'type': ("number")
   },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
-  data.buffer.push("\n                                    </td>\n                                </tr>\n                                <tr class=\"food-item\">\n                                    <td class=\"\">");
-  stack1 = helpers._triageMustache.call(depth0, "food.serving", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
-  if (stack1 != null) { data.buffer.push(stack1); }
-  data.buffer.push("</td>\n                                    <td class=\"cost\">");
-  stack1 = helpers._triageMustache.call(depth0, "food.price.rsd", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
-  if (stack1 != null) { data.buffer.push(stack1); }
-  data.buffer.push("</td>\n                                    <td class=\"cost\">");
-  stack1 = helpers._triageMustache.call(depth0, "food.cost", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
-  if (stack1 != null) { data.buffer.push(stack1); }
-  data.buffer.push("</td>\n                                    <td class=\"actions\">\n                                        <button class=\"btn btn-sm\" ");
+  data.buffer.push("\n                                </div>\n                                <div class=\"actions\">\n                                    <button class=\"btn btn-ghost\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "removeFood", "meal", "food", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data})));
-  data.buffer.push(">Remove</button>\n                                    </td>\n                                </tr>\n                                <!-- <tr class=\"food-item\">\n                                    <td class=\"food-test\" colspan=\"3\">\n                                    </td>\n                                </tr> -->\n");
+  data.buffer.push(">\n                                        <span class=\"glyphicon glyphicon-trash\"\n                                            aria-hidden=\"true\">\n                                        </span>\n                                    </button>\n                                </div>\n\n");
+  stack1 = helpers['if'].call(depth0, "food.priceInfo", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(13, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("                            </div>\n");
   return buffer;
-},"14":function(depth0,helpers,partials,data) {
+},"13":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
+  data.buffer.push("                                <div class=\"info\">\n                                    ");
+  stack1 = helpers._triageMustache.call(depth0, "food.priceInfo", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("\n                                </div>\n");
+  return buffer;
+},"15":function(depth0,helpers,partials,data) {
   var escapeExpression=this.escapeExpression, buffer = '';
   data.buffer.push("                        <button class=\"btn btn-ghost\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "addFood", "meal", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
