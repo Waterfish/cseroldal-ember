@@ -20,6 +20,16 @@
             <label class="control-label" for="plan-description">Leírás:</label>
             {{input type="text" placeholder="Leírás" value=description id="plan-description" class="form-control"}}
         </div>
+        <div class="form-group">
+            <label class="control-label" for="plan-person">Táborlakók száma:</label>
+            <div class="input-group">
+                {{input type="text" placeholder="" value=person id="plan-person" class="form-control"}}
+                <span class="input-group-addon">fő</span>
+            </div>
+        </div>
+        <div>
+            Össz: {{totalSum}} rsd,   Személyenként: {{perPersonCost}} rsd
+        </div>
         <h3>Általános konyhadolgok</h3>
         <div>
             {{#if items}}
@@ -29,7 +39,7 @@
                         Tárgy
                     </div>
                     <div class="item-list-header-item">
-                        kg/db/stb
+                        egység(kg/db/stb)
                     </div>
                 </div>
                 {{#each item in items}}
@@ -44,7 +54,10 @@
                            class=""}}
                     </div>
                     <div class="quantity">
-                        {{input type="number" placeholder="mennyiseg" value=item.head_quantity id="" class="form-control input-sm"}}
+                        <div class="input-group">
+                            {{input type="number" placeholder="mennyiseg" value=item.head_quantity id="" class="form-control input-sm"}}
+                            <span class="input-group-addon">{{item.food.baseunit}}</span>
+                        </div>
                     </div>
                     <div class="info">
                     {{#if item.priceInfo}}
@@ -64,6 +77,7 @@
                     <div class="footer-row">
                         <div>Teljes ár:</div>
                         <div class="">
+                            {{sumPrice}} rsd
                         </div>
                     </div>
                 </div>
@@ -138,7 +152,7 @@
                                     Étel
                                 </div>
                                 <div class="food-list-header-item">
-                                    g/fő
+                                    egység/fő
                                 </div>
                             </div>
                             {{#each food in meal.foods}}
@@ -153,7 +167,10 @@
                                        class=""}}
                                 </div>
                                 <div class="quantity">
-                                    {{input type="number" placeholder="mennyiseg" value=food.head_quantity id="" class="form-control input-sm"}}
+                                <div class="input-group">
+                                        {{input type="number" placeholder="mennyiseg" value=food.head_quantity id="" class="form-control input-sm"}}
+                                        <span class="input-group-addon">{{food.food.baseunit}}</span>
+                                    </div>
                                 </div>
                                 <div class="actions">
                                     <button class="btn btn-ghost" {{action 'removeFood' meal food}}>

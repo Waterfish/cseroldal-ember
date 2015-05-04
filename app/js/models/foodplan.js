@@ -4,6 +4,7 @@
     Cs.Foodplan = Cs.Model.extend({
         title: '',
         description: '',
+        person: 0,
         created: null,
         modified: null,
         authors: [],
@@ -28,6 +29,7 @@
 
             this.days.addObject(Cs.PlanDay.create({
                 date: newDate,
+                person: this.get('person') || 0,
                 meals: []
             }));
 
@@ -49,6 +51,32 @@
             this.get('items').removeObject(item);
         },
 
+        sumPrice: function () {
+
+            return this.get('items')
+                .filterBy('cost')
+                .reduce (function (prevValue, item) {
+                    return prevValue + item.get('cost');
+                }, 0);
+
+        }.property('items.@each.cost'),
+
+        totalSum: function () {
+
+            return this.get('days')
+                .filterBy('sumPrice')
+                .reduce (function (prevValue, day) {
+                    return prevValue + day.get('sumPrice');
+                }, this.get('sumPrice'));
+
+        }.property('sumPrice', 'days.@each.sumPrice', 'person'),
+
+        perPersonCost: function () {
+
+            return this.get('totalSum') / this.get('person');
+
+        }.property('totalSum'),
+
         // this observes is making sure that object returned from
         // firebase has arrays. This can be removed if some way is found for
         // setting the previously undefined arrays.
@@ -58,6 +86,7 @@
                 this.set('days', []);
             } else {
                 this.set('days', this.emdays.map(function (item) {
+                    item.person = this.get('person') || 0;
                     return Cs.PlanDay.create(item);
                 }, this));
             }
@@ -97,7 +126,7 @@
         }.property('authors'),
 
         _serialize: function () {
-            var object = this.getProperties(['title', 'description', 'authors']);
+            var object = this.getProperties(['title', 'description', 'authors', 'person']);
 
             if (Ember.isNone(this.get('guid'))) {
                 object.created = moment().toJSON();
@@ -158,6 +187,16 @@
 
         },
 
+        sumPrice: function () {
+
+            return this.get('meals')
+                .filterBy('sumPrice')
+                .reduce (function (prevValue, meal) {
+                    return prevValue + meal.get('sumPrice');
+                }, 0);
+
+        }.property('meals.@each.sumPrice'),
+
         dayName: function () {
             return moment(this.get('date')).format('dddd');
         }.property('date'),
@@ -167,14 +206,14 @@
             if (!this.meals) {
                // this.meals = [];
                // these should never happen.
-               Ember.Logger.error('Adding new meal but day.meals not defined!')
+               Ember.Logger.error('Adding new meal but day.meals not defined!');
                return;
             }
 
             this.meals.addObject(Cs.PlanMeal.create({
                 type: '',
                 order: 0,
-                serving: 0,
+                serving: this.get('person') || 0,
                 foodName: '',
                 foods: [],
             }));
@@ -344,13 +383,14 @@
         priceInfo: function () {
             var serving = this.get('serving'),
                 quantity = this.get('head_quantity'),
-                cost = this.get('cost');
+                cost = this.get('cost'),
+                baseunit = this.get('food.baseunit');
 
             if (cost === 0) {
                 return false;
             }
 
-            return this.get('food.price.rsd') + ' rsd/kg  ×  ' + quantity + ' kg/fő  ×  ' + serving + ' fő  =  ' + cost + ' rsd';
+            return this.get('food.price.rsd') + ' rsd/' + baseunit + '  ×  ' + quantity + ' ' + baseunit + '/fő  ×  ' + serving + ' fő  =  ' + cost + ' rsd';
 
         }.property('cost'),
 
@@ -385,13 +425,14 @@
 
         priceInfo: function () {
             var quantity = this.get('head_quantity'),
-                cost = this.get('cost');
+                cost = this.get('cost'),
+                baseunit = this.get('food.baseunit');
 
             if (cost === 0) {
                 return false;
             }
 
-            return this.get('food.price.rsd') + ' rsd/kg  ×  ' + quantity + ' kg =  ' + cost + ' rsd';
+            return this.get('food.price.rsd') + ' rsd/' + baseunit +'  ×  ' + quantity + ' ' + baseunit + ' =  ' + cost + ' rsd';
 
         }.property('cost')
 

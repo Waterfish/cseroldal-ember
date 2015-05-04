@@ -5072,6 +5072,14 @@ fieldset[disabled] .btn-ghost.active {
   background-color: #ffffff;
   color: #AAAAAA;
 }
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 #foodplans-template .food-list-panel .food-list-panel-header {
   display: -webkit-flex;
   display: -moz-flex;
@@ -5202,7 +5210,7 @@ fieldset[disabled] .btn-ghost.active {
   -moz-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  width: 100px;
+  width: 200px;
   padding: 3px 0px;
 }
 #foodplans-template .foodplan-edit .item-list .item-list-item .actions {
@@ -5219,25 +5227,25 @@ fieldset[disabled] .btn-ghost.active {
   line-height: 36px;
   padding: 0px 16px;
 }
-#foodplans-template .foodplan-edit .item-list .food-list-footer .footer-row {
+#foodplans-template .foodplan-edit .item-list .item-list-footer .footer-row {
   display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flexbox;
   display: -ms-flex;
   display: flex;
 }
-#foodplans-template .foodplan-edit .item-list .food-list-footer .footer-row div {
+#foodplans-template .foodplan-edit .item-list .item-list-footer .footer-row div {
   -webkit-flex: 1 1 auto;
   -moz-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
 }
-#foodplans-template .foodplan-edit .item-list .food-list-footer .footer-row div:nth-child(1) {
+#foodplans-template .foodplan-edit .item-list .item-list-footer .footer-row div:nth-child(1) {
   -webkit-flex: 0 0 auto;
   -moz-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  width: 130px;
+  width: 180px;
 }
 #foodplans-template .foodplan-edit .plan-day {
   padding: 15px 0;
@@ -5340,7 +5348,7 @@ fieldset[disabled] .btn-ghost.active {
   -moz-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  width: 80px;
+  width: 90px;
 }
 #foodplans-template .foodplan-edit .plan-day-meal .food-list {
   font-size: 12px;
@@ -5390,10 +5398,10 @@ fieldset[disabled] .btn-ghost.active {
   text-transform: capitalize;
 }
 #foodplans-template .foodplan-edit .plan-day-meal .food-list .food-list-item .quantity {
-  -webkit-flex: 1 1 auto;
-  -moz-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
+  -webkit-flex: 1 0 80px;
+  -moz-flex: 1 0 80px;
+  -ms-flex: 1 0 80px;
+  flex: 1 0 80px;
   padding: 3px 0px;
 }
 #foodplans-template .foodplan-edit .plan-day-meal .food-list .food-list-item .actions {
