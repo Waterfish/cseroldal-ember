@@ -53,6 +53,10 @@
 
         sumPrice: function () {
 
+            if (Ember.isNone(this.get('items'))) {
+                return 0;
+            }
+
             return this.get('items')
                 .filterBy('cost')
                 .reduce (function (prevValue, item) {
@@ -63,6 +67,10 @@
 
         totalSum: function () {
 
+            if (Ember.isNone(this.get('days'))) {
+                return this.get('sumPrice');
+            }
+
             return this.get('days')
                 .filterBy('sumPrice')
                 .reduce (function (prevValue, day) {
@@ -72,6 +80,10 @@
         }.property('sumPrice', 'days.@each.sumPrice', 'person'),
 
         perPersonCost: function () {
+
+            if (this.get('person') === 0) {
+                return false;
+            }
 
             return this.get('totalSum') / this.get('person');
 

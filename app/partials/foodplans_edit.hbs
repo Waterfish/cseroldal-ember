@@ -28,7 +28,11 @@
             </div>
         </div>
         <div>
-            Össz: {{totalSum}} rsd,   Személyenként: {{perPersonCost}} rsd
+            Össz: {{totalSum}} rsd
+
+            {{#if model.perPersonCost}}
+                ,  Személyenként: {{perPersonCost}} rsd
+            {{/if}}
         </div>
         <h3>Általános konyhadolgok</h3>
         <div>
