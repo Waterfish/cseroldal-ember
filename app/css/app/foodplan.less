@@ -66,6 +66,81 @@
             margin-bottom: 20px;
         }
 
+        .item-list {
+            padding: 15px 0;
+            border-top: 1px solid #CCC;
+            font-size: 12px;
+
+            .item-list-header {
+                .flex-display(flex);
+                font-weight: bold;
+
+                .item-list-header-item {
+                    &:nth-child(1) {
+                        .flex(0 0 auto);
+                        width: 180px;
+                    }
+
+                    &:nth-child(2) {
+                        .flex(1 1 auto);
+                        width: 200px;
+                    }
+                }
+            }
+
+            .item-list-item {
+                .flex-display(flex);
+                .flex-wrap(wrap);
+
+                border-bottom: 1px solid #dddddd;
+                margin-bottom: 3px;
+                padding-bottom: 3px;
+
+                .name {
+                    .flex(0 0 auto);
+                    width: 180px;
+                    padding: 6px 0px;
+                    text-transform: capitalize;
+
+                    input {
+                        width: 100%;
+                    }
+                }
+
+                .quantity {
+                    .flex(0 0 auto);
+                    width: 100px;
+                    padding: 3px 0px;
+                }
+
+                .actions {
+                    .flex(0 0 auto);
+                }
+
+                .info {
+                    .flex(1 0 auto);
+                    line-height: 36px;
+                    padding: 0px 16px;
+                }
+
+            }
+
+            .food-list-footer {
+                .footer-row {
+                    .flex-display(flex);
+
+                    div {
+                        .flex(1 1 auto);
+                    }
+
+                    div:nth-child(1) {
+                        .flex(0 0 auto);
+                        width: 130px;
+                    }
+                }
+            }
+        }
+
         .plan-day {
 
             padding: 15px 0;

@@ -5144,6 +5144,101 @@ fieldset[disabled] .btn-ghost.active {
   padding-right: 5px;
   font-weight: bold;
 }
+#foodplans-template .foodplan-edit .item-list {
+  padding: 15px 0;
+  border-top: 1px solid #CCC;
+  font-size: 12px;
+}
+#foodplans-template .foodplan-edit .item-list .item-list-header {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  font-weight: bold;
+}
+#foodplans-template .foodplan-edit .item-list .item-list-header .item-list-header-item:nth-child(1) {
+  -webkit-flex: 0 0 auto;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 180px;
+}
+#foodplans-template .foodplan-edit .item-list .item-list-header .item-list-header-item:nth-child(2) {
+  -webkit-flex: 1 1 auto;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  width: 200px;
+}
+#foodplans-template .foodplan-edit .item-list .item-list-item {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 3px;
+  padding-bottom: 3px;
+}
+#foodplans-template .foodplan-edit .item-list .item-list-item .name {
+  -webkit-flex: 0 0 auto;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 180px;
+  padding: 6px 0px;
+  text-transform: capitalize;
+}
+#foodplans-template .foodplan-edit .item-list .item-list-item .name input {
+  width: 100%;
+}
+#foodplans-template .foodplan-edit .item-list .item-list-item .quantity {
+  -webkit-flex: 0 0 auto;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 100px;
+  padding: 3px 0px;
+}
+#foodplans-template .foodplan-edit .item-list .item-list-item .actions {
+  -webkit-flex: 0 0 auto;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+#foodplans-template .foodplan-edit .item-list .item-list-item .info {
+  -webkit-flex: 1 0 auto;
+  -moz-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  line-height: 36px;
+  padding: 0px 16px;
+}
+#foodplans-template .foodplan-edit .item-list .food-list-footer .footer-row {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+}
+#foodplans-template .foodplan-edit .item-list .food-list-footer .footer-row div {
+  -webkit-flex: 1 1 auto;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+#foodplans-template .foodplan-edit .item-list .food-list-footer .footer-row div:nth-child(1) {
+  -webkit-flex: 0 0 auto;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 130px;
+}
 #foodplans-template .foodplan-edit .plan-day {
   padding: 15px 0;
   border-top: 1px solid #CCC;

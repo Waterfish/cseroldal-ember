@@ -12,6 +12,14 @@
                 this.model.removeDay(day);
             },
 
+            addItem: function () {
+                this.model.addItem();
+            },
+
+            removeItem: function (item) {
+                this.model.removeItem();
+            },
+
             addMeal: function (day) {
                 day.addMeal();
             },

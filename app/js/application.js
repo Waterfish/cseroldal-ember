@@ -16,8 +16,8 @@
         }
     });
 
-    Cs.FirebaseUserPath = 'https://cseroldal.firebaseio.com/';
-    var fref = Cs.FirebaseRef = new Firebase('https://cseroldal.firebaseio.com/');
+    Cs.FirebaseUserPath = 'https://cseroldal-dev.firebaseio.com/';
+    var fref = Cs.FirebaseRef = new Firebase('https://cseroldal-dev.firebaseio.com/');
 
     Cs.ApplicationRoute = Ember.Route.extend({
 

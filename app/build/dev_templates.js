@@ -176,12 +176,52 @@ Ember.TEMPLATES["foodplans_edit"] = Ember.Handlebars.template({"1":function(dept
   return buffer;
 },"7":function(depth0,helpers,partials,data) {
   var stack1, buffer = '';
+  data.buffer.push("            <div class=\"item-list\">\n                <div class=\"item-list-header\">\n                    <div class=\"item-list-header-item\">\n                        Tárgy\n                    </div>\n                    <div class=\"item-list-header-item\">\n                        kg/db/stb\n                    </div>\n                </div>\n");
+  stack1 = helpers.each.call(depth0, "item", "in", "items", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(8, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("                <div class=\"item-list-footer\">\n                    <div class=\"footer-row\">\n                        <div>Teljes ár:</div>\n                        <div class=\"\">\n                        </div>\n                    </div>\n                </div>\n            </div>\n");
+  return buffer;
+},"8":function(depth0,helpers,partials,data) {
+  var stack1, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, buffer = '';
+  data.buffer.push("                <div class=\"item-list-item\">\n                    <div class=\"name\">\n                        ");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "chosen", {"name":"view","hash":{
+    'class': (""),
+    'value': ("item.food_id"),
+    'prompt': ("Valassz"),
+    'optionLabelPath': ("content.label"),
+    'optionValuePath': ("content.guid"),
+    'content': ("food_list")
+  },"hashTypes":{'class': "STRING",'value': "ID",'prompt': "STRING",'optionLabelPath': "STRING",'optionValuePath': "STRING",'content': "ID"},"hashContexts":{'class': depth0,'value': depth0,'prompt': depth0,'optionLabelPath': depth0,'optionValuePath': depth0,'content': depth0},"types":["STRING"],"contexts":[depth0],"data":data})));
+  data.buffer.push("\n                    </div>\n                    <div class=\"quantity\">\n                        ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control input-sm"),
+    'id': (""),
+    'value': ("item.head_quantity"),
+    'placeholder': ("mennyiseg"),
+    'type': ("number")
+  },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n                    </div>\n                    <div class=\"info\">\n");
+  stack1 = helpers['if'].call(depth0, "item.priceInfo", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(9, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("                    </div>\n                    <div class=\"actions\">\n                        <button class=\"btn btn-ghost\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "removeItem", "item", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">\n                            <span class=\"glyphicon glyphicon-trash\"\n                                aria-hidden=\"true\">\n                            </span>\n                        </button>\n                    </div>\n                </div>\n");
+  return buffer;
+},"9":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
+  data.buffer.push("                        ");
+  stack1 = helpers._triageMustache.call(depth0, "item.priceInfo", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("\n");
+  return buffer;
+},"11":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
   data.buffer.push("        <h3>Napok</h3>\n        <div>\n");
-  stack1 = helpers.each.call(depth0, "day", "in", "days", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(8, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+  stack1 = helpers.each.call(depth0, "day", "in", "days", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(12, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("        </div>\n");
   return buffer;
-},"8":function(depth0,helpers,partials,data) {
+},"12":function(depth0,helpers,partials,data) {
   var stack1, escapeExpression=this.escapeExpression, buffer = '';
   data.buffer.push("            <div class=\"plan-day\">\n                <div class=\"plan-day-header\">\n                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "datepicker", {"name":"view","hash":{
@@ -197,18 +237,18 @@ Ember.TEMPLATES["foodplans_edit"] = Ember.Handlebars.template({"1":function(dept
   data.buffer.push(">\n                            <span class=\"glyphicon glyphicon-plus\"\n                                aria-hidden=\"true\">\n                            </span>\n\n                        </button>\n                        <button class=\"btn btn-ghost\"\n                                ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "removeDay", "day", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
   data.buffer.push(">\n                            <span class=\"glyphicon glyphicon-trash\"\n                                aria-hidden=\"true\">\n                            </span>\n                        </button>\n                    </div>\n                </div>\n");
-  stack1 = helpers['if'].call(depth0, "day.meals", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(9, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  stack1 = helpers['if'].call(depth0, "day.meals", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(13, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("            </div>\n");
   return buffer;
-},"9":function(depth0,helpers,partials,data) {
+},"13":function(depth0,helpers,partials,data) {
   var stack1, buffer = '';
   data.buffer.push("                <div class=\"plan-day-meal-container panel panel-default\">\n");
-  stack1 = helpers.each.call(depth0, "meal", "in", "day.meals", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(10, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+  stack1 = helpers.each.call(depth0, "meal", "in", "day.meals", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(14, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("\n                </div>\n");
   return buffer;
-},"10":function(depth0,helpers,partials,data) {
+},"14":function(depth0,helpers,partials,data) {
   var stack1, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, buffer = '';
   data.buffer.push("                    <div class=\"plan-day-meal\">\n                        <div class=\"meal-header\">\n                            <div class=\"meal-header-item\">\n                                ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "select", {"name":"view","hash":{
@@ -237,14 +277,14 @@ Ember.TEMPLATES["foodplans_edit"] = Ember.Handlebars.template({"1":function(dept
     'type': ("text")
   },"hashTypes":{'class': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
   data.buffer.push("\n                                    <span class=\"input-group-addon\">fő</span>\n                                </div>\n                            </div>\n                        </div>\n");
-  stack1 = helpers['if'].call(depth0, "meal.foods", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(11, data),"inverse":this.program(15, data),"types":["ID"],"contexts":[depth0],"data":data});
+  stack1 = helpers['if'].call(depth0, "meal.foods", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(15, data),"inverse":this.program(19, data),"types":["ID"],"contexts":[depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("                    </div>\n");
   return buffer;
-},"11":function(depth0,helpers,partials,data) {
+},"15":function(depth0,helpers,partials,data) {
   var stack1, buffer = '';
   data.buffer.push("                        <div class=\"food-list\">\n                            <div class=\"food-list-header\">\n                                <div class=\"food-list-header-item\">\n                                    Étel\n                                </div>\n                                <div class=\"food-list-header-item\">\n                                    g/fő\n                                </div>\n                            </div>\n");
-  stack1 = helpers.each.call(depth0, "food", "in", "meal.foods", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(12, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+  stack1 = helpers.each.call(depth0, "food", "in", "meal.foods", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(16, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("                            <div class=\"food-list-footer\">\n                                <div class=\"footer-row\">\n                                    <div>Ár per fő:</div>\n                                    <div class=\"\">\n                                        ");
   stack1 = helpers._triageMustache.call(depth0, "meal.sumPricePerHead", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
@@ -254,7 +294,7 @@ Ember.TEMPLATES["foodplans_edit"] = Ember.Handlebars.template({"1":function(dept
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push(" rsd\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n\n");
   return buffer;
-},"12":function(depth0,helpers,partials,data) {
+},"16":function(depth0,helpers,partials,data) {
   var stack1, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, buffer = '';
   data.buffer.push("                            <div class=\"food-list-item\">\n                                <div class=\"name\">\n                                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "chosen", {"name":"view","hash":{
@@ -276,18 +316,18 @@ Ember.TEMPLATES["foodplans_edit"] = Ember.Handlebars.template({"1":function(dept
   data.buffer.push("\n                                </div>\n                                <div class=\"actions\">\n                                    <button class=\"btn btn-ghost\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "removeFood", "meal", "food", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data})));
   data.buffer.push(">\n                                        <span class=\"glyphicon glyphicon-trash\"\n                                            aria-hidden=\"true\">\n                                        </span>\n                                    </button>\n                                </div>\n\n");
-  stack1 = helpers['if'].call(depth0, "food.priceInfo", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(13, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  stack1 = helpers['if'].call(depth0, "food.priceInfo", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(17, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("                            </div>\n");
   return buffer;
-},"13":function(depth0,helpers,partials,data) {
+},"17":function(depth0,helpers,partials,data) {
   var stack1, buffer = '';
   data.buffer.push("                                <div class=\"info\">\n                                    ");
   stack1 = helpers._triageMustache.call(depth0, "food.priceInfo", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("\n                                </div>\n");
   return buffer;
-},"15":function(depth0,helpers,partials,data) {
+},"19":function(depth0,helpers,partials,data) {
   var escapeExpression=this.escapeExpression, buffer = '';
   data.buffer.push("                        <button class=\"btn btn-ghost\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "addFood", "meal", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
@@ -318,8 +358,13 @@ Ember.TEMPLATES["foodplans_edit"] = Ember.Handlebars.template({"1":function(dept
     'placeholder': ("Leírás"),
     'type': ("text")
   },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
-  data.buffer.push("\n        </div>\n");
-  stack1 = helpers['if'].call(depth0, "days", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(7, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  data.buffer.push("\n        </div>\n        <h3>Általános konyhadolgok</h3>\n        <div>\n");
+  stack1 = helpers['if'].call(depth0, "items", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(7, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("            <button class=\"btn btn-ghost\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "addItem", "meal", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">\n                <span class=\"glyphicon glyphicon-plus\"\n                    aria-hidden=\"true\">\n                </span>\n            </button>\n        </div>\n");
+  stack1 = helpers['if'].call(depth0, "days", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(11, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("        <div class=\"form-group plan-actions\">\n            <button class=\"btn btn-primary\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "addDay", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));

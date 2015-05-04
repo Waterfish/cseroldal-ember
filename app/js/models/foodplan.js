@@ -8,6 +8,7 @@
         modified: null,
         authors: [],
         emdays: [],
+        emitems: [],
 
         addDay: function () {
 
@@ -36,24 +37,23 @@
             this.get('days').removeObject(day);
         },
 
+        addItem: function () {
+            if (!this.items) {
+                this.set('items', []);
+            }
+
+            this.items.addObject(Cs.PlanItem.create({}));
+        },
+
+        removeItem: function (item) {
+            this.get('items').removeObject(item);
+        },
+
         // this observes is making sure that object returned from
         // firebase has arrays. This can be removed if some way is found for
         // setting the previously undefined arrays.
         onDaysChange: function () {
 
-            // if (this.daysConverted) {
-            //     Ember.Logger.debug('already converted');
-            //     return;
-            // }
-
-            // this.daysConverted = true;
-
-            // var days = this.get('days').map(function (item) {
-            //     return Cs.PlanDay.create(item);
-            // });
-
-            // this.set('days', days);
-            //
             if (Ember.isNone(this.get('emdays'))) {
                 this.set('days', []);
             } else {
@@ -63,6 +63,17 @@
             }
 
         }.observes('emdays'),
+
+        onItemsChange: function () {
+
+            if (Ember.isNone(this.get('emitems'))) {
+                this.set('items', []);
+            } else {
+                this.set('items', this.emitems.map(function (item) {
+                    return Cs.PlanItem.create(item);
+                }, this));
+            }
+        }.observes('emitems'),
 
         // Computed properties
         createdDate: function () {
@@ -97,6 +108,12 @@
             if (this.days) {
                 object.emdays = this.days.map(function (day) {
                     return day._serialize();
+                });
+            }
+
+            if (this.items) {
+                object.emitems = this.items.map(function (item) {
+                    return item._serialize();
                 });
             }
 
@@ -347,6 +364,37 @@
         _serialize: function () {
             return this.getProperties(['food_id', 'head_quantity']);
         }
+    });
+
+    Cs.PlanItem = Cs.PlanFood.extend({
+
+        cost: function () {
+
+            var food = this.get('food'),
+                quantity = this.get('head_quantity');
+
+            if (Ember.isNone(food) || Ember.isNone(quantity) || quantity === 0) {
+                return 0;
+            }
+
+            // multiply the price with the quantity (per head) with the number
+            // of servings
+            return this.get('food.price.rsd') * quantity;
+
+        }.property('food', 'food.price.rsd', 'head_quantity'),
+
+        priceInfo: function () {
+            var quantity = this.get('head_quantity'),
+                cost = this.get('cost');
+
+            if (cost === 0) {
+                return false;
+            }
+
+            return this.get('food.price.rsd') + ' rsd/kg  ×  ' + quantity + ' kg =  ' + cost + ' rsd';
+
+        }.property('cost')
+
     });
 
 

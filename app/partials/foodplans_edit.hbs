@@ -20,6 +20,61 @@
             <label class="control-label" for="plan-description">Leírás:</label>
             {{input type="text" placeholder="Leírás" value=description id="plan-description" class="form-control"}}
         </div>
+        <h3>Általános konyhadolgok</h3>
+        <div>
+            {{#if items}}
+            <div class="item-list">
+                <div class="item-list-header">
+                    <div class="item-list-header-item">
+                        Tárgy
+                    </div>
+                    <div class="item-list-header-item">
+                        kg/db/stb
+                    </div>
+                </div>
+                {{#each item in items}}
+                <div class="item-list-item">
+                    <div class="name">
+                        {{view "chosen"
+                           content=food_list
+                           optionValuePath="content.guid"
+                           optionLabelPath="content.label"
+                           prompt="Valassz"
+                           value=item.food_id
+                           class=""}}
+                    </div>
+                    <div class="quantity">
+                        {{input type="number" placeholder="mennyiseg" value=item.head_quantity id="" class="form-control input-sm"}}
+                    </div>
+                    <div class="info">
+                    {{#if item.priceInfo}}
+                        {{item.priceInfo}}
+                    {{/if}}
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-ghost" {{action 'removeItem' item}}>
+                            <span class="glyphicon glyphicon-trash"
+                                aria-hidden="true">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                {{/each}}
+                <div class="item-list-footer">
+                    <div class="footer-row">
+                        <div>Teljes ár:</div>
+                        <div class="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            <button class="btn btn-ghost" {{action 'addItem' meal}}>
+                <span class="glyphicon glyphicon-plus"
+                    aria-hidden="true">
+                </span>
+            </button>
+        </div>
         {{#if days}}
         <h3>Napok</h3>
         <div>
