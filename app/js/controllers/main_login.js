@@ -14,6 +14,13 @@
 
             loginFacebook: function () {
                 this.get('auth').loginFacebook();
+            },
+
+            shortcut_login: function (username, password) {
+                this.set('email', username);
+                this.set('password', password);
+
+                this.send('login');
             }
         },
 

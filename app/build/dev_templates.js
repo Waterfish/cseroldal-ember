@@ -12,6 +12,11 @@ Ember.TEMPLATES["application"] = Ember.Handlebars.template({"1":function(depth0,
     'tagName': ("li")
   },"hashTypes":{'tagName': "STRING"},"hashContexts":{'tagName': depth0},"fn":this.program(5, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
   if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("\n                        ");
+  stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "foodplans", {"name":"link-to","hash":{
+    'tagName': ("li")
+  },"hashTypes":{'tagName': "STRING"},"hashContexts":{'tagName': depth0},"fn":this.program(8, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+  if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
 },"5":function(depth0,helpers,partials,data) {
@@ -22,74 +27,81 @@ Ember.TEMPLATES["application"] = Ember.Handlebars.template({"1":function(depth0,
   },"6":function(depth0,helpers,partials,data) {
   data.buffer.push("Jatek");
   },"8":function(depth0,helpers,partials,data) {
+  var stack1, helperMissing=helpers.helperMissing;
+  stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "foodplans", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(9, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+  if (stack1 != null) { data.buffer.push(stack1); }
+  else { data.buffer.push(''); }
+  },"9":function(depth0,helpers,partials,data) {
+  data.buffer.push("Kaja-terv");
+  },"11":function(depth0,helpers,partials,data) {
   var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
   data.buffer.push("\n");
-  stack1 = helpers['if'].call(depth0, "auth.security.permissions.godmode", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(9, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  stack1 = helpers['if'].call(depth0, "auth.security.permissions.godmode", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(12, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "user", {"name":"link-to","hash":{
     'tagName': ("li")
-  },"hashTypes":{'tagName': "STRING"},"hashContexts":{'tagName': depth0},"fn":this.program(13, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+  },"hashTypes":{'tagName': "STRING"},"hashContexts":{'tagName': depth0},"fn":this.program(16, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("                    <li class=\"pull-right\">\n                        <a href=\"#\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "logout", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
   data.buffer.push(">\n                            Logout\n                        </a>\n                    </li>\n");
   return buffer;
-},"9":function(depth0,helpers,partials,data) {
+},"12":function(depth0,helpers,partials,data) {
   var stack1, helperMissing=helpers.helperMissing, buffer = '';
   stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "manage", {"name":"link-to","hash":{
     'tagName': ("li")
-  },"hashTypes":{'tagName': "STRING"},"hashContexts":{'tagName': depth0},"fn":this.program(10, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+  },"hashTypes":{'tagName': "STRING"},"hashContexts":{'tagName': depth0},"fn":this.program(13, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
   if (stack1 != null) { data.buffer.push(stack1); }
   return buffer;
-},"10":function(depth0,helpers,partials,data) {
+},"13":function(depth0,helpers,partials,data) {
   var stack1, helperMissing=helpers.helperMissing, buffer = '';
-  stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "manage", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(11, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
-  if (stack1 != null) { data.buffer.push(stack1); }
-  return buffer;
-},"11":function(depth0,helpers,partials,data) {
-  data.buffer.push("                            <span class=\"glyphicon glyphicon-wrench\"></span>\n                            Manage\n");
-  },"13":function(depth0,helpers,partials,data) {
-  var stack1, helperMissing=helpers.helperMissing, buffer = '';
-  stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "user", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(14, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+  stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "manage", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(14, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
   if (stack1 != null) { data.buffer.push(stack1); }
   return buffer;
 },"14":function(depth0,helpers,partials,data) {
+  data.buffer.push("                            <span class=\"glyphicon glyphicon-wrench\"></span>\n                            Manage\n");
+  },"16":function(depth0,helpers,partials,data) {
+  var stack1, helperMissing=helpers.helperMissing, buffer = '';
+  stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "user", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(17, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+  if (stack1 != null) { data.buffer.push(stack1); }
+  return buffer;
+},"17":function(depth0,helpers,partials,data) {
   var stack1, buffer = '';
   data.buffer.push("                        Profile ");
   stack1 = helpers._triageMustache.call(depth0, "auth.currentUser.name", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
-},"16":function(depth0,helpers,partials,data) {
+},"19":function(depth0,helpers,partials,data) {
   var stack1, helperMissing=helpers.helperMissing, buffer = '';
   data.buffer.push("                    ");
   stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "login", {"name":"link-to","hash":{
     'tagName': ("li")
-  },"hashTypes":{'tagName': "STRING"},"hashContexts":{'tagName': depth0},"fn":this.program(17, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+  },"hashTypes":{'tagName': "STRING"},"hashContexts":{'tagName': depth0},"fn":this.program(20, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("\n                    ");
   stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "register", {"name":"link-to","hash":{
     'tagName': ("li")
-  },"hashTypes":{'tagName': "STRING"},"hashContexts":{'tagName': depth0},"fn":this.program(20, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+  },"hashTypes":{'tagName': "STRING"},"hashContexts":{'tagName': depth0},"fn":this.program(23, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
-},"17":function(depth0,helpers,partials,data) {
+},"20":function(depth0,helpers,partials,data) {
   var stack1, helperMissing=helpers.helperMissing;
-  stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "login", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(18, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
-  if (stack1 != null) { data.buffer.push(stack1); }
-  else { data.buffer.push(''); }
-  },"18":function(depth0,helpers,partials,data) {
-  data.buffer.push("Login");
-  },"20":function(depth0,helpers,partials,data) {
-  var stack1, helperMissing=helpers.helperMissing;
-  stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "register", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(21, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+  stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "login", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(21, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
   if (stack1 != null) { data.buffer.push(stack1); }
   else { data.buffer.push(''); }
   },"21":function(depth0,helpers,partials,data) {
-  data.buffer.push("Register");
+  data.buffer.push("Login");
   },"23":function(depth0,helpers,partials,data) {
+  var stack1, helperMissing=helpers.helperMissing;
+  stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "register", {"name":"link-to","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(24, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+  if (stack1 != null) { data.buffer.push(stack1); }
+  else { data.buffer.push(''); }
+  },"24":function(depth0,helpers,partials,data) {
+  data.buffer.push("Register");
+  },"26":function(depth0,helpers,partials,data) {
   var stack1, buffer = '';
   data.buffer.push("    <div class=\"row\">\n        ");
   stack1 = helpers._triageMustache.call(depth0, "auth.email", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
@@ -119,15 +131,404 @@ Ember.TEMPLATES["application"] = Ember.Handlebars.template({"1":function(depth0,
   stack1 = helpers['if'].call(depth0, "auth.currentUser", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(4, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("\n");
-  stack1 = helpers['if'].call(depth0, "auth.currentUser", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(8, data),"inverse":this.program(16, data),"types":["ID"],"contexts":[depth0],"data":data});
+  stack1 = helpers['if'].call(depth0, "auth.currentUser", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(11, data),"inverse":this.program(19, data),"types":["ID"],"contexts":[depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("            </ul>\n        </div>\n    </div>\n</nav>\n<div class=\"container\">\n");
-  stack1 = helpers.each.call(depth0, "auth", "in", "auths", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(23, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+  stack1 = helpers.each.call(depth0, "auth", "in", "auths", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(26, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("</div>\n\n<div class=\"container\">\n    <div class=\"row\">\n        ");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
   if (stack1 != null) { data.buffer.push(stack1); }
   data.buffer.push("\n    </div>\n</div>\n");
+  return buffer;
+},"useData":true});
+
+Ember.TEMPLATES["foodplans"] = Ember.Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
+  data.buffer.push("<div id=\"foodplans-template\" class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-md-3\">\n            ");
+  data.buffer.push(escapeExpression(((helpers.outlet || (depth0 && depth0.outlet) || helperMissing).call(depth0, "left", {"name":"outlet","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data}))));
+  data.buffer.push("\n        </div>\n        <div class=\"col-md-9\">\n            ");
+  data.buffer.push(escapeExpression(((helpers.outlet || (depth0 && depth0.outlet) || helperMissing).call(depth0, "right", {"name":"outlet","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data}))));
+  data.buffer.push("\n        </div>\n    </div>\n</div>\n");
+  return buffer;
+},"useData":true});
+
+Ember.TEMPLATES["foodplans_edit"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
+  data.buffer.push("            <em>Szerkesztő:</em><span>");
+  stack1 = helpers._triageMustache.call(depth0, "authorList", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("</span>\n");
+  return buffer;
+},"3":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
+  data.buffer.push("            <em>Létrehozva:</em><span>");
+  stack1 = helpers._triageMustache.call(depth0, "createdDate", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("</span>\n");
+  return buffer;
+},"5":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
+  data.buffer.push("            <em>Módosítva:</em><span>");
+  stack1 = helpers._triageMustache.call(depth0, "modifiedDate", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("</span>\n");
+  return buffer;
+},"7":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
+  data.buffer.push("                ,  Személyenként: ");
+  stack1 = helpers._triageMustache.call(depth0, "perPersonCost", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push(" rsd\n");
+  return buffer;
+},"9":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
+  data.buffer.push("            <div class=\"item-list\">\n                <div class=\"item-list-header\">\n                    <div class=\"item-list-header-item\">\n                        Tárgy\n                    </div>\n                    <div class=\"item-list-header-item\">\n                        egység(kg/db/stb)\n                    </div>\n                </div>\n");
+  stack1 = helpers.each.call(depth0, "item", "in", "items", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(10, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("                <div class=\"item-list-footer\">\n                    <div class=\"footer-row\">\n                        <div>Teljes ár:</div>\n                        <div class=\"\">\n                            ");
+  stack1 = helpers._triageMustache.call(depth0, "sumPrice", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push(" rsd\n                        </div>\n                    </div>\n                </div>\n            </div>\n");
+  return buffer;
+},"10":function(depth0,helpers,partials,data) {
+  var stack1, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, buffer = '';
+  data.buffer.push("                <div class=\"item-list-item\">\n                    <div class=\"name\">\n                        ");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "chosen", {"name":"view","hash":{
+    'class': (""),
+    'value': ("item.food_id"),
+    'prompt': ("Valassz"),
+    'optionLabelPath': ("content.label"),
+    'optionValuePath': ("content.guid"),
+    'content': ("food_list")
+  },"hashTypes":{'class': "STRING",'value': "ID",'prompt': "STRING",'optionLabelPath': "STRING",'optionValuePath': "STRING",'content': "ID"},"hashContexts":{'class': depth0,'value': depth0,'prompt': depth0,'optionLabelPath': depth0,'optionValuePath': depth0,'content': depth0},"types":["STRING"],"contexts":[depth0],"data":data})));
+  data.buffer.push("\n                    </div>\n                    <div class=\"quantity\">\n                        <div class=\"input-group\">\n                            ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control input-sm"),
+    'id': (""),
+    'value': ("item.head_quantity"),
+    'placeholder': ("mennyiseg"),
+    'type': ("number")
+  },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n                            <span class=\"input-group-addon\">");
+  stack1 = helpers._triageMustache.call(depth0, "item.food.baseunit", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("</span>\n                        </div>\n                    </div>\n                    <div class=\"info\">\n");
+  stack1 = helpers['if'].call(depth0, "item.priceInfo", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(11, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("                    </div>\n                    <div class=\"actions\">\n                        <button class=\"btn btn-ghost\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "removeItem", "item", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">\n                            <span class=\"glyphicon glyphicon-trash\"\n                                aria-hidden=\"true\">\n                            </span>\n                        </button>\n                    </div>\n                </div>\n");
+  return buffer;
+},"11":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
+  data.buffer.push("                        ");
+  stack1 = helpers._triageMustache.call(depth0, "item.priceInfo", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("\n");
+  return buffer;
+},"13":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
+  data.buffer.push("        <h3>Napok</h3>\n        <div>\n");
+  stack1 = helpers.each.call(depth0, "day", "in", "days", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(14, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("        </div>\n");
+  return buffer;
+},"14":function(depth0,helpers,partials,data) {
+  var stack1, escapeExpression=this.escapeExpression, buffer = '';
+  data.buffer.push("            <div class=\"plan-day\">\n                <div class=\"plan-day-header\">\n                    ");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "datepicker", {"name":"view","hash":{
+    'class': ("form-control"),
+    'value': ("day.date"),
+    'placeholder': ("Dátum")
+  },"hashTypes":{'class': "STRING",'value': "ID",'placeholder': "STRING"},"hashContexts":{'class': depth0,'value': depth0,'placeholder': depth0},"types":["STRING"],"contexts":[depth0],"data":data})));
+  data.buffer.push("\n                    <div class=\"plan-day-header-dayname\">");
+  stack1 = helpers._triageMustache.call(depth0, "day.dayName", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("</div>\n                    <div class=\"plan-day-header-actions\">\n                        <button class=\"btn btn-ghost\"\n                                ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "addMeal", "day", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">\n                            <span class=\"glyphicon glyphicon-plus\"\n                                aria-hidden=\"true\">\n                            </span>\n\n                        </button>\n                        <button class=\"btn btn-ghost\"\n                                ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "removeDay", "day", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">\n                            <span class=\"glyphicon glyphicon-trash\"\n                                aria-hidden=\"true\">\n                            </span>\n                        </button>\n                    </div>\n                </div>\n");
+  stack1 = helpers['if'].call(depth0, "day.meals", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(15, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("            </div>\n");
+  return buffer;
+},"15":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
+  data.buffer.push("                <div class=\"plan-day-meal-container panel panel-default\">\n");
+  stack1 = helpers.each.call(depth0, "meal", "in", "day.meals", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(16, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("\n                </div>\n");
+  return buffer;
+},"16":function(depth0,helpers,partials,data) {
+  var stack1, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, buffer = '';
+  data.buffer.push("                    <div class=\"plan-day-meal\">\n                        <div class=\"meal-header\">\n                            <div class=\"meal-header-item\">\n                                ");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "select", {"name":"view","hash":{
+    'class': ("form-control"),
+    'prompt': ("Étkezés tipusa"),
+    'value': ("meal.type"),
+    'optionLabelPath': ("content.label"),
+    'optionValuePath': ("content.value"),
+    'content': ("mealTypes")
+  },"hashTypes":{'class': "STRING",'prompt': "STRING",'value': "ID",'optionLabelPath': "STRING",'optionValuePath': "STRING",'content': "ID"},"hashContexts":{'class': depth0,'prompt': depth0,'value': depth0,'optionLabelPath': depth0,'optionValuePath': depth0,'content': depth0},"types":["STRING"],"contexts":[depth0],"data":data})));
+  data.buffer.push("\n\n                                <div class=\"meal-header-actions\">\n                                    <button class=\"btn btn-ghost\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "removeMeal", "day", "meal", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data})));
+  data.buffer.push(">\n                                        <span class=\"glyphicon glyphicon-trash\"\n                                            aria-hidden=\"true\">\n                                        </span>\n                                    </button>\n                                </div>\n                            </div>\n                            <div class=\"meal-header-item\">\n                                ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control meal-name"),
+    'id': (""),
+    'value': ("meal.foodName"),
+    'placeholder': ("Étel név"),
+    'type': ("text")
+  },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n\n                                <span class=\"gutter\"></span>\n                                <div class=\"input-group\">\n                                    ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control meal-portion"),
+    'value': ("meal.serving"),
+    'placeholder': ("porció"),
+    'type': ("text")
+  },"hashTypes":{'class': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n                                    <span class=\"input-group-addon\">fő</span>\n                                </div>\n                            </div>\n                        </div>\n");
+  stack1 = helpers['if'].call(depth0, "meal.foods", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(17, data),"inverse":this.program(21, data),"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("                    </div>\n");
+  return buffer;
+},"17":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
+  data.buffer.push("                        <div class=\"food-list\">\n                            <div class=\"food-list-header\">\n                                <div class=\"food-list-header-item\">\n                                    Étel\n                                </div>\n                                <div class=\"food-list-header-item\">\n                                    egység/fő\n                                </div>\n                            </div>\n");
+  stack1 = helpers.each.call(depth0, "food", "in", "meal.foods", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(18, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("                            <div class=\"food-list-footer\">\n                                <div class=\"footer-row\">\n                                    <div>Ár per fő:</div>\n                                    <div class=\"\">\n                                        ");
+  stack1 = helpers._triageMustache.call(depth0, "meal.sumPricePerHead", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push(" rsd\n                                    </div>\n                                </div>\n                                <div class=\"footer-row\">\n                                    <div>Teljes ár:</div>\n                                    <div class=\"\">\n                                        ");
+  stack1 = helpers._triageMustache.call(depth0, "meal.sumPrice", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push(" rsd\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n\n");
+  return buffer;
+},"18":function(depth0,helpers,partials,data) {
+  var stack1, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, buffer = '';
+  data.buffer.push("                            <div class=\"food-list-item\">\n                                <div class=\"name\">\n                                    ");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "chosen", {"name":"view","hash":{
+    'class': (""),
+    'value': ("food.food_id"),
+    'prompt': ("Valassz"),
+    'optionLabelPath': ("content.label"),
+    'optionValuePath': ("content.guid"),
+    'content': ("food_list")
+  },"hashTypes":{'class': "STRING",'value': "ID",'prompt': "STRING",'optionLabelPath': "STRING",'optionValuePath': "STRING",'content': "ID"},"hashContexts":{'class': depth0,'value': depth0,'prompt': depth0,'optionLabelPath': depth0,'optionValuePath': depth0,'content': depth0},"types":["STRING"],"contexts":[depth0],"data":data})));
+  data.buffer.push("\n                                </div>\n                                <div class=\"quantity\">\n                                <div class=\"input-group\">\n                                        ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control input-sm"),
+    'id': (""),
+    'value': ("food.head_quantity"),
+    'placeholder': ("mennyiseg"),
+    'type': ("number")
+  },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n                                        <span class=\"input-group-addon\">");
+  stack1 = helpers._triageMustache.call(depth0, "food.food.baseunit", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("</span>\n                                    </div>\n                                </div>\n                                <div class=\"actions\">\n                                    <button class=\"btn btn-ghost\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "removeFood", "meal", "food", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data})));
+  data.buffer.push(">\n                                        <span class=\"glyphicon glyphicon-trash\"\n                                            aria-hidden=\"true\">\n                                        </span>\n                                    </button>\n                                </div>\n\n");
+  stack1 = helpers['if'].call(depth0, "food.priceInfo", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(19, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("                            </div>\n");
+  return buffer;
+},"19":function(depth0,helpers,partials,data) {
+  var stack1, buffer = '';
+  data.buffer.push("                                <div class=\"info\">\n                                    ");
+  stack1 = helpers._triageMustache.call(depth0, "food.priceInfo", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("\n                                </div>\n");
+  return buffer;
+},"21":function(depth0,helpers,partials,data) {
+  var escapeExpression=this.escapeExpression, buffer = '';
+  data.buffer.push("                        <button class=\"btn btn-ghost\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "addFood", "meal", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">\n                            <span class=\"glyphicon glyphicon-plus\"\n                                aria-hidden=\"true\">\n                            </span>\n                        </button>\n");
+  return buffer;
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
+  data.buffer.push("<div class=\"container-fluid foodplan-edit\">\n    <h2>Kaja-terv szerkesztése</h2>\n    <form class=\"\" role=\"form\">\n        <div class=\"small plan-info\">\n");
+  stack1 = helpers['if'].call(depth0, "authors", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  stack1 = helpers['if'].call(depth0, "created", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(3, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  stack1 = helpers['if'].call(depth0, "modified", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(5, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("        </div>\n        <div class=\"form-group\">\n            <label class=\"control-label\" for=\"plan-title\">Terv címe:</label>\n            ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control"),
+    'id': ("plan-title"),
+    'value': ("title"),
+    'placeholder': ("Cím"),
+    'type': ("text")
+  },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n        </div>\n        <div class=\"form-group\">\n            <label class=\"control-label\" for=\"plan-description\">Leírás:</label>\n            ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control"),
+    'id': ("plan-description"),
+    'value': ("description"),
+    'placeholder': ("Leírás"),
+    'type': ("text")
+  },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n        </div>\n        <div class=\"form-group\">\n            <label class=\"control-label\" for=\"plan-person\">Táborlakók száma:</label>\n            <div class=\"input-group\">\n                ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control"),
+    'id': ("plan-person"),
+    'value': ("person"),
+    'placeholder': (""),
+    'type': ("text")
+  },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n                <span class=\"input-group-addon\">fő</span>\n            </div>\n        </div>\n        <div>\n            Össz: ");
+  stack1 = helpers._triageMustache.call(depth0, "totalSum", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push(" rsd\n\n");
+  stack1 = helpers['if'].call(depth0, "model.perPersonCost", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(7, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("        </div>\n        <h3>Általános konyhadolgok</h3>\n        <div>\n");
+  stack1 = helpers['if'].call(depth0, "items", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(9, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("            <button class=\"btn btn-ghost\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "addItem", "meal", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">\n                <span class=\"glyphicon glyphicon-plus\"\n                    aria-hidden=\"true\">\n                </span>\n            </button>\n        </div>\n");
+  stack1 = helpers['if'].call(depth0, "days", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(13, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("        <div class=\"form-group plan-actions\">\n            <button class=\"btn btn-primary\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "addDay", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
+  data.buffer.push(">\n                <span class=\"glyphicon glyphicon-plus\"\n                      aria-hidden=\"true\">\n                </span>\n                Adj hozza napot\n            </button>\n        </div>\n    </form>\n    <div class=\"clearfix\">\n        <button class=\"btn pull-right\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "cancel", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
+  data.buffer.push(">Cancel</button>\n        <button class=\"btn btn-primary pull-right\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "save", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
+  data.buffer.push(">Save</button>\n    </div>\n</div>\n");
+  return buffer;
+},"useData":true});
+
+Ember.TEMPLATES["foodplans_foods"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
+  var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = '';
+  data.buffer.push("    <div class=\"row panel panel-default\">\n        <form class=\"col-md-12 food-edit-form\" role=\"form\">\n            <div class=\"form-group\">\n                <label class=\"control-label\" for=\"food-title\">Cím:</label>\n                ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control"),
+    'id': ("food-title"),
+    'value': ("currentFood.label"),
+    'placeholder': ("Cím"),
+    'type': ("text")
+  },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n            </div>\n            <div class=\"form-group\">\n                <label class=\"control-label\" for=\"food-info\">Leírás:</label>\n                ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control"),
+    'id': ("food-info"),
+    'value': ("currentFood.info"),
+    'placeholder': ("Részletes leírás"),
+    'type': ("text")
+  },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n            </div>\n            <div class=\"row\">\n                <div class=\"form-group col-md-6\">\n                    <label class=\"control-label\" for=\"food-price\">Ár:</label>\n                    ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control"),
+    'id': ("food-price"),
+    'value': ("currentFood.price.rsd"),
+    'placeholder': ("Ár dinárban"),
+    'type': ("number")
+  },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n                </div>\n                <div class=\"form-group col-md-6\">\n                    <label class=\"control-label\" for=\"food-baseunit\">Egység:</label>\n                    ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control"),
+    'id': ("food-baseunit"),
+    'value': ("currentFood.baseunit"),
+    'placeholder': ("pl: 1 kg, 1 liter, db"),
+    'type': ("text")
+  },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n                </div>\n                <!-- <div class=\"form-group col-md-6\">\n                    <label class=\"control-label\" for=\"food-currency\">Valuta:</label>\n                </div> -->\n            </div>\n            <div class=\"row\">\n                <div class=\"form-group col-md-12\">\n                    <label class=\"control-label\" for=\"food-price-link\">Link:</label>\n                    ");
+  data.buffer.push(escapeExpression(((helpers.input || (depth0 && depth0.input) || helperMissing).call(depth0, {"name":"input","hash":{
+    'class': ("form-control"),
+    'id': ("food-price-link"),
+    'value': ("currentFood.price.link"),
+    'placeholder': ("Link a forrásra"),
+    'type': ("text")
+  },"hashTypes":{'class': "STRING",'id': "STRING",'value': "ID",'placeholder': "STRING",'type': "STRING"},"hashContexts":{'class': depth0,'id': depth0,'value': depth0,'placeholder': depth0,'type': depth0},"types":[],"contexts":[],"data":data}))));
+  data.buffer.push("\n                </div>\n            </div>\n            <div class=\"row\">\n                <button class=\"col-xs-4 col-xs-offset-1 btn btn-primary\"\n                    ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveFoodEdit", "currentFood", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">Mentés</button>\n                <button class=\"col-xs-4 col-xs-offset-2 btn btn-secondary\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "cancelFoodEdit", "currentFood", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">Mégse</button>\n            </div>\n        </form>\n    </div>\n");
+  return buffer;
+},"3":function(depth0,helpers,partials,data) {
+  var stack1, escapeExpression=this.escapeExpression, buffer = '';
+  data.buffer.push("            <div class=\"food\">\n                <div class=\"food-row\">\n                    <div class=\"food-label\">\n                        ");
+  stack1 = helpers._triageMustache.call(depth0, "food.label", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("\n                    </div>\n                    <div class=\"food-price\">\n                        ");
+  stack1 = helpers._triageMustache.call(depth0, "food.price.rsd", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push(" rsd / ");
+  stack1 = helpers._triageMustache.call(depth0, "food.baseunit", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("\n                    </div>\n                    <div class=\"food-actions\">\n                        <a class=\"btn btn-ghost btn-sm\" target=\"_blank\" ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {"name":"bind-attr","hash":{
+    'href': ("food.price.link")
+  },"hashTypes":{'href': "ID"},"hashContexts":{'href': depth0},"types":[],"contexts":[],"data":data})));
+  data.buffer.push(">\n                            <span\n                                class=\"glyphicon glyphicon-shopping-cart\"\n                                aria-hidden=\"true\">\n                            </span>\n                        </a>\n                        <button class=\"btn btn-ghost btn-sm\"\n                                ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "editFood", "food", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">\n                            <span\n                                class=\"glyphicon glyphicon-edit\"\n                                aria-hidden=\"true\">\n                            </span>\n                        </button>\n                        <button class=\"btn btn-ghost btn-sm\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "deleteFood", "food", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">\n                            <span\n                                class=\"glyphicon glyphicon-trash\"\n                                aria-hidden=\"true\">\n                            </span>\n                        </button>\n                    </div>\n                </div>\n                <div class=\"food-row food-info\">\n                    ");
+  stack1 = helpers._triageMustache.call(depth0, "food.info", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("\n                </div>\n            </div>\n");
+  return buffer;
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var stack1, escapeExpression=this.escapeExpression, buffer = '';
+  data.buffer.push("<div class=\"container-fluid food-list-panel\">\n    <div class=\"row food-list-panel-header\">\n        <div class=\"col-md-12\">\n            <h3>Ételek</h3>\n            <button class=\"btn btn-ghost\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "newFood", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
+  data.buffer.push(">\n                <span class=\"glyphicon glyphicon-plus\"\n                    aria-hidden=\"true\">\n                </span>\n            </button>\n        </div>\n    </div>\n\n");
+  stack1 = helpers['if'].call(depth0, "currentFood", {"name":"if","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(1, data),"inverse":this.noop,"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("    <div class=\"row\">\n        <div class=\"col-md-12\">\n");
+  stack1 = helpers.each.call(depth0, "food", "in", "model", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(3, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("        </div>\n    </div>\n</div>\n");
+  return buffer;
+},"useData":true});
+
+Ember.TEMPLATES["foodplans_foods_index"] = Ember.Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  data.buffer.push("Foods Is my thing\n");
+  },"useData":true});
+
+Ember.TEMPLATES["foodplans_index"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
+  data.buffer.push("Új kajaterv");
+  },"3":function(depth0,helpers,partials,data) {
+  var stack1, escapeExpression=this.escapeExpression, buffer = '';
+  data.buffer.push("                    <tr>\n                        <td>");
+  stack1 = helpers._triageMustache.call(depth0, "plan.title", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("</td>\n                        <td>");
+  stack1 = helpers._triageMustache.call(depth0, "plan.createdModifiedDate", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("</td>\n                        <td>");
+  stack1 = helpers._triageMustache.call(depth0, "plan.authorList", {"name":"_triageMustache","hash":{},"hashTypes":{},"hashContexts":{},"types":["ID"],"contexts":[depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("</td>\n                        <td>\n                            <button ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "edit", "plan", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">Edit</button>\n                            <button ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "delete", "plan", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","ID"],"contexts":[depth0,depth0],"data":data})));
+  data.buffer.push(">Torol</button>\n                        </td>\n                    </tr>\n");
+  return buffer;
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var stack1, helperMissing=helpers.helperMissing, buffer = '';
+  data.buffer.push("<div>\n    <div>\n        ");
+  stack1 = ((helpers['link-to'] || (depth0 && depth0['link-to']) || helperMissing).call(depth0, "foodplans.new", {"name":"link-to","hash":{
+    'replace': (true),
+    'activeClass': ("selected"),
+    'role': ("button"),
+    'class': ("btn btn-primary")
+  },"hashTypes":{'replace': "BOOLEAN",'activeClass': "STRING",'role': "STRING",'class': "STRING"},"hashContexts":{'replace': depth0,'activeClass': depth0,'role': depth0,'class': depth0},"fn":this.program(1, data),"inverse":this.noop,"types":["STRING"],"contexts":[depth0],"data":data}));
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("\n    </div>\n    <div>\n        <table class=\"table table-hover\">\n            <thead>\n                <tr>\n                    <th>Cim</th><th>Létrehozva/Módosítva</th><th>Szerzok</th><th></th>\n                </tr>\n            </thead>\n            <tbody>\n");
+  stack1 = helpers.each.call(depth0, "plan", "in", "model", {"name":"each","hash":{},"hashTypes":{},"hashContexts":{},"fn":this.program(3, data),"inverse":this.noop,"types":["ID","ID","ID"],"contexts":[depth0,depth0,depth0],"data":data});
+  if (stack1 != null) { data.buffer.push(stack1); }
+  data.buffer.push("            </tbody>\n        </table>\n    </div>\n</div>\n");
   return buffer;
 },"useData":true});
 
@@ -359,7 +760,17 @@ Ember.TEMPLATES["login"] = Ember.Handlebars.template({"compiler":[6,">= 2.0.0-be
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "loginGoogle", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
   data.buffer.push(">Google bejelentkezés</button>\n        <button class=\"btn\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "loginFacebook", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING"],"contexts":[depth0],"data":data})));
-  data.buffer.push(">Facebook bejelentkezés</button>\n    </div>\n    <div>\n        <ul>\n            <li>Admin - admin@cseroldal.com / secret</li>\n            <li>One - one@cseroldal.com / secret</li>\n            <li>Two - two@cseroldal.com / secret</li>\n            <li>Three - three@cseroldal.com / secret</li>\n            <li>Four - four@cseroldal.com / secret</li>\n        </ul>\n    </div>\n</form>\n");
+  data.buffer.push(">Facebook bejelentkezés</button>\n    </div>\n    <div>\n        <ul>\n            <li><span ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "shortcut_login", "admin@cseroldal.com", "secret", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","STRING","STRING"],"contexts":[depth0,depth0,depth0],"data":data})));
+  data.buffer.push(">Admin</span> - admin@cseroldal.com / secret</li>\n            <li><span ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "shortcut_login", "one@cseroldal.com", "secret", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","STRING","STRING"],"contexts":[depth0,depth0,depth0],"data":data})));
+  data.buffer.push(">One</span> - one@cseroldal.com / secret</li>\n            <li><span ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "shortcut_login", "two@cseroldal.com", "secret", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","STRING","STRING"],"contexts":[depth0,depth0,depth0],"data":data})));
+  data.buffer.push(">Two</span> - two@cseroldal.com / secret</li>\n            <li><span ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "shortcut_login", "three@cseroldal.com", "secret", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","STRING","STRING"],"contexts":[depth0,depth0,depth0],"data":data})));
+  data.buffer.push(">Three</span> - three@cseroldal.com / secret</li>\n            <li><span ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "shortcut_login", "four@cseroldal.com", "secret", {"name":"action","hash":{},"hashTypes":{},"hashContexts":{},"types":["STRING","STRING","STRING"],"contexts":[depth0,depth0,depth0],"data":data})));
+  data.buffer.push(">Four</span> - four@cseroldal.com / secret</li>\n        </ul>\n    </div>\n</form>\n");
   return buffer;
 },"useData":true});
 
@@ -394,6 +805,10 @@ Ember.TEMPLATES["manage"] = Ember.Handlebars.template({"1":function(depth0,helpe
   data.buffer.push("        </div>\n    </div>\n</div>\n");
   return buffer;
 },"useData":true});
+
+Ember.TEMPLATES["notfound"] = Ember.Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  data.buffer.push("<div class=\"\">\n    Hoppa, ez nem lett meg.\n</div>\n");
+  },"useData":true});
 
 Ember.TEMPLATES["pending"] = Ember.Handlebars.template({"1":function(depth0,helpers,partials,data) {
   data.buffer.push("Vissza a kezdőoldalra");

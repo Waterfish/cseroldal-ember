@@ -37,16 +37,23 @@ function ohSnap(text, color, icon) {
 function ohSnapX(element) {
   // Called without argument, the function removes all alerts
   // element must be a jQuery object
+  var alerts;
 
   if (typeof element !== "undefined" ) {
-    element.remove();
+    alerts = element;
   } else {
-    $('.alert').remove();
+    alerts = $('.alert');
   }
+
+  alerts.animate({opacity: 0}, 200, function () {
+      alerts.slideUp(100, function () {
+          alerts.remove();
+      });
+  });
 }
 
 // Remove the notification on click
 
-$('.alert').on('click', function() {
+$('body').on('click', '.alert', function() {
   ohSnapX($(this))
 });

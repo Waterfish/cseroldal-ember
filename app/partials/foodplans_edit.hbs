@@ -1,0 +1,239 @@
+<div class="container-fluid foodplan-edit">
+    <h2>Kaja-terv szerkesztése</h2>
+    <form class="" role="form">
+        <div class="small plan-info">
+            {{#if authors}}
+            <em>Szerkesztő:</em><span>{{authorList}}</span>
+            {{/if}}
+            {{#if created}}
+            <em>Létrehozva:</em><span>{{createdDate}}</span>
+            {{/if}}
+            {{#if modified}}
+            <em>Módosítva:</em><span>{{modifiedDate}}</span>
+            {{/if}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="plan-title">Terv címe:</label>
+            {{input type="text" placeholder="Cím" value=title id="plan-title" class="form-control"}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="plan-description">Leírás:</label>
+            {{input type="text" placeholder="Leírás" value=description id="plan-description" class="form-control"}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="plan-person">Táborlakók száma:</label>
+            <div class="input-group">
+                {{input type="text" placeholder="" value=person id="plan-person" class="form-control"}}
+                <span class="input-group-addon">fő</span>
+            </div>
+        </div>
+        <div>
+            Össz: {{totalSum}} rsd
+
+            {{#if model.perPersonCost}}
+                ,  Személyenként: {{perPersonCost}} rsd
+            {{/if}}
+        </div>
+        <h3>Általános konyhadolgok</h3>
+        <div>
+            {{#if items}}
+            <div class="item-list">
+                <div class="item-list-header">
+                    <div class="item-list-header-item">
+                        Tárgy
+                    </div>
+                    <div class="item-list-header-item">
+                        egység(kg/db/stb)
+                    </div>
+                </div>
+                {{#each item in items}}
+                <div class="item-list-item">
+                    <div class="name">
+                        {{view "chosen"
+                           content=food_list
+                           optionValuePath="content.guid"
+                           optionLabelPath="content.label"
+                           prompt="Valassz"
+                           value=item.food_id
+                           class=""}}
+                    </div>
+                    <div class="quantity">
+                        <div class="input-group">
+                            {{input type="number" placeholder="mennyiseg" value=item.head_quantity id="" class="form-control input-sm"}}
+                            <span class="input-group-addon">{{item.food.baseunit}}</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                    {{#if item.priceInfo}}
+                        {{item.priceInfo}}
+                    {{/if}}
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-ghost" {{action 'removeItem' item}}>
+                            <span class="glyphicon glyphicon-trash"
+                                aria-hidden="true">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                {{/each}}
+                <div class="item-list-footer">
+                    <div class="footer-row">
+                        <div>Teljes ár:</div>
+                        <div class="">
+                            {{sumPrice}} rsd
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            <button class="btn btn-ghost" {{action 'addItem' meal}}>
+                <span class="glyphicon glyphicon-plus"
+                    aria-hidden="true">
+                </span>
+            </button>
+        </div>
+        {{#if days}}
+        <h3>Napok</h3>
+        <div>
+            {{#each day in days}}
+            <div class="plan-day">
+                <div class="plan-day-header">
+                    {{view 'datepicker' placeholder="Dátum" value=day.date class="form-control"}}
+                    <div class="plan-day-header-dayname">{{day.dayName}}</div>
+                    <div class="plan-day-header-actions">
+                        <button class="btn btn-ghost"
+                                {{action 'addMeal' day}}>
+                            <span class="glyphicon glyphicon-plus"
+                                aria-hidden="true">
+                            </span>
+
+                        </button>
+                        <button class="btn btn-ghost"
+                                {{action 'removeDay' day}}>
+                            <span class="glyphicon glyphicon-trash"
+                                aria-hidden="true">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                {{#if day.meals}}
+                <div class="plan-day-meal-container panel panel-default">
+                    {{#each meal in day.meals}}
+                    <div class="plan-day-meal">
+                        <div class="meal-header">
+                            <div class="meal-header-item">
+                                {{view "select"
+                                   content=mealTypes
+                                   optionValuePath="content.value"
+                                   optionLabelPath="content.label"
+                                   value=meal.type
+                                   prompt="Étkezés tipusa"
+                                   class="form-control"}}
+
+                                <div class="meal-header-actions">
+                                    <button class="btn btn-ghost" {{action 'removeMeal' day meal}}>
+                                        <span class="glyphicon glyphicon-trash"
+                                            aria-hidden="true">
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="meal-header-item">
+                                {{input type="text" placeholder="Étel név" value=meal.foodName id="" class="form-control meal-name"}}
+
+                                <span class="gutter"></span>
+                                <div class="input-group">
+                                    {{input type="text" placeholder="porció" value=meal.serving class="form-control meal-portion"}}
+                                    <span class="input-group-addon">fő</span>
+                                </div>
+                            </div>
+                        </div>
+                        {{#if meal.foods}}
+                        <div class="food-list">
+                            <div class="food-list-header">
+                                <div class="food-list-header-item">
+                                    Étel
+                                </div>
+                                <div class="food-list-header-item">
+                                    egység/fő
+                                </div>
+                            </div>
+                            {{#each food in meal.foods}}
+                            <div class="food-list-item">
+                                <div class="name">
+                                    {{view "chosen"
+                                       content=food_list
+                                       optionValuePath="content.guid"
+                                       optionLabelPath="content.label"
+                                       prompt="Valassz"
+                                       value=food.food_id
+                                       class=""}}
+                                </div>
+                                <div class="quantity">
+                                <div class="input-group">
+                                        {{input type="number" placeholder="mennyiseg" value=food.head_quantity id="" class="form-control input-sm"}}
+                                        <span class="input-group-addon">{{food.food.baseunit}}</span>
+                                    </div>
+                                </div>
+                                <div class="actions">
+                                    <button class="btn btn-ghost" {{action 'removeFood' meal food}}>
+                                        <span class="glyphicon glyphicon-trash"
+                                            aria-hidden="true">
+                                        </span>
+                                    </button>
+                                </div>
+
+                                {{#if food.priceInfo}}
+                                <div class="info">
+                                    {{food.priceInfo}}
+                                </div>
+                                {{/if}}
+                            </div>
+                            {{/each}}
+                            <div class="food-list-footer">
+                                <div class="footer-row">
+                                    <div>Ár per fő:</div>
+                                    <div class="">
+                                        {{meal.sumPricePerHead}} rsd
+                                    </div>
+                                </div>
+                                <div class="footer-row">
+                                    <div>Teljes ár:</div>
+                                    <div class="">
+                                        {{meal.sumPrice}} rsd
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{else}}
+                        <button class="btn btn-ghost" {{action 'addFood' meal}}>
+                            <span class="glyphicon glyphicon-plus"
+                                aria-hidden="true">
+                            </span>
+                        </button>
+                        {{/if}}
+                    </div>
+                    {{/each}}
+
+                </div>
+                {{/if}}
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+        <div class="form-group plan-actions">
+            <button class="btn btn-primary" {{action 'addDay'}}>
+                <span class="glyphicon glyphicon-plus"
+                      aria-hidden="true">
+                </span>
+                Adj hozza napot
+            </button>
+        </div>
+    </form>
+    <div class="clearfix">
+        <button class="btn pull-right" {{action 'cancel'}}>Cancel</button>
+        <button class="btn btn-primary pull-right" {{action 'save'}}>Save</button>
+    </div>
+</div>

@@ -25,8 +25,9 @@
 
         destroy: function () {
             // console.log('Element destroying', this.guid);
-
-            this.constructor.ref.child(this.guid).off('value', this.onValueChange);
+            if (!Ember.isNone(this.get('guid'))) {
+                this.constructor.ref.child(this.guid).off('value', this.onValueChange);
+            }
             this._super();
         },
         // default guid

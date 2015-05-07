@@ -53,7 +53,16 @@ module.exports = function(grunt) {
         //   return name.replace('_', '/');
         // }
       }
-    }
+    },
+    watch: {
+      templates: {
+        files: ['app/partials/**/**/*.hbs'],
+        tasks: ['emberTemplates'],
+        options: {
+          spawn: false,
+        },
+      },
+    },
     // simplemocha: {
     //   backend: {
     //     src: [
@@ -72,6 +81,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-ember-templates');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
   grunt.registerTask('default', ['jshint']);
