@@ -69,9 +69,9 @@
                 passwordCheck = this.get('password_check'),
                 different = password !== passwordCheck;
 
-            console.log('formInvalid', different);
+            // console.log('formInvalid', different);
 
-            this.set('formInvalid', password.length() < 8 && different);
+            this.set('formInvalid', password.length < 8 && different);
 
         }.observes('password', 'password_check')
 
